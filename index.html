@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FreshSound — Holy Quran</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='9' fill='%2300C16A'/><path d='M7 20 Q12 11 20 20 Q28 29 33 20' stroke='%23000' stroke-width='2.8' fill='none' stroke-linecap='round'/><circle cx='20' cy='20' r='3' fill='%23000'/></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg1:#0F1115;--bg2:#181C23;--bg3:#1E2330;--bg4:#252b3b;
+  --ac:#00C16A;--ac2:#009952;
+  --t1:#F0F2F5;--t2:#9AA3B0;--t3:#5A6275;
+  --br:rgba(255,255,255,.07);--br2:rgba(255,255,255,.12)
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg1);color:var(--t1);display:flex;flex-direction:column}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:#fff2;border-radius:4px}
+button,select{font-family:inherit;cursor:pointer;border:none;outline:none}
+input{font-family:inherit;outline:none}
+
+.app{display:flex;flex:1;overflow:hidden;height:calc(100vh - 88px)}
+.sidebar{width:228px;background:#0B0E13;border-right:1px solid var(--br);display:flex;flex-direction:column;flex-shrink:0}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:13px 22px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:12px;background:var(--bg1);flex-shrink:0}
+.scroller{flex:1;overflow-y:auto;padding:22px 22px 20px}
+
+.logo-row{padding:19px 15px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px}
+.logo-box{width:36px;height:36px;border-radius:9px;background:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-name{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.logo-tag{font-size:9px;color:var(--ac);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.nav{padding:10px 8px;flex:1;overflow-y:auto}
+.nav-label{font-size:10px;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase;padding:10px 10px 6px}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:1px;transition:all .13s;border-left:3px solid transparent}
+.ni i{font-size:17px;flex-shrink:0}
+.ni:hover{background:rgba(255,255,255,.05);color:var(--t1)}
+.ni.on{background:rgba(0,193,106,.12);color:var(--ac);border-left-color:var(--ac);font-weight:600}
+.pro-box{margin:0 10px 12px;padding:14px;border-radius:11px;background:rgba(0,193,106,.07);border:1px solid rgba(0,193,106,.18)}
+.pro-box h4{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.pro-box p{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:10px}
+.pro-btn{padding:7px 16px;background:var(--ac);border-radius:8px;font-size:12px;font-weight:700;color:#000}
+
+.search-box{position:relative;flex:1;max-width:360px}
+.search-box i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;pointer-events:none}
+.search-box input{width:100%;padding:9px 12px 9px 36px;background:var(--bg3);border:1px solid var(--br);border-radius:9px;color:var(--t1);font-size:13px}
+.search-box input:focus{border-color:rgba(0,193,106,.4)}
+.search-box input::placeholder{color:var(--t3)}
+.icon-btn{display:flex;align-items:center;justify-content:center;padding:7px;background:transparent;border:1px solid var(--br);border-radius:8px;color:var(--t2);font-size:15px;transition:all .13s}
+.icon-btn:hover{color:var(--t1);border-color:var(--br2)}
+.av{width:34px;height:34px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;cursor:pointer;flex-shrink:0}
+
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.g-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+.card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px;cursor:pointer;transition:all .18s}
+.card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-hd h2{font-size:17px;font-weight:700}
+.see-all{background:transparent;border:none;color:var(--ac);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:3px}
+.tag{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--br);color:var(--t2);background:transparent;transition:all .13s}
+.tag.on,.tag:hover{border-color:var(--ac);background:rgba(0,193,106,.1);color:var(--ac)}
+
+.hero{position:relative;border-radius:18px;overflow:hidden;margin-bottom:26px;min-height:220px;background:linear-gradient(135deg,#0b1f14,#0d2b1c 45%,#081c2c);border:1px solid rgba(0,193,106,.14);display:flex;align-items:center}
+.hero-inner{position:relative;z-index:2;padding:36px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,193,106,.14);border:1px solid rgba(0,193,106,.28);border-radius:20px;padding:4px 13px;margin-bottom:13px;font-size:11px;font-weight:600;color:var(--ac)}
+.hero h1{font-size:38px;font-weight:800;margin-bottom:9px;letter-spacing:-1.4px;line-height:1.1}
+.hero h1 span{color:var(--ac)}
+.hero p{font-size:13px;color:var(--t2);max-width:390px;line-height:1.65;margin-bottom:20px}
+.hero-btns{display:flex;gap:9px}
+.btn-g{display:flex;align-items:center;gap:6px;padding:10px 20px;background:var(--ac);border:none;border-radius:9px;font-size:13px;font-weight:700;color:#000;cursor:pointer;transition:transform .13s}
+.btn-g:hover{transform:scale(1.03)}
+.btn-w{display:flex;align-items:center;gap:6px;padding:10px 20px;background:transparent;border:1px solid var(--br2);border-radius:9px;font-size:13px;font-weight:500;color:var(--t1);cursor:pointer}
+.btn-w:hover{background:rgba(255,255,255,.05)}
+.hero-art{position:absolute;right:32px;top:50%;transform:translateY(-50%);opacity:.09;pointer-events:none}
+
+.stat-card{background:var(--bg2);border:1px solid var(--br);border-radius:11px;padding:13px;display:flex;align-items:center;gap:11px}
+.stat-icon{width:38px;height:38px;border-radius:9px;background:rgba(0,193,106,.11);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.rc-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:20px 14px;text-align:center;cursor:pointer;transition:all .18s}
+.rc-card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
+.rc-card.on{border-color:rgba(0,193,106,.5);background:rgba(0,193,106,.05)}
+.av-ring{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 11px;flex-shrink:0}
+.play-dot{width:33px;height:33px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;margin:9px auto 0;transition:transform .13s;cursor:pointer}
+.play-dot:hover{transform:scale(1.1)}
+.play-dot i{font-size:13px;color:#000}
+
+.s-table{background:var(--bg2);border:1px solid var(--br);border-radius:14px;overflow:hidden}
+.s-head{display:grid;grid-template-columns:44px 1fr 68px 98px 78px 34px;padding:10px 16px;border-bottom:1px solid var(--br)}
+.s-head span{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.s-row{display:grid;grid-template-columns:44px 1fr 68px 98px 78px 34px;padding:11px 16px;align-items:center;border-bottom:1px solid rgba(255,255,255,.035);cursor:pointer;transition:background .1s}
+.s-row:hover{background:rgba(0,193,106,.06)}
+.s-row.playing{background:rgba(0,193,106,.09)}
+.s-row:last-child{border-bottom:none}
+.s-num{width:34px;height:34px;border-radius:7px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.14);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ac);flex-shrink:0}
+.badge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.mec{background:rgba(74,158,221,.14);color:#6ab4f5}
+.med{background:rgba(0,193,106,.14);color:var(--ac)}
+.lk{width:26px;height:26px;border-radius:6px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--t3);transition:all .13s;cursor:pointer}
+.lk:hover{color:var(--t1);background:rgba(255,255,255,.08)}
+.lk.on{color:#e05555}
+
+.player{height:88px;background:rgba(9,12,16,.95);border-top:1px solid var(--br);display:flex;align-items:center;gap:14px;padding:0 18px;flex-shrink:0;backdrop-filter:blur(18px)}
+.p-track{display:flex;align-items:center;gap:9px;width:218px;flex-shrink:0}
+.p-cover{width:46px;height:46px;border-radius:9px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.p-controls{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
+.p-btns{display:flex;align-items:center;gap:11px}
+.cb{width:30px;height:30px;border-radius:7px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:18px;cursor:pointer;transition:all .13s}
+.cb:hover{color:var(--t1);background:rgba(255,255,255,.08)}
+.cb.on{color:var(--ac)}
+.pbig{width:42px;height:42px;border-radius:50%;background:var(--ac);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .13s}
+.pbig:hover{transform:scale(1.07)}
+.pbig i{font-size:17px;color:#000}
+.prog-row{display:flex;align-items:center;gap:7px;width:100%;max-width:450px}
+.tm{font-size:10px;color:var(--t3);min-width:30px;text-align:center}
+input[type=range]{-webkit-appearance:none;height:3px;border-radius:3px;background:var(--bg4);cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#fff;cursor:pointer}
+.prog{flex:1;accent-color:var(--ac)}
+.vol{width:78px;accent-color:var(--ac)}
+.p-right{display:flex;align-items:center;gap:9px;width:218px;justify-content:flex-end;flex-shrink:0}
+.vol-row{display:flex;align-items:center;gap:5px}
+.spd{background:var(--bg3);border:1px solid var(--br);border-radius:7px;padding:5px 7px;color:var(--t1);font-size:11px;font-weight:600}
+
+.page{display:none}.page.on{display:block}
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;color:var(--t3);text-align:center}
+.ph i{font-size:50px;margin-bottom:12px;color:rgba(0,193,106,.22)}
+.ph h3{font-size:15px;font-weight:600;color:var(--t2);margin-bottom:5px}
+.pl-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .18s}
+.pl-card:hover{border-color:rgba(0,193,106,.25);transform:translateY(-2px)}
+
+.toast{position:fixed;top:18px;right:18px;background:var(--bg3);border:1px solid var(--br2);border-radius:9px;padding:9px 15px;font-size:12px;color:var(--t1);z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;display:flex;align-items:center;gap:7px}
+.toast.show{opacity:1}
+.toast.err{border-color:rgba(224,85,85,.4);background:#1a1212}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin .9s linear infinite;display:inline-block}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast">
+  <i id="tIco" class="ti ti-check" style="color:var(--ac);font-size:14px"></i>
+  <span id="tmsg"></span>
+</div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo-row">
+      <div class="logo-box">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M2 11 Q7 4 11 11 Q15 18 20 11" stroke="#000" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <circle cx="11" cy="11" r="2.5" fill="#000"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">FreshSound</div>
+        <div class="logo-tag">Holy Quran</div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="nav-label">Menu</div>
+      <div class="ni on" data-p="home"><i class="ti ti-home"></i>Home</div>
+      <div class="ni" data-p="surahs"><i class="ti ti-list"></i>All Surahs</div>
+      <div class="ni" data-p="reciters"><i class="ti ti-microphone"></i>Reciters</div>
+      <div class="ni" data-p="favs"><i class="ti ti-heart"></i>Favourites</div>
+      <div class="ni" data-p="hist"><i class="ti ti-history"></i>History</div>
+      <div class="ni" data-p="playlists"><i class="ti ti-playlist"></i>Playlists</div>
+      <div class="ni" data-p="dl"><i class="ti ti-download"></i>Downloads</div>
+      <div class="nav-label">Account</div>
+      <div class="ni" data-p=""><i class="ti ti-settings"></i>Settings</div>
+    </div>
+    <div class="pro-box">
+      <h4><i class="ti ti-crown" style="color:var(--ac);font-size:14px"></i>Go Premium</h4>
+      <p>HD audio, offline & ad-free experience</p>
+      <button class="pro-btn">Upgrade Now</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input id="srch" type="text" placeholder="Search surahs, reciters…"/>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:9px">
+        <button class="icon-btn"><i class="ti ti-world"></i></button>
+        <button class="icon-btn"><i class="ti ti-bell"></i></button>
+        <div class="av">A</div>
+      </div>
+    </div>
+
+    <div class="scroller">
+      <!-- HOME -->
+      <div class="page on" id="p-home">
+        <div class="hero">
+          <div class="hero-art">
+            <svg width="190" height="190" viewBox="0 0 190 190" fill="none">
+              <circle cx="95" cy="95" r="85" stroke="#00C16A" stroke-width="1.4"/>
+              <circle cx="123" cy="71" r="59" fill="#0b1f14"/>
+              <circle cx="95" cy="95" r="6.5" fill="#00C16A" opacity=".85"/>
+              <circle cx="133" cy="47" r="3.2" fill="#00C16A" opacity=".55"/>
+              <circle cx="61" cy="140" r="2.3" fill="#00C16A" opacity=".4"/>
+              <circle cx="160" cy="109" r="1.9" fill="#00C16A" opacity=".45"/>
+            </svg>
+          </div>
+          <div class="hero-inner">
+            <div class="hero-badge"><i class="ti ti-circle-check" style="font-size:12px"></i>Premium Quality Streaming</div>
+            <h1>Fresh<span>Sound</span></h1>
+            <p>Listen to the Holy Quran in high quality — anytime, anywhere, with your favourite reciters.</p>
+            <div class="hero-btns">
+              <button class="btn-g" onclick="playSurahAtIdx(0)"><i class="ti ti-player-play" style="font-size:14px"></i>Start Listening</button>
+              <button class="btn-w" onclick="go('reciters')"><i class="ti ti-users" style="font-size:14px"></i>Reciters</button>
+            </div>
+          </div>
+        </div>
+        <div class="g-stats">
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-book" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">114</div><div style="font-size:11px;color:var(--t2)">Surahs</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-microphone" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700" id="statRecCnt">5</div><div style="font-size:11px;color:var(--t2)">Reciters</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-headphones" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">2.1M</div><div style="font-size:11px;color:var(--t2)">Listeners</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-sparkles" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">HD</div><div style="font-size:11px;color:var(--t2)">Audio</div></div></div>
+        </div>
+        <div class="sec-hd"><h2>Popular Reciters</h2><button class="see-all" onclick="go('reciters')">View all<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="g4" id="hRec" style="margin-bottom:26px;grid-template-columns:repeat(5,1fr)"></div>
+        <div class="sec-hd"><h2>Popular Surahs</h2><button class="see-all" onclick="go('surahs')">View all<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="g3" id="hSur" style="margin-bottom:26px"></div>
+        <div class="sec-hd"><h2>Playlists</h2><button class="see-all" onclick="go('playlists')">View all<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="g3" id="hPl"></div>
+      </div>
+
+      <!-- SURAHS -->
+      <div class="page" id="p-surahs">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">All Surahs</div>
+        <div id="sCount" style="font-size:12px;color:var(--t2);margin-bottom:16px"></div>
+        <div style="display:flex;gap:7px;margin-bottom:16px" id="sFilters">
+          <button class="tag on" onclick="setFilter('All',this)">All</button>
+          <button class="tag" onclick="setFilter('Meccan',this)">Meccan</button>
+          <button class="tag" onclick="setFilter('Medinan',this)">Medinan</button>
+        </div>
+        <div class="s-table">
+          <div class="s-head"><span>#</span><span>Surah</span><span>Ayahs</span><span>Type</span><span>Dur.</span><span></span></div>
+          <div id="sList"></div>
+        </div>
+      </div>
+
+      <!-- RECITERS -->
+      <div class="page" id="p-reciters">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Reciters</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Choose your preferred reciter</div>
+        <div class="g2" id="rCards"></div>
+        <div style="margin-top:18px;padding:16px;background:var(--bg2);border:1px solid var(--br);border-radius:13px;display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:9px;background:rgba(0,193,106,.11);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-info-circle" style="font-size:19px;color:var(--ac)"></i></div>
+          <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Current reciter</div><div style="font-size:12px;color:var(--t2)">Playing with <span id="curRLabel" style="color:var(--ac);font-weight:600"></span></div></div>
+        </div>
+      </div>
+
+      <!-- PLAYLISTS -->
+      <div class="page" id="p-playlists">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Playlists</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Curated for every moment</div>
+        <div class="g2" id="plCards"></div>
+      </div>
+
+      <!-- FAVS -->
+      <div class="page" id="p-favs">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Favourites</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Your liked surahs</div>
+        <div id="favWrap"></div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="page" id="p-hist">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">History</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Recently played</div>
+        <div id="histWrap"></div>
+      </div>
+
+      <div class="page" id="p-dl">
+        <div class="ph"><i class="ti ti-download"></i><h3>Downloads</h3><p style="font-size:12px">Offline surahs appear here (Premium)</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYER -->
+<div class="player">
+  <div class="p-track">
+    <div class="p-cover" id="pCov">
+      <span id="pNum" style="font-size:14px;font-weight:700;color:var(--ac)">—</span>
+      <i class="ti ti-loader spin" id="pSpin" style="font-size:12px;color:var(--ac);display:none;margin-top:2px"></i>
+    </div>
+    <div style="min-width:0;flex:1">
+      <div id="pName" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Select a surah</div>
+      <div id="pRec" style="font-size:11px;color:var(--t2)">—</div>
+    </div>
+    <button class="lk" id="pLk" onclick="likeCur()" aria-label="Like"><i class="ti ti-heart" style="font-size:16px"></i></button>
+  </div>
+  <div class="p-controls">
+    <div class="p-btns">
+      <button class="cb" id="shBtn" onclick="toggleShuffle()" title="Shuffle"><i class="ti ti-arrows-shuffle"></i></button>
+      <button class="cb" onclick="prevS()" title="Previous"><i class="ti ti-player-skip-back"></i></button>
+      <button class="pbig" id="playBtn" onclick="togglePlay()" title="Play/Pause"><i class="ti ti-player-play" id="pIco"></i></button>
+      <button class="cb" onclick="nextS()" title="Next"><i class="ti ti-player-skip-forward"></i></button>
+      <button class="cb" id="rpBtn" onclick="toggleRepeat()" title="Repeat"><i class="ti ti-repeat"></i></button>
+    </div>
+    <div class="prog-row">
+      <span class="tm" id="tCur">0:00</span>
+      <input type="range" class="prog" id="progBar" min="0" max="100" step="0.1" value="0" oninput="seek(this.value)"/>
+      <span class="tm" id="tDur">–:––</span>
+    </div>
+  </div>
+  <div class="p-right">
+    <div class="vol-row">
+      <button class="cb" style="width:26px;height:26px;font-size:15px" onclick="toggleMute()" title="Mute"><i class="ti ti-volume" id="vIco"></i></button>
+      <input type="range" class="vol" id="volBar" min="0" max="100" value="80" oninput="setVol(this.value)"/>
+    </div>
+    <select class="spd" id="spdSel" onchange="setSpd(this.value)">
+      <option value="0.5">0.5×</option>
+      <option value="0.75">0.75×</option>
+      <option value="1" selected>1×</option>
+      <option value="1.25">1.25×</option>
+      <option value="1.5">1.5×</option>
+      <option value="2">2×</option>
+    </select>
+    <button class="cb" style="font-size:15px" title="Queue"><i class="ti ti-list-details"></i></button>
+  </div>
+</div>
+
+<audio id="aud" preload="none"></audio>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA — All 114 Surahs (id = official Quran number, index = position in array)
+// ─────────────────────────────────────────────
+const SURAHS = [
+  {id:  1, name:"Al-Fatihah",     ar:"الفاتحة",      n:  7, t:"Meccan",  dur:"0:48"},
+  {id:  2, name:"Al-Baqarah",     ar:"البقرة",       n:286, t:"Medinan", dur:"2:01:30"},
+  {id:  3, name:"Ali Imran",      ar:"آل عمران",     n:200, t:"Medinan", dur:"1:20:00"},
+  {id:  4, name:"An-Nisa",        ar:"النساء",       n:176, t:"Medinan", dur:"1:15:00"},
+  {id:  5, name:"Al-Maidah",      ar:"المائدة",      n:120, t:"Medinan", dur:"58:00"},
+  {id:  6, name:"Al-Anam",        ar:"الأنعام",      n:165, t:"Meccan",  dur:"1:02:00"},
+  {id:  7, name:"Al-Araf",        ar:"الأعراف",      n:206, t:"Meccan",  dur:"1:10:00"},
+  {id:  8, name:"Al-Anfal",       ar:"الأنفال",      n: 75, t:"Medinan", dur:"30:00"},
+  {id:  9, name:"At-Tawbah",      ar:"التوبة",       n:129, t:"Medinan", dur:"55:00"},
+  {id: 10, name:"Yunus",          ar:"يونس",         n:109, t:"Meccan",  dur:"42:00"},
+  {id: 11, name:"Hud",            ar:"هود",          n:123, t:"Meccan",  dur:"45:00"},
+  {id: 12, name:"Yusuf",          ar:"يوسف",         n:111, t:"Meccan",  dur:"40:00"},
+  {id: 13, name:"Ar-Rad",         ar:"الرعد",        n: 43, t:"Medinan", dur:"18:00"},
+  {id: 14, name:"Ibrahim",        ar:"إبراهيم",      n: 52, t:"Meccan",  dur:"20:00"},
+  {id: 15, name:"Al-Hijr",        ar:"الحجر",        n: 99, t:"Meccan",  dur:"23:00"},
+  {id: 16, name:"An-Nahl",        ar:"النحل",        n:128, t:"Meccan",  dur:"50:00"},
+  {id: 17, name:"Al-Isra",        ar:"الإسراء",      n:111, t:"Meccan",  dur:"40:00"},
+  {id: 18, name:"Al-Kahf",        ar:"الكهف",        n:110, t:"Meccan",  dur:"43:00"},
+  {id: 19, name:"Maryam",         ar:"مريم",         n: 98, t:"Meccan",  dur:"35:00"},
+  {id: 20, name:"Ta-Ha",          ar:"طه",           n:135, t:"Meccan",  dur:"38:00"},
+  {id: 21, name:"Al-Anbiya",      ar:"الأنبياء",     n:112, t:"Meccan",  dur:"37:00"},
+  {id: 22, name:"Al-Hajj",        ar:"الحج",         n: 78, t:"Medinan", dur:"32:00"},
+  {id: 23, name:"Al-Muminun",     ar:"المؤمنون",     n:118, t:"Meccan",  dur:"38:00"},
+  {id: 24, name:"An-Nur",         ar:"النور",        n: 64, t:"Medinan", dur:"28:00"},
+  {id: 25, name:"Al-Furqan",      ar:"الفرقان",      n: 77, t:"Meccan",  dur:"25:00"},
+  {id: 26, name:"Ash-Shuara",     ar:"الشعراء",      n:227, t:"Meccan",  dur:"42:00"},
+  {id: 27, name:"An-Naml",        ar:"النمل",        n: 93, t:"Meccan",  dur:"33:00"},
+  {id: 28, name:"Al-Qasas",       ar:"القصص",        n: 88, t:"Meccan",  dur:"38:00"},
+  {id: 29, name:"Al-Ankabut",     ar:"العنكبوت",     n: 69, t:"Meccan",  dur:"28:00"},
+  {id: 30, name:"Ar-Rum",         ar:"الروم",        n: 60, t:"Meccan",  dur:"22:00"},
+  {id: 31, name:"Luqman",         ar:"لقمان",        n: 34, t:"Meccan",  dur:"14:00"},
+  {id: 32, name:"As-Sajdah",      ar:"السجدة",       n: 30, t:"Meccan",  dur:"10:00"},
+  {id: 33, name:"Al-Ahzab",       ar:"الأحزاب",      n: 73, t:"Medinan", dur:"30:00"},
+  {id: 34, name:"Saba",           ar:"سبأ",          n: 54, t:"Meccan",  dur:"22:00"},
+  {id: 35, name:"Fatir",          ar:"فاطر",         n: 45, t:"Meccan",  dur:"20:00"},
+  {id: 36, name:"Ya-Sin",         ar:"يس",           n: 83, t:"Meccan",  dur:"28:00"},
+  {id: 37, name:"As-Saffat",      ar:"الصافات",      n:182, t:"Meccan",  dur:"35:00"},
+  {id: 38, name:"Sad",            ar:"ص",            n: 88, t:"Meccan",  dur:"28:00"},
+  {id: 39, name:"Az-Zumar",       ar:"الزمر",        n: 75, t:"Meccan",  dur:"30:00"},
+  {id: 40, name:"Ghafir",         ar:"غافر",         n: 85, t:"Meccan",  dur:"35:00"},
+  {id: 41, name:"Fussilat",       ar:"فصلت",         n: 54, t:"Meccan",  dur:"22:00"},
+  {id: 42, name:"Ash-Shura",      ar:"الشورى",       n: 53, t:"Meccan",  dur:"22:00"},
+  {id: 43, name:"Az-Zukhruf",     ar:"الزخرف",       n: 89, t:"Meccan",  dur:"30:00"},
+  {id: 44, name:"Ad-Dukhan",      ar:"الدخان",       n: 59, t:"Meccan",  dur:"18:00"},
+  {id: 45, name:"Al-Jathiyah",    ar:"الجاثية",      n: 37, t:"Meccan",  dur:"15:00"},
+  {id: 46, name:"Al-Ahqaf",       ar:"الأحقاف",      n: 35, t:"Meccan",  dur:"15:00"},
+  {id: 47, name:"Muhammad",       ar:"محمد",         n: 38, t:"Medinan", dur:"17:00"},
+  {id: 48, name:"Al-Fath",        ar:"الفتح",        n: 29, t:"Medinan", dur:"14:00"},
+  {id: 49, name:"Al-Hujurat",     ar:"الحجرات",      n: 18, t:"Medinan", dur:"9:00"},
+  {id: 50, name:"Qaf",            ar:"ق",            n: 45, t:"Meccan",  dur:"16:00"},
+  {id: 51, name:"Adh-Dhariyat",   ar:"الذاريات",     n: 60, t:"Meccan",  dur:"17:00"},
+  {id: 52, name:"At-Tur",         ar:"الطور",        n: 49, t:"Meccan",  dur:"14:00"},
+  {id: 53, name:"An-Najm",        ar:"النجم",        n: 62, t:"Meccan",  dur:"16:00"},
+  {id: 54, name:"Al-Qamar",       ar:"القمر",        n: 55, t:"Meccan",  dur:"15:00"},
+  {id: 55, name:"Ar-Rahman",      ar:"الرحمن",       n: 78, t:"Medinan", dur:"20:00"},
+  {id: 56, name:"Al-Waqiah",      ar:"الواقعة",      n: 96, t:"Meccan",  dur:"22:00"},
+  {id: 57, name:"Al-Hadid",       ar:"الحديد",       n: 29, t:"Medinan", dur:"14:00"},
+  {id: 58, name:"Al-Mujadila",    ar:"المجادلة",     n: 22, t:"Medinan", dur:"11:00"},
+  {id: 59, name:"Al-Hashr",       ar:"الحشر",        n: 24, t:"Medinan", dur:"12:00"},
+  {id: 60, name:"Al-Mumtahanah",  ar:"الممتحنة",     n: 13, t:"Medinan", dur:"8:00"},
+  {id: 61, name:"As-Saf",         ar:"الصف",         n: 14, t:"Medinan", dur:"6:00"},
+  {id: 62, name:"Al-Jumuah",      ar:"الجمعة",       n: 11, t:"Medinan", dur:"5:00"},
+  {id: 63, name:"Al-Munafiqun",   ar:"المنافقون",    n: 11, t:"Medinan", dur:"5:00"},
+  {id: 64, name:"At-Taghabun",    ar:"التغابن",      n: 18, t:"Medinan", dur:"8:00"},
+  {id: 65, name:"At-Talaq",       ar:"الطلاق",       n: 12, t:"Medinan", dur:"7:00"},
+  {id: 66, name:"At-Tahrim",      ar:"التحريم",      n: 12, t:"Medinan", dur:"7:00"},
+  {id: 67, name:"Al-Mulk",        ar:"الملك",        n: 30, t:"Meccan",  dur:"10:00"},
+  {id: 68, name:"Al-Qalam",       ar:"القلم",        n: 52, t:"Meccan",  dur:"14:00"},
+  {id: 69, name:"Al-Haqqah",      ar:"الحاقة",       n: 52, t:"Meccan",  dur:"13:00"},
+  {id: 70, name:"Al-Maarij",      ar:"المعارج",      n: 44, t:"Meccan",  dur:"11:00"},
+  {id: 71, name:"Nuh",            ar:"نوح",          n: 28, t:"Meccan",  dur:"9:00"},
+  {id: 72, name:"Al-Jinn",        ar:"الجن",         n: 28, t:"Meccan",  dur:"10:00"},
+  {id: 73, name:"Al-Muzzammil",   ar:"المزمل",       n: 20, t:"Meccan",  dur:"8:00"},
+  {id: 74, name:"Al-Muddaththir", ar:"المدثر",       n: 56, t:"Meccan",  dur:"13:00"},
+  {id: 75, name:"Al-Qiyamah",     ar:"القيامة",      n: 40, t:"Meccan",  dur:"8:00"},
+  {id: 76, name:"Al-Insan",       ar:"الإنسان",      n: 31, t:"Medinan", dur:"11:00"},
+  {id: 77, name:"Al-Mursalat",    ar:"المرسلات",     n: 50, t:"Meccan",  dur:"10:00"},
+  {id: 78, name:"An-Naba",        ar:"النبأ",        n: 40, t:"Meccan",  dur:"7:00"},
+  {id: 79, name:"An-Naziat",      ar:"النازعات",     n: 46, t:"Meccan",  dur:"8:00"},
+  {id: 80, name:"Abasa",          ar:"عبس",          n: 42, t:"Meccan",  dur:"7:00"},
+  {id: 81, name:"At-Takwir",      ar:"التكوير",      n: 29, t:"Meccan",  dur:"5:00"},
+  {id: 82, name:"Al-Infitar",     ar:"الإنفطار",     n: 19, t:"Meccan",  dur:"3:00"},
+  {id: 83, name:"Al-Mutaffifin",  ar:"المطففين",     n: 36, t:"Meccan",  dur:"7:00"},
+  {id: 84, name:"Al-Inshiqaq",    ar:"الإنشقاق",     n: 25, t:"Meccan",  dur:"5:00"},
+  {id: 85, name:"Al-Buruj",       ar:"البروج",       n: 22, t:"Meccan",  dur:"5:00"},
+  {id: 86, name:"At-Tariq",       ar:"الطارق",       n: 17, t:"Meccan",  dur:"3:00"},
+  {id: 87, name:"Al-Ala",         ar:"الأعلى",       n: 19, t:"Meccan",  dur:"3:00"},
+  {id: 88, name:"Al-Ghashiyah",   ar:"الغاشية",      n: 26, t:"Meccan",  dur:"5:00"},
+  {id: 89, name:"Al-Fajr",        ar:"الفجر",        n: 30, t:"Meccan",  dur:"6:00"},
+  {id: 90, name:"Al-Balad",       ar:"البلد",        n: 20, t:"Meccan",  dur:"3:00"},
+  {id: 91, name:"Ash-Shams",      ar:"الشمس",        n: 15, t:"Meccan",  dur:"3:00"},
+  {id: 92, name:"Al-Layl",        ar:"الليل",        n: 21, t:"Meccan",  dur:"3:00"},
+  {id: 93, name:"Ad-Duha",        ar:"الضحى",        n: 11, t:"Meccan",  dur:"2:00"},
+  {id: 94, name:"Ash-Sharh",      ar:"الشرح",        n:  8, t:"Meccan",  dur:"1:30"},
+  {id: 95, name:"At-Tin",         ar:"التين",        n:  8, t:"Meccan",  dur:"1:30"},
+  {id: 96, name:"Al-Alaq",        ar:"العلق",        n: 19, t:"Meccan",  dur:"3:00"},
+  {id: 97, name:"Al-Qadr",        ar:"القدر",        n:  5, t:"Meccan",  dur:"1:00"},
+  {id: 98, name:"Al-Bayyinah",    ar:"البينة",       n:  8, t:"Medinan", dur:"3:00"},
+  {id: 99, name:"Az-Zalzalah",    ar:"الزلزلة",      n:  8, t:"Medinan", dur:"1:30"},
+  {id:100, name:"Al-Adiyat",      ar:"العاديات",     n: 11, t:"Meccan",  dur:"2:00"},
+  {id:101, name:"Al-Qariah",      ar:"القارعة",      n: 11, t:"Meccan",  dur:"2:00"},
+  {id:102, name:"At-Takathur",    ar:"التكاثر",      n:  8, t:"Meccan",  dur:"1:30"},
+  {id:103, name:"Al-Asr",         ar:"العصر",        n:  3, t:"Meccan",  dur:"0:40"},
+  {id:104, name:"Al-Humazah",     ar:"الهمزة",       n:  9, t:"Meccan",  dur:"1:30"},
+  {id:105, name:"Al-Fil",         ar:"الفيل",        n:  5, t:"Meccan",  dur:"1:00"},
+  {id:106, name:"Quraysh",        ar:"قريش",         n:  4, t:"Meccan",  dur:"0:45"},
+  {id:107, name:"Al-Maun",        ar:"الماعون",      n:  7, t:"Meccan",  dur:"1:00"},
+  {id:108, name:"Al-Kawthar",     ar:"الكوثر",       n:  3, t:"Meccan",  dur:"0:30"},
+  {id:109, name:"Al-Kafirun",     ar:"الكافرون",     n:  6, t:"Meccan",  dur:"0:50"},
+  {id:110, name:"An-Nasr",        ar:"النصر",        n:  3, t:"Medinan", dur:"0:40"},
+  {id:111, name:"Al-Masad",       ar:"المسد",        n:  5, t:"Meccan",  dur:"0:50"},
+  {id:112, name:"Al-Ikhlas",      ar:"الإخلاص",     n:  4, t:"Meccan",  dur:"0:30"},
+  {id:113, name:"Al-Falaq",       ar:"الفلق",        n:  5, t:"Meccan",  dur:"0:35"},
+  {id:114, name:"An-Nas",         ar:"الناس",        n:  6, t:"Meccan",  dur:"0:40"},
+];
+
+// ─────────────────────────────────────────────
+// RECITERS
+// cdnPath verified from REAL download links on quranicaudio.com
+// CDN base: https://download.quranicaudio.com/quran/{cdnPath}/{001-114}.mp3
+//
+// Verified sources:
+//   Mishary Alafasy   → quranicaudio.com/quran/5  → folder: mishaari_raashid_al_3afaasee
+//   Abdur-Rahman Sudais → quranicaudio.com/quran/7 → folder: abdurrahmaan_as-sudais
+//   Abu Bakr al-Shatri  → quranicaudio.com/quran/3 → folder: abu_bakr_ash-shaatree
+//   Nasser Al-Qatami    → quranicaudio.com/quran/104 → folder: nasser_bin_ali_alqatami
+//   Yasser ad-Dussary   → quranicaudio.com/quran/97  → folder: yasser_ad-dussary
+//
+// quran.com chapter_reciter API IDs (for api.quran.com/api/v4/chapter_recitations):
+//   Mishary Alafasy   → apiId: 7  (quran.com/reciters/7)
+//   Abdur-Rahman Sudais → apiId: 3 (quran.com/reciters/3 = Sudais per quran.com)
+//   Abu Bakr al-Shatri  → apiId: null (not reliably available; use CDN directly)
+//   Nasser Al-Qatami    → apiId: null (not reliably available; use CDN directly)
+//   Yasser ad-Dussary   → apiId: null (beta on quran.com; use CDN directly)
+// ─────────────────────────────────────────────
+const RECITERS = [
+  {
+    apiId: 7,
+    cdnPath: "mishaari_raashid_al_3afaasee",
+    name: "Mishary Rashid Alafasy",
+    ar: "مشاري راشد العفاسي",
+    mosque: "Kuwait",
+    listeners: "32.5M",
+    color: "#00C16A"
+  },
+  {
+    apiId: null,
+    cdnPath: "abdurrahmaan_as-sudais",
+    name: "Abdur-Rahman As-Sudais",
+    ar: "عبدالرحمن السديس",
+    mosque: "Masjid Al-Haram, Makkah",
+    listeners: "28.1M",
+    color: "#4a9edd"
+  },
+  {
+    apiId: null,
+    cdnPath: "abu_bakr_ash-shaatree",
+    name: "Abu Bakr Al-Shatri",
+    ar: "أبو بكر الشاطري",
+    mosque: "Masjid Al-Haram, Makkah",
+    listeners: "18.2M",
+    color: "#e07b30"
+  },
+  {
+    apiId: null,
+    cdnPath: "nasser_bin_ali_alqatami",
+    name: "Nasser Al-Qatami",
+    ar: "ناصر بن علي القطامي",
+    mosque: "Kuwait",
+    listeners: "14.7M",
+    color: "#a855d4"
+  },
+  {
+    apiId: null,
+    cdnPath: "yasser_ad-dussary",
+    name: "Yasser Ad-Dussary",
+    ar: "ياسر الدوسري",
+    mosque: "Masjid Al-Haram, Makkah",
+    listeners: "22.4M",
+    color: "#d4a032"
+  },
+];
+
+const PLAYLISTS = [
+  {name:"Morning Adhkar",     icon:"ti-sun",     cnt:8,  desc:"Start your day with peace"},
+  {name:"Evening Reflection", icon:"ti-moon",    cnt:6,  desc:"Peaceful evening recitations"},
+  {name:"Quran Study",        icon:"ti-book",    cnt:12, desc:"Learn verse by verse"},
+  {name:"Before Sleep",       icon:"ti-bed",     cnt:5,  desc:"Soothing night recitations"},
+  {name:"Deep Focus",         icon:"ti-brain",   cnt:9,  desc:"Stay mindful while working"},
+  {name:"Ramadan Special",    icon:"ti-star",    cnt:30, desc:"Complete Ramadan collection"},
+];
+
+// Popular surah IDs to feature on home page (by official Quran ID)
+const POPULAR_SURAH_IDS = [1, 36, 67, 55, 18, 78];
+
+// ─────────────────────────────────────────────
+// STATE
+// ci = current index in SURAHS array (NOT surah id)
+// ─────────────────────────────────────────────
+let ci=0, ri=0, playing=false, shuffle=false, repeat=false, muted=false, prevVol=80;
+let likes={}, hist=[], filt='All', q='';
+// Cache: "reciterApiId-surahId" → audio_url
+const urlCache = {};
+
+const aud = document.getElementById('aud');
+aud.volume = 0.8;
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+const pad3 = n => String(n).padStart(3, '0'); // 1→"001", 12→"012", 114→"114"
+
+const fmt = s => {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s/60), sec = Math.floor(s%60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+};
+const ini = name => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const avHTML = (r, sz=54) =>
+  `<div class="av-ring" style="width:${sz}px;height:${sz}px;background:${r.color}22;border:1.5px solid ${r.color}55;font-size:${Math.round(sz*.33)}px;color:${r.color}">${ini(r.name)}</div>`;
+
+let toastT;
+function toast(msg, isErr=false) {
+  clearTimeout(toastT);
+  $('tmsg').textContent = msg;
+  $('tIco').className = isErr ? 'ti ti-alert-circle' : 'ti ti-check';
+  $('tIco').style.color = isErr ? '#e05555' : 'var(--ac)';
+  const el = $('toast');
+  el.className = 'toast show' + (isErr ? ' err' : '');
+  toastT = setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+function setLoading(on) {
+  $('pSpin').style.display = on ? 'inline-block' : 'none';
+  $('pNum').style.display  = on ? 'none' : 'inline-block';
+}
+
+// ─────────────────────────────────────────────
+// AUDIO URL RESOLVER
+// Primary: Quran Foundation API (api.quran.com/api/v4/chapter_recitations)
+// Fallback: direct CDN with zero-padded surah number
+// ─────────────────────────────────────────────
+async function resolveUrl(surahId, reciter) {
+  const key = `${reciter.apiId}-${surahId}`;
+  if (urlCache[key]) return urlCache[key];
+
+  // Try Quran Foundation API first
+  if (reciter.apiId) {
+    try {
+      const res = await fetch(
+        `https://api.quran.com/api/v4/chapter_recitations/${reciter.apiId}/${surahId}`,
+        {headers:{'Accept':'application/json'}}
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const url = data?.audio_file?.audio_url;
+        if (url) { urlCache[key] = url; return url; }
+      }
+    } catch(e) { /* fall through to CDN fallback */ }
+  }
+
+  // Fallback: construct CDN URL with zero-padded surah number
+  // Verified format: https://download.quranicaudio.com/quran/{path}/{001-114}.mp3
+  if (reciter.cdnPath) {
+    const url = `https://download.quranicaudio.com/quran/${reciter.cdnPath}/${pad3(surahId)}.mp3`;
+    urlCache[key] = url;
+    return url;
+  }
+
+  return null;
+}
+
+// ─────────────────────────────────────────────
+// PLAYBACK
+// playSurahAtIdx: plays by SURAHS array index
+// playSurahById:  plays by official Quran surah number
+// ─────────────────────────────────────────────
+async function playSurahAtIdx(idx) {
+  if (idx < 0 || idx >= SURAHS.length) return;
+  ci = idx;
+  const s = SURAHS[idx];
+  const r = RECITERS[ri];
+
+  setLoading(true);
+  updatePUI();
+  addHist(s);
+
+  const url = await resolveUrl(s.id, r);
+  if (!url) {
+    setLoading(false);
+    toast('Could not resolve audio URL for this reciter.', true);
+    return;
+  }
+
+  aud.pause();
+  aud.src = url;
+  aud.load();
+
+  try {
+    await aud.play();
+    playing = true;
+  } catch(e) {
+    playing = false;
+    toast('Tap Play to start — browser requires a click first.', true);
+  }
+  setLoading(false);
+  updatePBtn();
+  refreshLists();
+}
+
+// Find by official surah ID (1–114), then play by array index
+function playSurahById(id) {
+  const idx = SURAHS.findIndex(s => s.id === id);
+  if (idx >= 0) playSurahAtIdx(idx);
+}
+
+function togglePlay() {
+  if (!aud.src || aud.src === location.href) { playSurahAtIdx(ci); return; }
+  if (playing) { aud.pause(); playing = false; }
+  else {
+    aud.play()
+      .then(()=>{ playing=true; updatePBtn(); refreshLists(); })
+      .catch(()=>{ toast('Playback blocked — tap Play again.', true); });
+    return;
+  }
+  updatePBtn(); refreshLists();
+}
+
+function nextS() {
+  const nextIdx = shuffle ? Math.floor(Math.random()*SURAHS.length) : (ci+1) % SURAHS.length;
+  playSurahAtIdx(nextIdx);
+}
+function prevS() {
+  if (aud.currentTime > 3) { aud.currentTime=0; return; }
+  playSurahAtIdx((ci-1+SURAHS.length) % SURAHS.length);
+}
+function toggleShuffle() { shuffle=!shuffle; $('shBtn').classList.toggle('on',shuffle); }
+function toggleRepeat()  { repeat=!repeat; aud.loop=repeat; $('rpBtn').classList.toggle('on',repeat); }
+function seek(v)  { if(aud.duration) aud.currentTime=(v/100)*aud.duration; }
+function setVol(v){ aud.volume=v/100; muted=(+v===0); updateVIco(+v); }
+function toggleMute() {
+  if(muted){ aud.volume=prevVol/100; $('volBar').value=prevVol; muted=false; }
+  else      { prevVol=aud.volume*100; aud.volume=0; $('volBar').value=0; muted=true; }
+  updateVIco(aud.volume*100);
+}
+function setSpd(v){ aud.playbackRate=parseFloat(v); }
+function updateVIco(v){ $('vIco').className=v===0?'ti ti-volume-off':v<50?'ti ti-volume-2':'ti ti-volume'; }
+function updatePBtn(){ $('pIco').className=playing?'ti ti-player-pause':'ti ti-player-play'; }
+
+aud.addEventListener('timeupdate',()=>{
+  if(!aud.duration) return;
+  $('progBar').value=(aud.currentTime/aud.duration)*100;
+  $('tCur').textContent=fmt(aud.currentTime);
+  $('tDur').textContent=fmt(aud.duration);
+});
+aud.addEventListener('ended',   ()=>{ if(!repeat) nextS(); });
+aud.addEventListener('waiting', ()=>setLoading(true));
+aud.addEventListener('playing', ()=>{ setLoading(false); playing=true; updatePBtn(); refreshLists(); });
+aud.addEventListener('error',   ()=>{
+  setLoading(false); playing=false; updatePBtn();
+  const err = aud.error;
+  const msg = err ? `Audio error ${err.code}: ${err.message}` : 'Audio failed to load.';
+  toast(msg + ' Try another reciter.', true);
+});
+
+function setReciter(i) {
+  ri = i;
+  // Clear cached URL for current surah so new reciter URL will be fetched
+  const s = SURAHS[ci];
+  delete urlCache[`${RECITERS[i].apiId}-${s.id}`];
+  if (playing) {
+    playSurahAtIdx(ci);
+  } else {
+    updatePUI();
+  }
+  toast('Switched to ' + RECITERS[i].name);
+  renderRec(); renderHRec();
+}
+
+function updatePUI() {
+  const s = SURAHS[ci], r = RECITERS[ri];
+  $('pNum').textContent = s.id;
+  $('pName').textContent = s.name;
+  $('pRec').textContent = r.name;
+  $('curRLabel').textContent = r.name;
+  updateLkBtn();
+}
+
+function likeCur() {
+  const id=SURAHS[ci].id;
+  likes[id]=!likes[id];
+  updateLkBtn(); renderFavs();
+  toast(likes[id]?'Added to Favourites':'Removed');
+}
+function likeSurah(id) {
+  likes[id]=!likes[id];
+  if(SURAHS[ci].id===id) updateLkBtn();
+  renderFavs(); refreshLists();
+  toast(likes[id]?'Added to Favourites':'Removed');
+}
+function updateLkBtn() {
+  const id=SURAHS[ci].id, btn=$('pLk'), ic=btn.querySelector('i');
+  btn.classList.toggle('on',!!likes[id]);
+  ic.className=likes[id]?'ti ti-heart-filled':'ti ti-heart';
+  ic.style.fontSize='16px';
+}
+function addHist(s){ hist=hist.filter(h=>h.id!==s.id); hist.unshift(s); if(hist.length>30)hist.pop(); }
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function sRowHTML(s) {
+  const isCurrent = SURAHS[ci].id===s.id;
+  const tc = s.t==='Meccan'?'mec':'med';
+  return `<div class="s-row${isCurrent?' playing':''}" onclick="playSurahById(${s.id})">
+    <div class="s-num">${isCurrent&&playing?'<i class="ti ti-volume" style="font-size:13px;color:var(--ac)"></i>':s.id}</div>
+    <div style="display:flex;align-items:center;gap:9px">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:${isCurrent?'var(--ac)':'var(--t1)'}">${s.name}</div>
+        <div style="font-size:11px;color:var(--t2);font-family:serif">${s.ar}</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--t2)">${s.n}</div>
+    <div><span class="badge ${tc}">${s.t}</span></div>
+    <div style="font-size:12px;color:var(--t2)">${s.dur}</div>
+    <button class="lk${likes[s.id]?' on':''}" onclick="event.stopPropagation();likeSurah(${s.id})" aria-label="Like">
+      <i class="${likes[s.id]?'ti ti-heart-filled':'ti ti-heart'}" style="font-size:14px"></i>
+    </button>
+  </div>`;
+}
+
+function renderHRec() {
+  $('hRec').innerHTML = RECITERS.map((r,i)=>`
+    <div class="rc-card${i===ri?' on':''}" onclick="setReciter(${i})">
+      ${avHTML(r,54)}
+      <div style="font-size:13px;font-weight:700;margin-bottom:2px">${r.name}</div>
+      <div style="font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.4">${r.mosque}</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px">
+        <i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i>
+        <span style="font-size:11px;color:var(--t3)">${r.listeners}</span>
+      </div>
+      <div class="play-dot" onclick="event.stopPropagation();setReciter(${i});playSurahAtIdx(ci)">
+        <i class="ti ti-player-play"></i>
+      </div>
+    </div>`).join('');
+}
+
+function renderHSur() {
+  // Find surahs by their official ID (safe with 114-surah array)
+  const cards = POPULAR_SURAH_IDS.map(id => {
+    const s = SURAHS.find(x => x.id === id);
+    if (!s) return '';
+    return `<div class="card" style="display:flex;align-items:center;gap:11px;padding:12px 14px" onclick="playSurahById(${s.id})">
+      <div class="s-num">${s.id}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
+        <div style="font-size:11px;color:var(--t2)">${s.n} ayahs · ${s.t}</div>
+      </div>
+      <span style="font-size:11px;color:var(--t2);margin-right:5px">${s.dur}</span>
+      <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,193,106,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ti ti-player-play" style="font-size:11px;color:var(--ac)"></i>
+      </div>
+    </div>`;
+  }).join('');
+  $('hSur').innerHTML = cards;
+}
+
+function renderHPl() {
+  $('hPl').innerHTML = PLAYLISTS.map(p=>`
+    <div class="pl-card">
+      <div style="width:42px;height:42px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ti ${p.icon}" style="font-size:19px;color:var(--ac)"></i>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:2px">${p.name}</div>
+        <div style="font-size:11px;color:var(--t2)">${p.cnt} surahs · ${p.desc}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderSList() {
+  const filtered = SURAHS.filter(s=>{
+    const mq = !q || s.name.toLowerCase().includes(q) || s.ar.includes(q);
+    return mq && (filt==='All' || s.t===filt);
+  });
+  $('sCount').textContent = filtered.length + ' of 114 surahs';
+  $('sList').innerHTML = filtered.map(s=>sRowHTML(s)).join('');
+}
+
+function setFilter(f, btn) {
+  filt=f;
+  document.querySelectorAll('#sFilters .tag').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderSList();
+}
+
+function renderRec() {
+  $('rCards').innerHTML = RECITERS.map((r,i)=>`
+    <div class="card" style="display:flex;gap:14px;padding:18px;border-color:${i===ri?'rgba(0,193,106,.45)':'var(--br)'};background:${i===ri?'rgba(0,193,106,.05)':'var(--bg2)'};position:relative" onclick="setReciter(${i})">
+      ${i===ri?'<div style="position:absolute;top:11px;right:11px;width:7px;height:7px;border-radius:50%;background:var(--ac)"></div>':''}
+      ${avHTML(r,58)}
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:700;margin-bottom:2px">${r.name}</div>
+        <div style="font-size:12px;color:var(--t2);font-family:serif;margin-bottom:5px">${r.ar}</div>
+        <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:4px;margin-bottom:11px"><i class="ti ti-building" style="font-size:12px"></i>${r.mosque}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:4px"><i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i><span style="font-size:12px;color:var(--t2)">${r.listeners}</span></div>
+          <button style="display:flex;align-items:center;gap:5px;padding:6px 13px;background:${i===ri?'var(--ac)':'rgba(0,193,106,.15)'};border:none;border-radius:7px;font-size:12px;font-weight:700;color:${i===ri?'#000':'var(--ac)'};cursor:pointer;font-family:inherit"
+            onclick="event.stopPropagation();setReciter(${i});playSurahAtIdx(ci)">
+            <i class="ti ti-player-play" style="font-size:12px"></i>Play
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+  $('curRLabel').textContent = RECITERS[ri].name;
+  $('statRecCnt').textContent = RECITERS.length;
+}
+
+function renderPlaylists() {
+  $('plCards').innerHTML = PLAYLISTS.map(p=>`
+    <div class="card" style="display:flex;gap:13px;padding:17px">
+      <div style="width:54px;height:54px;border-radius:11px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ti ${p.icon}" style="font-size:22px;color:var(--ac)"></i>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:3px">${p.name}</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:7px">${p.desc}</div>
+        <div style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:11px"></i>${p.cnt} surahs</div>
+      </div>
+    </div>`).join('');
+}
+
+function tableWrap(rows) {
+  if (!rows.length) return '<div class="ph"><i class="ti ti-mood-empty"></i><h3>Nothing here yet</h3></div>';
+  return `<div class="s-table"><div class="s-head"><span>#</span><span>Surah</span><span>Ayahs</span><span>Type</span><span>Dur.</span><span></span></div>${rows.map(s=>sRowHTML(s)).join('')}</div>`;
+}
+
+function renderFavs()  { $('favWrap').innerHTML  = tableWrap(SURAHS.filter(s=>likes[s.id])); }
+function renderHist()  { $('histWrap').innerHTML = tableWrap(hist); }
+
+function refreshLists() {
+  renderHRec(); renderSList(); renderFavs(); renderHist(); updatePUI();
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+function go(p) {
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  const pg = $('p-'+p);
+  if (pg) pg.classList.add('on');
+  document.querySelectorAll('.ni[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
+  if(p==='surahs')    renderSList();
+  if(p==='reciters')  renderRec();
+  if(p==='playlists') renderPlaylists();
+  if(p==='favs')      renderFavs();
+  if(p==='hist')      renderHist();
+}
+
+document.querySelectorAll('.ni[data-p]').forEach(n=>{
+  n.addEventListener('click', ()=>{ if(n.dataset.p) go(n.dataset.p); });
+});
+
+$('srch').addEventListener('input', function(){
+  q = this.value.trim().toLowerCase();
+  go(q ? 'surahs' : 'home');
+});
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+renderHRec();
+renderHSur();
+renderHPl();
+renderSList();
+renderRec();
+renderPlaylists();
+updatePUI();
+$('statRecCnt').textContent = RECITERS.length;
+</script>
+</body>
+</html>
