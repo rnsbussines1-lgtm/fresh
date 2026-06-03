@@ -65,7 +65,7 @@ input{font-family:inherit;outline:none}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-#hRec{grid-template-columns:repeat(5,1fr)}
+#hRec{grid-template-columns:repeat(4,1fr)}
 .g-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
 .card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px;cursor:pointer;transition:all .18s}
 .card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
@@ -200,7 +200,7 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
   .search-box{order:2;flex-basis:100%;max-width:none}
   .topbar-actions{order:1;margin-left:auto}
   .topbar-actions .av{display:none}
-  .scroller{padding:14px 12px 18px;padding-bottom:calc(190px + env(safe-area-inset-bottom))}
+  .scroller{padding:14px 12px 18px;padding-bottom:calc(132px + env(safe-area-inset-bottom))}
   .hero{min-height:0;margin-bottom:18px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#0b2215 0%,#0d2b1b 42%,#081c2e 100%)}
   .hero-inner{padding:24px 20px 22px}
   .hero h1{font-size:31px;letter-spacing:-1.2px}
@@ -232,22 +232,25 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
   .playlist-grid{gap:8px}
   .playlist-grid button,.playlist-grid .field,.playlist-grid select{width:100%}
   .playlist-grid button{height:auto;min-height:42px}
-  .player{position:fixed;left:10px;right:10px;bottom:calc(82px + env(safe-area-inset-bottom));height:auto;min-height:0;padding:8px 10px;border-radius:20px;gap:6px;flex-wrap:wrap;box-shadow:0 18px 48px rgba(0,0,0,.45);background:rgba(12,15,20,.94);border:1px solid rgba(255,255,255,.08)}
-  .p-track{width:100%;order:1;align-items:center;gap:8px}
+  .player{position:fixed;left:8px;right:8px;bottom:calc(70px + env(safe-area-inset-bottom));height:54px;min-height:0;padding:6px 8px;border-radius:16px;gap:6px;flex-wrap:nowrap;align-items:center;box-shadow:0 12px 30px rgba(0,0,0,.32);background:rgba(12,15,20,.9);border:1px solid rgba(255,255,255,.08)}
+  .p-track{width:auto;flex:1;order:1;align-items:center;gap:7px;min-width:0}
   .p-track #pRec{display:none}
-  .p-cover{width:42px;height:42px;border-radius:10px}
-  .p-cover #pNum{font-size:12px}
-  .p-cover #pSpin{font-size:11px}
-  .p-track #pName{font-size:12px;line-height:1.25}
-  .p-controls{width:100%;order:2;gap:4px}
-  .p-btns{width:100%;justify-content:center;gap:6px}
+  .p-track .lk{display:none}
+  .p-cover{width:36px;height:36px;border-radius:10px}
+  .p-cover #pNum{font-size:11px}
+  .p-cover #pSpin{font-size:10px}
+  .p-track > div:nth-child(2){min-width:0;flex:1}
+  .p-track #pName{font-size:12px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .p-controls{width:auto;flex:0 0 auto;order:2;display:flex;flex-direction:row;align-items:center;gap:3px}
+  .p-btns{width:auto;justify-content:center;gap:3px}
   .prog-row{display:none}
   .p-right{display:none}
   .vol-row{flex:1;min-width:0}
   .vol{width:100%}
   .spd{min-width:72px;flex:1}
-  .player .cb{width:32px;height:32px}
-  .player .pbig{width:40px;height:40px}
+  .player #shBtn, .player #rpBtn{display:none}
+  .player .cb{width:30px;height:30px}
+  .player .pbig{width:36px;height:36px}
   .mobile-nav{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;background:rgba(11,14,19,.88);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:7px;backdrop-filter:blur(24px);box-shadow:0 14px 38px rgba(0,0,0,.34)}
   .mobile-nav .mn.on{background:rgba(0,193,106,.11);border-radius:14px}
   .mobile-nav .mn.menu{color:var(--t1)}
@@ -336,7 +339,7 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
         </div>
         <div class="g-stats">
           <div class="stat-card"><div class="stat-icon"><i class="ti ti-book" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">114</div><div style="font-size:11px;color:var(--t2)">Сур</div></div></div>
-          <div class="stat-card"><div class="stat-icon"><i class="ti ti-microphone" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700" id="statRecCnt">5</div><div style="font-size:11px;color:var(--t2)">Чтецов</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-microphone" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700" id="statRecCnt">4</div><div style="font-size:11px;color:var(--t2)">Чтецов</div></div></div>
           <div class="stat-card"><div class="stat-icon"><i class="ti ti-headphones" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">2.1M</div><div style="font-size:11px;color:var(--t2)">Слушателей</div></div></div>
           <div class="stat-card"><div class="stat-icon"><i class="ti ti-sparkles" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">HD</div><div style="font-size:11px;color:var(--t2)">Аудио</div></div></div>
         </div>
@@ -433,9 +436,8 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
       </div>
     </div>
   </div>
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="setSidebarOpen(false)"></div>
 </div>
-
-<div id="sidebarOverlay" class="sidebar-overlay" onclick="setSidebarOpen(false)"></div>
 
 <!-- PLAYER -->
 <div class="player">
@@ -622,14 +624,12 @@ const SURAHS = [
 //   Abdur-Rahman Sudais → quranicaudio.com/quran/7 → folder: abdurrahmaan_as-sudais
 //   Abu Bakr al-Shatri  → quranicaudio.com/quran/3 → folder: abu_bakr_ash-shaatree
 //   Nasser Al-Qatami    → quranicaudio.com/quran/104 → folder: nasser_bin_ali_alqatami
-//   Yasser ad-Dussary   → quranicaudio.com/quran/97  → folder: yasser_ad-dussary
 //
 // quran.com chapter_reciter API IDs (for api.quran.com/api/v4/chapter_recitations):
 //   Mishary Alafasy   → apiId: 7  (quran.com/reciters/7)
 //   Abdur-Rahman Sudais → apiId: 3 (quran.com/reciters/3 = Sudais per quran.com)
 //   Abu Bakr al-Shatri  → apiId: null (not reliably available; use CDN directly)
 //   Nasser Al-Qatami    → apiId: null (not reliably available; use CDN directly)
-//   Yasser ad-Dussary   → apiId: null (beta on quran.com; use CDN directly)
 // ─────────────────────────────────────────────
 const RECITERS = [
   {
@@ -642,8 +642,8 @@ const RECITERS = [
     color: "#00C16A"
   },
   {
-    apiId: null,
-    cdnPath: "abdurrahmaan_as-sudais",
+    apiId: 3,
+    cdnPath: "abdurrahmaan_as-sudays",
     name: "Abdur-Rahman As-Sudais",
     ar: "عبدالرحمن السديس",
     mosque: "Masjid Al-Haram, Makkah",
@@ -667,15 +667,6 @@ const RECITERS = [
     mosque: "Kuwait",
     listeners: "14.7M",
     color: "#a855d4"
-  },
-  {
-    apiId: null,
-    cdnPath: "yasser_ad-dussary",
-    name: "Yasser Ad-Dussary",
-    ar: "ياسر الدوسري",
-    mosque: "Masjid Al-Haram, Makkah",
-    listeners: "22.4M",
-    color: "#d4a032"
   },
 ];
 
@@ -1102,6 +1093,11 @@ function setSidebarOpen(open) {
   document.querySelectorAll('.mobile-nav .mn.menu, .mobile-menu-btn').forEach(btn => btn.classList.toggle('on', shouldOpen));
 }
 
+function normalizeReciterIndex(i) {
+  const n = Number(i);
+  return Number.isInteger(n) && n >= 0 && n < RECITERS.length ? n : 0;
+}
+
 function toggleSidebar(force) {
   const next = typeof force === 'boolean' ? force : !document.body.classList.contains('sidebar-open');
   setSidebarOpen(next);
@@ -1130,6 +1126,31 @@ const previewChips = ids => ids.slice(0, 4).map(id => {
   const s = SURAHS.find(x => x.id === id);
   return s ? `<span class="pl-chip alt" title="${s.name}">${s.id}</span>` : '';
 }).join('');
+
+function normalizeLoadedState() {
+  ri = normalizeReciterIndex(ri);
+
+  const cleanedMeta = {};
+  Object.entries(likeMeta || {}).forEach(([id, meta]) => {
+    if (!meta || typeof meta !== 'object') return;
+    cleanedMeta[id] = {
+      ...meta,
+      reciterIdx: normalizeReciterIndex(meta.reciterIdx),
+    };
+  });
+  likeMeta = cleanedMeta;
+
+  customPlaylists = Array.isArray(customPlaylists)
+    ? customPlaylists.map(pl => ({
+        ...pl,
+        reciterIdx: normalizeReciterIndex(pl?.reciterIdx),
+        surahIds: Array.isArray(pl?.surahIds) ? uniqueIds(pl.surahIds) : [],
+      }))
+    : [];
+}
+
+normalizeLoadedState();
+saveState();
 
 const fmt = s => {
   if (!s || isNaN(s)) return '0:00';
@@ -1506,16 +1527,16 @@ aud.addEventListener('error',   ()=>{
 });
 
 function setReciter(i, opts={}) {
-  ri = i;
+  ri = normalizeReciterIndex(i);
   // Clear cached URL for current surah so new reciter URL will be fetched
   const s = SURAHS[ci];
-  delete urlCache[`${RECITERS[i].apiId}-${s.id}`];
+  delete urlCache[`${RECITERS[ri].apiId}-${s.id}`];
   if (playing && opts.playCurrent !== false) {
     playSurahAtIdx(ci);
   } else {
     updatePUI();
   }
-  if (!opts.silent) toast(t('messages.switchedReciter', {name: RECITERS[i].name}));
+  if (!opts.silent) toast(t('messages.switchedReciter', {name: RECITERS[ri].name}));
   renderRec(); renderHRec();
 }
 
@@ -1685,7 +1706,7 @@ function renderRec() {
 }
 
 function playlistCardHTML(pl, idx, isCustom=false) {
-  const rec = RECITERS[pl.reciterIdx || 0] || RECITERS[0];
+  const rec = RECITERS[normalizeReciterIndex(pl.reciterIdx)] || RECITERS[0];
   const playCall = isCustom ? `playCustomPlaylist(${pl.id})` : `playStaticPlaylist(${idx})`;
   const subtitle = isCustom ? `${t('ui.reciterLabel')}: ${rec.name}` : playlistDesc(pl);
   const meta = isCustom ? `${t('ui.surahCount', {count: pl.surahIds.length})} · ${rec.name}` : t('ui.surahCount', {count: pl.surahIds.length});
@@ -1803,7 +1824,7 @@ function playCustomPlaylist(id) {
   activeQueueName = pl.name;
   activeQueueKind = 'custom';
   activeQueueRef = id;
-  setReciter(pl.reciterIdx, {silent:true, playCurrent:false});
+  setReciter(normalizeReciterIndex(pl.reciterIdx), {silent:true, playCurrent:false});
   toast(t('messages.playlistPrefix', {name: pl.name}));
   playSurahById(pl.surahIds[0], {keepQueue:true});
 }
@@ -1867,4 +1888,5 @@ applyLanguage();
 </script>
 </body>
 </html>
+
 
