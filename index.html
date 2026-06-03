@@ -16,16 +16,18 @@
   --br:rgba(255,255,255,.07);--br2:rgba(255,255,255,.12)
 }
 html,body{height:100%;overflow:hidden}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg1);color:var(--t1);display:flex;flex-direction:column}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg1);color:var(--t1);display:flex;flex-direction:column;position:relative;min-height:100vh}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:#fff2;border-radius:4px}
 button,select{font-family:inherit;cursor:pointer;border:none;outline:none}
 input{font-family:inherit;outline:none}
 
-.app{display:flex;flex:1;overflow:hidden;height:calc(100vh - 88px)}
+.app{display:flex;flex:1;overflow:hidden;height:calc(100vh - 88px);position:relative;z-index:1}
 .sidebar{width:228px;background:#0B0E13;border-right:1px solid var(--br);display:flex;flex-direction:column;flex-shrink:0}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{padding:13px 22px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:12px;background:var(--bg1);flex-shrink:0}
+.topbar{padding:13px 22px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:12px;background:rgba(15,17,21,.94);flex-shrink:0;backdrop-filter:blur(18px);position:relative;z-index:10}
+.topbar-actions{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.mobile-menu-btn{display:none}
 .scroller{flex:1;overflow-y:auto;padding:22px 22px 20px}
 
 .logo-row{padding:19px 15px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px}
@@ -43,6 +45,13 @@ input{font-family:inherit;outline:none}
 .pro-box p{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:10px}
 .pro-btn{padding:7px 16px;background:var(--ac);border-radius:8px;font-size:12px;font-weight:700;color:#000}
 
+.sidebar-overlay{position:fixed;inset:0;background:rgba(3,5,9,.62);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .24s ease;z-index:55;display:none}
+.mobile-nav{display:none}
+.mobile-nav .mn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;padding:8px 6px;background:transparent;border:none;color:var(--t2);font-size:10px;font-weight:700;letter-spacing:.2px;transition:color .15s,transform .15s}
+.mobile-nav .mn i{font-size:18px;line-height:1}
+.mobile-nav .mn.on{color:var(--ac)}
+.mobile-nav .mn:active{transform:scale(.96)}
+
 .search-box{position:relative;flex:1;max-width:360px}
 .search-box i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;pointer-events:none}
 .search-box input{width:100%;padding:9px 12px 9px 36px;background:var(--bg3);border:1px solid var(--br);border-radius:9px;color:var(--t1);font-size:13px}
@@ -50,11 +59,13 @@ input{font-family:inherit;outline:none}
 .search-box input::placeholder{color:var(--t3)}
 .icon-btn{display:flex;align-items:center;justify-content:center;padding:7px;background:transparent;border:1px solid var(--br);border-radius:8px;color:var(--t2);font-size:15px;transition:all .13s}
 .icon-btn:hover{color:var(--t1);border-color:var(--br2)}
+.mobile-menu-btn.on{color:var(--ac);border-color:rgba(0,193,106,.34);background:rgba(0,193,106,.08)}
 .av{width:34px;height:34px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;cursor:pointer;flex-shrink:0}
 
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+#hRec{grid-template-columns:repeat(5,1fr)}
 .g-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
 .card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px;cursor:pointer;transition:all .18s}
 .card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
@@ -103,7 +114,7 @@ input{font-family:inherit;outline:none}
 .lk:hover{color:var(--t1);background:rgba(255,255,255,.08)}
 .lk.on{color:#e05555}
 
-.player{height:88px;background:rgba(9,12,16,.95);border-top:1px solid var(--br);display:flex;align-items:center;gap:14px;padding:0 18px;flex-shrink:0;backdrop-filter:blur(18px)}
+.player{height:88px;background:rgba(9,12,16,.95);border-top:1px solid var(--br);display:flex;align-items:center;gap:14px;padding:0 18px;flex-shrink:0;backdrop-filter:blur(18px);position:relative;z-index:12}
 .p-track{display:flex;align-items:center;gap:9px;width:218px;flex-shrink:0}
 .p-cover{width:46px;height:46px;border-radius:9px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
 .p-controls{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
@@ -166,6 +177,79 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{animation:spin .9s linear infinite;display:inline-block}
+body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0;transition:opacity .25s ease;z-index:0;filter:blur(18px)}
+
+@media (max-width: 1120px){
+  .g4{grid-template-columns:repeat(3,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .g-stats{grid-template-columns:repeat(2,1fr)}
+  .rec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .playlist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #hRec{grid-template-columns:repeat(3,1fr)!important}
+}
+
+@media (max-width: 920px){
+  .app{height:100dvh}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:min(86vw,330px);transform:translateX(-104%);transition:transform .3s cubic-bezier(.2,.9,.2,1);z-index:60;box-shadow:28px 0 70px rgba(0,0,0,.42)}
+  body.sidebar-open .sidebar{transform:translateX(0)}
+  body.sidebar-open .sidebar-overlay{display:block;opacity:1;pointer-events:auto}
+  .sidebar-overlay{display:block}
+  .main{width:100%}
+  .topbar{padding:12px 12px 10px;gap:10px;flex-wrap:wrap}
+  .mobile-menu-btn{display:flex}
+  .search-box{order:2;flex-basis:100%;max-width:none}
+  .topbar-actions{order:1;margin-left:auto}
+  .topbar-actions .av{display:none}
+  .scroller{padding:14px 12px 18px;padding-bottom:calc(278px + env(safe-area-inset-bottom))}
+  .hero{min-height:0;margin-bottom:18px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#0b2215 0%,#0d2b1b 42%,#081c2e 100%)}
+  .hero-inner{padding:24px 20px 22px}
+  .hero h1{font-size:31px;letter-spacing:-1.2px}
+  .hero p{max-width:none;font-size:13px}
+  .hero-btns{flex-direction:column}
+  .hero-btns button{width:100%;justify-content:center}
+  .hero-art{right:-30px;top:-12px;transform:none;opacity:.18}
+  .g-stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+  .g4,.g3,.g2,.rec-grid,.settings-grid,.playlist-grid{grid-template-columns:1fr}
+  #hRec{grid-template-columns:1fr!important}
+  .card,.pl-card,.pl-big,.rec-mini,.stat-card,.rc-card,.set-card,.playlist-builder,.empty-state{border-radius:18px}
+  .sec-hd{margin-bottom:10px}
+  .sec-hd h2{font-size:16px}
+  .see-all{font-size:12px}
+  .rc-card{display:flex;align-items:center;gap:12px;text-align:left;padding:14px}
+  .rc-content{flex:1;min-width:0}
+  .rc-card .av-ring{margin:0}
+  .rc-card .play-dot{margin:0 0 0 auto}
+  .s-table{background:transparent;border:none;overflow:visible}
+  .s-head{display:none}
+  .s-row{grid-template-columns:38px 1fr 34px;padding:14px 14px 13px;border:1px solid var(--br);border-radius:18px;background:linear-gradient(180deg, rgba(24,28,35,.98), rgba(18,21,29,.96));gap:8px 10px;margin-bottom:10px;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+  .s-row > :nth-child(3), .s-row > :nth-child(4), .s-row > :nth-child(5){display:none}
+  .s-row > :nth-child(6){grid-column:3;grid-row:1;justify-self:end;align-self:start}
+  .s-row > :nth-child(1){grid-column:1;grid-row:1;align-self:start}
+  .s-row > :nth-child(2){grid-column:2;grid-row:1}
+  .s-mobile-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .s-mobile-meta span{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:10px;color:var(--t2)}
+  .playlist-builder{padding:14px}
+  .playlist-grid{gap:8px}
+  .playlist-grid button,.playlist-grid .field,.playlist-grid select{width:100%}
+  .playlist-grid button{height:auto;min-height:42px}
+  .player{position:fixed;left:10px;right:10px;bottom:calc(82px + env(safe-area-inset-bottom));height:auto;min-height:0;padding:12px;border-radius:24px;gap:10px;flex-wrap:wrap;box-shadow:0 18px 48px rgba(0,0,0,.45);background:rgba(12,15,20,.92);border:1px solid rgba(255,255,255,.08)}
+  .p-track{width:100%;order:1;align-items:flex-start}
+  .p-cover{width:52px;height:52px;border-radius:12px}
+  .p-controls{width:100%;order:3;gap:8px}
+  .p-btns{width:100%;justify-content:space-between;gap:8px}
+  .p-right{width:100%;order:2;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .vol-row{flex:1;min-width:0}
+  .vol{width:100%}
+  .spd{min-width:72px;flex:1}
+  .player .cb{width:34px;height:34px}
+  .player .pbig{width:46px;height:46px}
+  .prog-row{max-width:none}
+  .mobile-nav{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;background:rgba(11,14,19,.88);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:7px;backdrop-filter:blur(24px);box-shadow:0 14px 38px rgba(0,0,0,.34)}
+  .mobile-nav .mn.on{background:rgba(0,193,106,.11);border-radius:14px}
+  .mobile-nav .mn.menu{color:var(--t1)}
+  body::before{opacity:.82;width:250px;height:250px;top:-84px;right:-92px;background:radial-gradient(circle at center, rgba(0,193,106,.22) 0%, rgba(0,193,106,0) 68%)}
+  body::after{opacity:.58;width:320px;height:320px;bottom:110px;left:-130px;background:radial-gradient(circle at center, rgba(0,153,82,.17) 0%, rgba(0,153,82,0) 72%)}
+}
 </style>
 </head>
 <body>
@@ -210,11 +294,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 
   <div class="main">
       <div class="topbar">
+      <button class="icon-btn mobile-menu-btn" onclick="toggleSidebar()" title="Меню"><i class="ti ti-menu-2"></i></button>
       <div class="search-box">
         <i class="ti ti-search"></i>
         <input id="srch" type="text" placeholder="Поиск сур и чтецов…"/>
       </div>
-      <div style="margin-left:auto;display:flex;align-items:center;gap:9px">
+      <div class="topbar-actions">
         <button class="icon-btn" onclick="toggleLang()" title="Сменить язык"><i class="ti ti-world"></i><span id="langBadge" style="font-size:11px;font-weight:700;margin-left:4px">RU</span></button>
         <button class="icon-btn"><i class="ti ti-bell"></i></button>
         <div class="av">A</div>
@@ -252,7 +337,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
           <div class="stat-card"><div class="stat-icon"><i class="ti ti-sparkles" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">HD</div><div style="font-size:11px;color:var(--t2)">Аудио</div></div></div>
         </div>
         <div class="sec-hd"><h2>Популярные чтецы</h2><button class="see-all" onclick="go('reciters')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
-        <div class="g4" id="hRec" style="margin-bottom:26px;grid-template-columns:repeat(5,1fr)"></div>
+        <div class="g4" id="hRec" style="margin-bottom:26px"></div>
         <div class="sec-hd"><h2>Популярные суры</h2><button class="see-all" onclick="go('surahs')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
         <div class="g3" id="hSur" style="margin-bottom:26px"></div>
         <div class="sec-hd"><h2>Плейлисты</h2><button class="see-all" onclick="go('playlists')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
@@ -346,6 +431,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
   </div>
 </div>
 
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="setSidebarOpen(false)"></div>
+
 <!-- PLAYER -->
 <div class="player">
   <div class="p-track">
@@ -389,6 +476,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
     <button class="cb" style="font-size:15px" title="Очередь"><i class="ti ti-list-details"></i></button>
   </div>
 </div>
+
+<nav class="mobile-nav" aria-label="Мобильная навигация">
+  <button class="mn on" data-p="home" onclick="go('home')"><i class="ti ti-home"></i><span>Главная</span></button>
+  <button class="mn" data-p="surahs" onclick="go('surahs')"><i class="ti ti-list"></i><span>Все суры</span></button>
+  <button class="mn" data-p="reciters" onclick="go('reciters')"><i class="ti ti-microphone"></i><span>Чтецы</span></button>
+  <button class="mn" data-p="playlists" onclick="go('playlists')"><i class="ti ti-playlist"></i><span>Плейлисты</span></button>
+  <button class="mn menu" data-action="menu" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i><span>Меню</span></button>
+</nav>
 
 <audio id="aud" preload="none"></audio>
 
@@ -730,6 +825,13 @@ const I18N = {
       byYourSurahs: 'Избран по вашим сурам',
       defaultPlaylistName: 'Мой плейлист',
     },
+    mobile: {
+      home: 'Главная',
+      surahs: 'Суры',
+      reciters: 'Чтецы',
+      playlists: 'Плейлисты',
+      menu: 'Меню',
+    },
     messages: {
       lang: 'Язык: русский',
       premiumSoon: 'Скоро, Ин шаа Аллах',
@@ -884,6 +986,13 @@ const I18N = {
       byYourSurahs: 'Saved from your liked surahs',
       defaultPlaylistName: 'My playlist',
     },
+    mobile: {
+      home: 'Home',
+      surahs: 'Surahs',
+      reciters: 'Reciters',
+      playlists: 'Playlists',
+      menu: 'Menu',
+    },
     messages: {
       lang: 'Language: English',
       premiumSoon: 'Coming soon, In sha Allah',
@@ -979,6 +1088,22 @@ function setButtonLabel(el, label, iconPosition='left') {
   else el.innerHTML = `${iconHTML}<span>${label}</span>`;
 }
 
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 920px)').matches;
+}
+
+function setSidebarOpen(open) {
+  const shouldOpen = !!open && isMobileViewport();
+  document.body.classList.toggle('sidebar-open', shouldOpen);
+  document.querySelectorAll('.mobile-nav .mn.menu, .mobile-menu-btn').forEach(btn => btn.classList.toggle('on', shouldOpen));
+}
+
+function toggleSidebar(force) {
+  if (!isMobileViewport()) return;
+  const next = typeof force === 'boolean' ? force : !document.body.classList.contains('sidebar-open');
+  setSidebarOpen(next);
+}
+
 function toggleLang() {
   currentLang = currentLang === 'ru' ? 'en' : 'ru';
   try { localStorage.setItem(LANG_KEY, currentLang); } catch (e) {}
@@ -1054,6 +1179,18 @@ function applyLanguage() {
     settings: 'nav.settings',
   };
   document.querySelectorAll('.nav .ni[data-p]').forEach(el => setButtonLabel(el, t(navMap[el.dataset.p]), 'left'));
+
+  const mobileNavMap = {
+    home: 'mobile.home',
+    surahs: 'mobile.surahs',
+    reciters: 'mobile.reciters',
+    playlists: 'mobile.playlists',
+  };
+  document.querySelectorAll('.mobile-nav .mn[data-p]').forEach(el => setButtonLabel(el, t(mobileNavMap[el.dataset.p]), 'left'));
+  const mobileMenu = document.querySelector('.mobile-nav .mn.menu');
+  if (mobileMenu) setButtonLabel(mobileMenu, t('mobile.menu'), 'left');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  if (menuBtn) menuBtn.title = t('mobile.menu');
 
   const proBox = document.querySelector('.pro-box');
   if (proBox) {
@@ -1436,6 +1573,11 @@ function sRowHTML(s) {
         <div style="font-size:13px;font-weight:600;color:${isCurrent?'var(--ac)':'var(--t1)'}">${s.name}</div>
         <div style="font-size:11px;color:var(--t2);font-family:serif">${s.ar}</div>
         ${recLine}
+        <div class="s-mobile-meta">
+          <span>${t('surahs.ayahCount', {count:s.n})}</span>
+          <span>${typeLabel(s.t)}</span>
+          <span>${s.dur}</span>
+        </div>
       </div>
     </div>
     <div style="font-size:12px;color:var(--t2)">${s.n}</div>
@@ -1451,11 +1593,13 @@ function renderHRec() {
   $('hRec').innerHTML = RECITERS.map((r,i)=>`
     <div class="rc-card${i===ri?' on':''}" onclick="setReciter(${i})">
       ${avHTML(r,54)}
-      <div style="font-size:13px;font-weight:700;margin-bottom:2px">${r.name}</div>
-      <div style="font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.4">${r.mosque}</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:4px">
-        <i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i>
-        <span style="font-size:11px;color:var(--t3)">${r.listeners}</span>
+      <div class="rc-content">
+        <div style="font-size:13px;font-weight:700;margin-bottom:2px">${r.name}</div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.4">${r.mosque}</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:4px">
+          <i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i>
+          <span style="font-size:11px;color:var(--t3)">${r.listeners}</span>
+        </div>
       </div>
       <div class="play-dot" onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
         <i class="ti ti-player-play"></i>
@@ -1679,6 +1823,8 @@ function go(p) {
   const pg = $('p-'+p);
   if (pg) pg.classList.add('on');
   document.querySelectorAll('.ni[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
+  document.querySelectorAll('.mobile-nav .mn[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
+  setSidebarOpen(false);
   if(p==='surahs')    renderSList();
   if(p==='reciters')  renderRec();
   if(p==='playlists') renderPlaylists();
@@ -1688,6 +1834,14 @@ function go(p) {
 
 document.querySelectorAll('.ni[data-p]').forEach(n=>{
   n.addEventListener('click', ()=>{ if(n.dataset.p) go(n.dataset.p); });
+});
+
+window.addEventListener('resize', ()=>{
+  if (!isMobileViewport()) setSidebarOpen(false);
+});
+
+document.addEventListener('keydown', e=>{
+  if (e.key === 'Escape') setSidebarOpen(false);
 });
 
 $('srch').addEventListener('input', function(){
