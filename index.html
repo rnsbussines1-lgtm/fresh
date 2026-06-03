@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FreshSound — Holy Quran</title>
+<title>FreshSound — Священный Коран</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='9' fill='%2300C16A'/><path d='M7 20 Q12 11 20 20 Q28 29 33 20' stroke='%23000' stroke-width='2.8' fill='none' stroke-linecap='round'/><circle cx='20' cy='20' r='3' fill='%23000'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
@@ -130,6 +130,35 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 .ph h3{font-size:15px;font-weight:600;color:var(--t2);margin-bottom:5px}
 .pl-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .18s}
 .pl-card:hover{border-color:rgba(0,193,106,.25);transform:translateY(-2px)}
+.playlist-builder{background:var(--bg2);border:1px solid var(--br);border-radius:16px;padding:16px;margin-bottom:18px}
+.field{width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--br);border-radius:9px;color:var(--t1);font-size:13px}
+.field:focus{border-color:rgba(0,193,106,.4)}
+.field::placeholder{color:var(--t3)}
+.playlist-grid{display:grid;grid-template-columns:1.25fr .9fr 1.2fr auto;gap:10px;align-items:center;margin-top:14px}
+.playlist-grid button{height:100%}
+.pl-big{background:var(--bg2);border:1px solid var(--br);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:all .18s}
+.pl-big:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
+.pl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pl-chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.pl-chip{padding:4px 8px;border-radius:999px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.18);font-size:10px;font-weight:600;color:var(--ac)}
+.pl-chip.alt{background:rgba(255,255,255,.05);border-color:var(--br);color:var(--t2)}
+.pl-actions{display:flex;flex-wrap:wrap;gap:8px}
+.mini-btn{padding:7px 11px;border-radius:8px;border:1px solid var(--br);background:transparent;color:var(--t1);font-size:12px;font-weight:600}
+.mini-btn.main{background:var(--ac);border-color:var(--ac);color:#000}
+.mini-btn.danger{border-color:rgba(224,85,85,.35);color:#ff8c8c}
+.empty-state{padding:28px 16px;text-align:center;color:var(--t2);border:1px dashed var(--br);border-radius:14px;background:rgba(255,255,255,.02)}
+.empty-state i{font-size:34px;color:rgba(0,193,106,.25);margin-bottom:8px}
+.section-note{font-size:12px;color:var(--t2);line-height:1.6}
+.rec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rec-mini{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center}
+.rec-mini.on{border-color:rgba(0,193,106,.45);background:rgba(0,193,106,.05)}
+.rec-mini .info{min-width:0}
+.rec-mini .name{font-size:14px;font-weight:700;margin-bottom:2px}
+.rec-mini .sub{font-size:12px;color:var(--t2);font-family:serif;margin-bottom:6px}
+.rec-mini .meta{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px}
+.fav-reciters{margin-top:18px}
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.set-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px}
 
 .toast{position:fixed;top:18px;right:18px;background:var(--bg3);border:1px solid var(--br2);border-radius:9px;padding:9px 15px;font-size:12px;color:var(--t1);z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;display:flex;align-items:center;gap:7px}
 .toast.show{opacity:1}
@@ -161,32 +190,32 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
       </div>
     </div>
     <div class="nav">
-      <div class="nav-label">Menu</div>
-      <div class="ni on" data-p="home"><i class="ti ti-home"></i>Home</div>
-      <div class="ni" data-p="surahs"><i class="ti ti-list"></i>All Surahs</div>
-      <div class="ni" data-p="reciters"><i class="ti ti-microphone"></i>Reciters</div>
-      <div class="ni" data-p="favs"><i class="ti ti-heart"></i>Favourites</div>
-      <div class="ni" data-p="hist"><i class="ti ti-history"></i>History</div>
-      <div class="ni" data-p="playlists"><i class="ti ti-playlist"></i>Playlists</div>
-      <div class="ni" data-p="dl"><i class="ti ti-download"></i>Downloads</div>
-      <div class="nav-label">Account</div>
-      <div class="ni" data-p=""><i class="ti ti-settings"></i>Settings</div>
+      <div class="nav-label">Меню</div>
+      <div class="ni on" data-p="home"><i class="ti ti-home"></i>Главная</div>
+      <div class="ni" data-p="surahs"><i class="ti ti-list"></i>Все суры</div>
+      <div class="ni" data-p="reciters"><i class="ti ti-microphone"></i>Чтецы</div>
+      <div class="ni" data-p="favs"><i class="ti ti-heart"></i>Избранное</div>
+      <div class="ni" data-p="hist"><i class="ti ti-history"></i>История</div>
+      <div class="ni" data-p="playlists"><i class="ti ti-playlist"></i>Плейлисты</div>
+      <div class="ni" data-p="dl"><i class="ti ti-download"></i>Загрузки</div>
+      <div class="nav-label">Аккаунт</div>
+      <div class="ni" data-p="settings"><i class="ti ti-settings"></i>Настройки</div>
     </div>
     <div class="pro-box">
-      <h4><i class="ti ti-crown" style="color:var(--ac);font-size:14px"></i>Go Premium</h4>
-      <p>HD audio, offline & ad-free experience</p>
-      <button class="pro-btn">Upgrade Now</button>
+      <h4><i class="ti ti-crown" style="color:var(--ac);font-size:14px"></i>Премиум</h4>
+      <p>HD-качество, офлайн и без рекламы</p>
+      <button class="pro-btn" onclick="toast(t('messages.premiumSoon'))">Купить премиум</button>
     </div>
   </aside>
 
   <div class="main">
-    <div class="topbar">
+      <div class="topbar">
       <div class="search-box">
         <i class="ti ti-search"></i>
-        <input id="srch" type="text" placeholder="Search surahs, reciters…"/>
+        <input id="srch" type="text" placeholder="Поиск сур и чтецов…"/>
       </div>
       <div style="margin-left:auto;display:flex;align-items:center;gap:9px">
-        <button class="icon-btn"><i class="ti ti-world"></i></button>
+        <button class="icon-btn" onclick="toggleLang()" title="Сменить язык"><i class="ti ti-world"></i><span id="langBadge" style="font-size:11px;font-weight:700;margin-left:4px">RU</span></button>
         <button class="icon-btn"><i class="ti ti-bell"></i></button>
         <div class="av">A</div>
       </div>
@@ -207,78 +236,111 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
             </svg>
           </div>
           <div class="hero-inner">
-            <div class="hero-badge"><i class="ti ti-circle-check" style="font-size:12px"></i>Premium Quality Streaming</div>
+            <div class="hero-badge"><i class="ti ti-circle-check" style="font-size:12px"></i>Премиум качество</div>
             <h1>Fresh<span>Sound</span></h1>
-            <p>Listen to the Holy Quran in high quality — anytime, anywhere, with your favourite reciters.</p>
+            <p>Слушайте Священный Коран в высоком качестве в любое время и в любом месте, с любимыми чтецами.</p>
             <div class="hero-btns">
-              <button class="btn-g" onclick="playSurahAtIdx(0)"><i class="ti ti-player-play" style="font-size:14px"></i>Start Listening</button>
-              <button class="btn-w" onclick="go('reciters')"><i class="ti ti-users" style="font-size:14px"></i>Reciters</button>
+              <button class="btn-g" onclick="playSurahAtIdx(0)"><i class="ti ti-player-play" style="font-size:14px"></i>Начать прослушивание</button>
+              <button class="btn-w" onclick="go('reciters')"><i class="ti ti-users" style="font-size:14px"></i>Чтецы</button>
             </div>
           </div>
         </div>
         <div class="g-stats">
-          <div class="stat-card"><div class="stat-icon"><i class="ti ti-book" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">114</div><div style="font-size:11px;color:var(--t2)">Surahs</div></div></div>
-          <div class="stat-card"><div class="stat-icon"><i class="ti ti-microphone" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700" id="statRecCnt">5</div><div style="font-size:11px;color:var(--t2)">Reciters</div></div></div>
-          <div class="stat-card"><div class="stat-icon"><i class="ti ti-headphones" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">2.1M</div><div style="font-size:11px;color:var(--t2)">Listeners</div></div></div>
-          <div class="stat-card"><div class="stat-icon"><i class="ti ti-sparkles" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">HD</div><div style="font-size:11px;color:var(--t2)">Audio</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-book" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">114</div><div style="font-size:11px;color:var(--t2)">Сур</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-microphone" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700" id="statRecCnt">5</div><div style="font-size:11px;color:var(--t2)">Чтецов</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-headphones" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">2.1M</div><div style="font-size:11px;color:var(--t2)">Слушателей</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-sparkles" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">HD</div><div style="font-size:11px;color:var(--t2)">Аудио</div></div></div>
         </div>
-        <div class="sec-hd"><h2>Popular Reciters</h2><button class="see-all" onclick="go('reciters')">View all<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="sec-hd"><h2>Популярные чтецы</h2><button class="see-all" onclick="go('reciters')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
         <div class="g4" id="hRec" style="margin-bottom:26px;grid-template-columns:repeat(5,1fr)"></div>
-        <div class="sec-hd"><h2>Popular Surahs</h2><button class="see-all" onclick="go('surahs')">View all<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="sec-hd"><h2>Популярные суры</h2><button class="see-all" onclick="go('surahs')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
         <div class="g3" id="hSur" style="margin-bottom:26px"></div>
-        <div class="sec-hd"><h2>Playlists</h2><button class="see-all" onclick="go('playlists')">View all<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="sec-hd"><h2>Плейлисты</h2><button class="see-all" onclick="go('playlists')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
         <div class="g3" id="hPl"></div>
       </div>
 
       <!-- SURAHS -->
       <div class="page" id="p-surahs">
-        <div style="font-size:19px;font-weight:700;margin-bottom:3px">All Surahs</div>
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Все суры</div>
         <div id="sCount" style="font-size:12px;color:var(--t2);margin-bottom:16px"></div>
         <div style="display:flex;gap:7px;margin-bottom:16px" id="sFilters">
-          <button class="tag on" onclick="setFilter('All',this)">All</button>
-          <button class="tag" onclick="setFilter('Meccan',this)">Meccan</button>
-          <button class="tag" onclick="setFilter('Medinan',this)">Medinan</button>
+          <button class="tag on" onclick="setFilter('All',this)">Все</button>
+          <button class="tag" onclick="setFilter('Meccan',this)">Мекканские</button>
+          <button class="tag" onclick="setFilter('Medinan',this)">Мединские</button>
         </div>
         <div class="s-table">
-          <div class="s-head"><span>#</span><span>Surah</span><span>Ayahs</span><span>Type</span><span>Dur.</span><span></span></div>
+          <div class="s-head"><span>#</span><span>Сура</span><span>Аятов</span><span>Тип</span><span>Длит.</span><span></span></div>
           <div id="sList"></div>
         </div>
       </div>
 
       <!-- RECITERS -->
       <div class="page" id="p-reciters">
-        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Reciters</div>
-        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Choose your preferred reciter</div>
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Чтецы</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Выберите любимого чтеца</div>
         <div class="g2" id="rCards"></div>
         <div style="margin-top:18px;padding:16px;background:var(--bg2);border:1px solid var(--br);border-radius:13px;display:flex;align-items:center;gap:12px">
           <div style="width:38px;height:38px;border-radius:9px;background:rgba(0,193,106,.11);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-info-circle" style="font-size:19px;color:var(--ac)"></i></div>
-          <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Current reciter</div><div style="font-size:12px;color:var(--t2)">Playing with <span id="curRLabel" style="color:var(--ac);font-weight:600"></span></div></div>
+          <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Текущий чтец</div><div style="font-size:12px;color:var(--t2)">Воспроизведение с <span id="curRLabel" style="color:var(--ac);font-weight:600"></span></div></div>
         </div>
       </div>
 
       <!-- PLAYLISTS -->
       <div class="page" id="p-playlists">
-        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Playlists</div>
-        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Curated for every moment</div>
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Плейлисты</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Подборки и ваши собственные плейлисты с выбранным чтецом</div>
+        <div class="playlist-builder">
+          <div style="font-size:15px;font-weight:700;margin-bottom:4px">Создать свой плейлист</div>
+          <div class="section-note">Укажите чтеца и номера сур через запятую. Если поле пустое, будут взяты ваши избранные суры.</div>
+          <div class="playlist-grid">
+            <input id="plName" class="field" type="text" placeholder="Название плейлиста"/>
+            <select id="plRecSel" class="field"></select>
+            <input id="plIds" class="field" type="text" placeholder="Суры: 1, 18, 36"/>
+            <button class="mini-btn main" onclick="createPlaylist()">Создать</button>
+          </div>
+        </div>
+        <div class="sec-hd"><h2>Ваши плейлисты</h2></div>
+        <div id="customPlWrap" class="g2" style="margin-bottom:24px"></div>
+        <div class="sec-hd"><h2>Подборки</h2></div>
         <div class="g2" id="plCards"></div>
       </div>
 
       <!-- FAVS -->
       <div class="page" id="p-favs">
-        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Favourites</div>
-        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Your liked surahs</div>
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Избранное</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Ваши отмеченные суры и чтецы, с которыми они были отмечены</div>
         <div id="favWrap"></div>
+        <div class="fav-reciters">
+          <div class="sec-hd"><h2>Чтецы из избранного</h2></div>
+          <div id="favRecWrap" class="rec-grid"></div>
+        </div>
       </div>
 
       <!-- HISTORY -->
       <div class="page" id="p-hist">
-        <div style="font-size:19px;font-weight:700;margin-bottom:3px">History</div>
-        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Recently played</div>
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">История</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Недавно воспроизводилось</div>
         <div id="histWrap"></div>
       </div>
 
       <div class="page" id="p-dl">
-        <div class="ph"><i class="ti ti-download"></i><h3>Downloads</h3><p style="font-size:12px">Offline surahs appear here (Premium)</p></div>
+        <div class="ph"><i class="ti ti-download"></i><h3>Загрузки</h3><p style="font-size:12px">Офлайн-суры появятся здесь (премиум)</p></div>
+      </div>
+
+      <div class="page" id="p-settings">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Настройки</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Интерфейс на русском и быстрые действия</div>
+        <div class="settings-grid">
+          <div class="set-card">
+            <div style="font-size:14px;font-weight:700;margin-bottom:6px">Язык</div>
+            <div class="section-note">Сейчас интерфейс работает на русском языке. При желании можно расширить его на другие языки позже.</div>
+          </div>
+          <div class="set-card">
+            <div style="font-size:14px;font-weight:700;margin-bottom:6px">Премиум</div>
+            <div class="section-note" style="margin-bottom:10px">Покупка премиума пока недоступна.</div>
+            <button class="mini-btn main" onclick="toast(t('messages.premiumSoon'))">Купить премиум</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -292,18 +354,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
       <i class="ti ti-loader spin" id="pSpin" style="font-size:12px;color:var(--ac);display:none;margin-top:2px"></i>
     </div>
     <div style="min-width:0;flex:1">
-      <div id="pName" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Select a surah</div>
+      <div id="pName" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Выберите суру</div>
       <div id="pRec" style="font-size:11px;color:var(--t2)">—</div>
     </div>
-    <button class="lk" id="pLk" onclick="likeCur()" aria-label="Like"><i class="ti ti-heart" style="font-size:16px"></i></button>
+    <button class="lk" id="pLk" onclick="likeCur()" aria-label="Нравится"><i class="ti ti-heart" style="font-size:16px"></i></button>
   </div>
   <div class="p-controls">
     <div class="p-btns">
-      <button class="cb" id="shBtn" onclick="toggleShuffle()" title="Shuffle"><i class="ti ti-arrows-shuffle"></i></button>
-      <button class="cb" onclick="prevS()" title="Previous"><i class="ti ti-player-skip-back"></i></button>
-      <button class="pbig" id="playBtn" onclick="togglePlay()" title="Play/Pause"><i class="ti ti-player-play" id="pIco"></i></button>
-      <button class="cb" onclick="nextS()" title="Next"><i class="ti ti-player-skip-forward"></i></button>
-      <button class="cb" id="rpBtn" onclick="toggleRepeat()" title="Repeat"><i class="ti ti-repeat"></i></button>
+      <button class="cb" id="shBtn" onclick="toggleShuffle()" title="Перемешать"><i class="ti ti-arrows-shuffle"></i></button>
+      <button class="cb" onclick="prevS()" title="Предыдущая"><i class="ti ti-player-skip-back"></i></button>
+      <button class="pbig" id="playBtn" onclick="togglePlay()" title="Воспроизведение"><i class="ti ti-player-play" id="pIco"></i></button>
+      <button class="cb" onclick="nextS()" title="Следующая"><i class="ti ti-player-skip-forward"></i></button>
+      <button class="cb" id="rpBtn" onclick="toggleRepeat()" title="Повтор"><i class="ti ti-repeat"></i></button>
     </div>
     <div class="prog-row">
       <span class="tm" id="tCur">0:00</span>
@@ -313,7 +375,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
   </div>
   <div class="p-right">
     <div class="vol-row">
-      <button class="cb" style="width:26px;height:26px;font-size:15px" onclick="toggleMute()" title="Mute"><i class="ti ti-volume" id="vIco"></i></button>
+      <button class="cb" style="width:26px;height:26px;font-size:15px" onclick="toggleMute()" title="Без звука"><i class="ti ti-volume" id="vIco"></i></button>
       <input type="range" class="vol" id="volBar" min="0" max="100" value="80" oninput="setVol(this.value)"/>
     </div>
     <select class="spd" id="spdSel" onchange="setSpd(this.value)">
@@ -324,7 +386,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
       <option value="1.5">1.5×</option>
       <option value="2">2×</option>
     </select>
-    <button class="cb" style="font-size:15px" title="Queue"><i class="ti ti-list-details"></i></button>
+    <button class="cb" style="font-size:15px" title="Очередь"><i class="ti ti-list-details"></i></button>
   </div>
 </div>
 
@@ -519,23 +581,366 @@ const RECITERS = [
 ];
 
 const PLAYLISTS = [
-  {name:"Morning Adhkar",     icon:"ti-sun",     cnt:8,  desc:"Start your day with peace"},
-  {name:"Evening Reflection", icon:"ti-moon",    cnt:6,  desc:"Peaceful evening recitations"},
-  {name:"Quran Study",        icon:"ti-book",    cnt:12, desc:"Learn verse by verse"},
-  {name:"Before Sleep",       icon:"ti-bed",     cnt:5,  desc:"Soothing night recitations"},
-  {name:"Deep Focus",         icon:"ti-brain",   cnt:9,  desc:"Stay mindful while working"},
-  {name:"Ramadan Special",    icon:"ti-star",    cnt:30, desc:"Complete Ramadan collection"},
+  {name:{ru:"Утреннее спокойствие", en:"Morning Calm"}, icon:"ti-sun",   desc:{ru:"Мягкое начало дня", en:"A calm start to the day"}, surahIds:[1,112,113,114,67,78]},
+  {name:{ru:"Вечернее размышление", en:"Evening Reflection"}, icon:"ti-moon",  desc:{ru:"Спокойные вечерние чтения", en:"Peaceful evening recitations"}, surahIds:[36,55,56,67,97]},
+  {name:{ru:"Учёба Корана", en:"Quran Study"},         icon:"ti-book",   desc:{ru:"Учитесь по аятам и смыслам", en:"Learn verse by verse"}, surahIds:[1,2,18,36,67,78]},
+  {name:{ru:"Перед сном", en:"Before Sleep"},           icon:"ti-bed",    desc:{ru:"Мягкие чтения на ночь", en:"Soothing night recitations"}, surahIds:[112,113,114,67]},
+  {name:{ru:"Глубокий фокус", en:"Deep Focus"},       icon:"ti-brain",  desc:{ru:"Слушайте во время работы", en:"Stay mindful while working"}, surahIds:[18,55,67,93,94,95]},
+  {name:{ru:"Рамадан", en:"Ramadan Special"},              icon:"ti-star",   desc:{ru:"Подборка для Рамадана", en:"A Ramadan-inspired collection"}, surahIds:[1,2,18,36,55,67,78,97,112,113]},
 ];
 
 // Popular surah IDs to feature on home page (by official Quran ID)
 const POPULAR_SURAH_IDS = [1, 36, 67, 55, 18, 78];
 
+const LANG_KEY = 'freshsound-lang';
+const I18N = {
+  ru: {
+    title: 'FreshSound — Священный Коран',
+    searchPlaceholder: 'Поиск сур и чтецов…',
+    langBadge: 'RU',
+    logoTag: 'Священный Коран',
+    nav: {
+      menu: 'Меню',
+      home: 'Главная',
+      surahs: 'Все суры',
+      reciters: 'Чтецы',
+      favs: 'Избранное',
+      hist: 'История',
+      playlists: 'Плейлисты',
+      downloads: 'Загрузки',
+      account: 'Аккаунт',
+      settings: 'Настройки',
+    },
+    premium: {
+      title: 'Премиум',
+      desc: 'HD-качество, офлайн и без рекламы',
+      button: 'Купить премиум',
+    },
+    hero: {
+      badge: 'Премиум качество',
+      desc: 'Слушайте Священный Коран в высоком качестве в любое время и в любом месте, с любимыми чтецами.',
+      start: 'Начать прослушивание',
+      reciters: 'Чтецы',
+    },
+    stats: {
+      surahs: 'Сур',
+      reciters: 'Чтецов',
+      listeners: 'Слушателей',
+      audio: 'Аудио',
+    },
+    home: {
+      reciters: 'Популярные чтецы',
+      surahs: 'Популярные суры',
+      playlists: 'Плейлисты',
+      all: 'Все',
+    },
+    surahs: {
+      title: 'Все суры',
+      all: 'Все',
+      meccan: 'Мекканские',
+      medinan: 'Мединские',
+      surah: 'Сура',
+      ayahs: 'Аятов',
+      ayahCount: ({count}) => `${count} аятов`,
+      type: 'Тип',
+      duration: 'Длит.',
+      count: ({count, total}) => `${count} из ${total} сур`,
+      emptyTitle: 'Ничего не найдено',
+      emptyDesc: 'Попробуйте другой запрос или сбросьте фильтр.',
+    },
+    reciters: {
+      title: 'Чтецы',
+      subtitle: 'Выберите любимого чтеца',
+      current: 'Текущий чтец',
+      playingWith: 'Воспроизведение с',
+      play: 'Играть',
+    },
+    playlists: {
+      title: 'Плейлисты',
+      subtitle: 'Подборки и ваши собственные плейлисты с выбранным чтецом',
+      createTitle: 'Создать свой плейлист',
+      createDesc: 'Укажите чтеца и номера сур через запятую. Если поле пустое, будут взяты ваши избранные суры.',
+      namePlaceholder: 'Название плейлиста',
+      idsPlaceholder: 'Суры: 1, 18, 36',
+      createBtn: 'Создать',
+      your: 'Ваши плейлисты',
+      collections: 'Подборки',
+      none: 'Пока нет своих плейлистов',
+      noneDesc: 'Создайте первый плейлист из выбранных сур и чтеца.',
+      play: 'Играть',
+      delete: 'Удалить',
+      meta: ({count}) => `${count} сур`,
+    },
+    favs: {
+      title: 'Избранное',
+      subtitle: 'Ваши отмеченные суры и чтецы, с которыми они были отмечены',
+      reciters: 'Чтецы из избранного',
+      none: 'Пока нет чтецов в избранном',
+      noneDesc: 'Отметьте любую суру сердечком, и чтец появится здесь.',
+      meta: 'Избран по вашим сурам',
+    },
+    hist: {
+      title: 'История',
+      subtitle: 'Недавно воспроизводилось',
+    },
+    downloads: {
+      title: 'Загрузки',
+      desc: 'Офлайн-суры появятся здесь (премиум)',
+    },
+    settings: {
+      title: 'Настройки',
+      subtitle: 'Интерфейс на русском и быстрые действия',
+      languageTitle: 'Язык',
+      languageDesc: 'Сейчас интерфейс работает на русском языке. При желании можно расширить его на другие языки позже.',
+      premiumTitle: 'Премиум',
+      premiumDesc: 'Покупка премиума пока недоступна.',
+      premiumButton: 'Купить премиум',
+    },
+    player: {
+      selectSurah: 'Выберите суру',
+      like: 'Нравится',
+      shuffle: 'Перемешать',
+      previous: 'Предыдущая',
+      play: 'Воспроизведение',
+      next: 'Следующая',
+      repeat: 'Повтор',
+      mute: 'Без звука',
+      queue: 'Очередь',
+    },
+    type: {
+      meccan: 'Мекканская',
+      medinan: 'Мединская',
+    },
+    ui: {
+      all: 'Все',
+      play: 'Играть',
+      delete: 'Удалить',
+      surahCount: ({count}) => `${count} сур`,
+      reciterLabel: 'Чтец',
+      langToggle: 'Сменить язык',
+      noSearchTitle: 'Ничего не найдено',
+      noSearchDesc: 'Попробуйте другой запрос или сбросьте фильтр.',
+      emptyTitle: 'Здесь пока пусто',
+      emptyDesc: 'Добавьте суры в избранное или посмотрите историю прослушиваний.',
+      emptyChip: 'Пусто',
+      noCustomTitle: 'Пока нет своих плейлистов',
+      noCustomDesc: 'Создайте первый плейлист из выбранных сур и чтеца.',
+      noFavRecitersTitle: 'Пока нет чтецов в избранном',
+      noFavRecitersDesc: 'Отметьте любую суру сердечком, и чтец появится здесь.',
+      byYourSurahs: 'Избран по вашим сурам',
+      defaultPlaylistName: 'Мой плейлист',
+    },
+    messages: {
+      lang: 'Язык: русский',
+      premiumSoon: 'Скоро, Ин шаа Аллах',
+      noAudio: 'Не удалось получить ссылку на аудио для этого чтеца.',
+      tapPlay: 'Нажмите "Воспроизведение" ещё раз — браузеру нужен жест пользователя.',
+      blocked: 'Воспроизведение заблокировано — нажмите кнопку ещё раз.',
+      audioFailed: 'Не удалось загрузить аудио.',
+      audioError: ({code, message}) => `Ошибка аудио ${code}: ${message}`,
+      tryOtherReciter: 'Попробуйте другого чтеца.',
+      switchedReciter: ({name}) => `Чтец: ${name}`,
+      addedFav: 'Добавлено в избранное',
+      removedFav: 'Удалено из избранного',
+      needSurahs: 'Сначала выберите суры или отметьте их сердечком.',
+      playlistCreated: 'Плейлист создан',
+      playlistDeleted: 'Плейлист удалён',
+      playlistPrefix: ({name}) => `Плейлист: ${name}`,
+    },
+  },
+  en: {
+    title: 'FreshSound — Holy Quran',
+    searchPlaceholder: 'Search surahs and reciters…',
+    langBadge: 'EN',
+    logoTag: 'Holy Quran',
+    nav: {
+      menu: 'Menu',
+      home: 'Home',
+      surahs: 'All Surahs',
+      reciters: 'Reciters',
+      favs: 'Favourites',
+      hist: 'History',
+      playlists: 'Playlists',
+      downloads: 'Downloads',
+      account: 'Account',
+      settings: 'Settings',
+    },
+    premium: {
+      title: 'Premium',
+      desc: 'HD audio, offline and ad-free',
+      button: 'Buy Premium',
+    },
+    hero: {
+      badge: 'Premium quality',
+      desc: 'Listen to the Holy Quran in high quality anytime, anywhere, with your favourite reciters.',
+      start: 'Start Listening',
+      reciters: 'Reciters',
+    },
+    stats: {
+      surahs: 'Surahs',
+      reciters: 'Reciters',
+      listeners: 'Listeners',
+      audio: 'Audio',
+    },
+    home: {
+      reciters: 'Popular Reciters',
+      surahs: 'Popular Surahs',
+      playlists: 'Playlists',
+      all: 'All',
+    },
+    surahs: {
+      title: 'All Surahs',
+      all: 'All',
+      meccan: 'Meccan',
+      medinan: 'Medinan',
+      surah: 'Surah',
+      ayahs: 'Ayahs',
+      ayahCount: ({count}) => `${count} ayahs`,
+      type: 'Type',
+      duration: 'Dur.',
+      count: ({count, total}) => `${count} of ${total} surahs`,
+      emptyTitle: 'Nothing found',
+      emptyDesc: 'Try another query or clear the filter.',
+    },
+    reciters: {
+      title: 'Reciters',
+      subtitle: 'Choose your favourite reciter',
+      current: 'Current reciter',
+      playingWith: 'Playing with',
+      play: 'Play',
+    },
+    playlists: {
+      title: 'Playlists',
+      subtitle: 'Curated mixes and your own playlists with a chosen reciter',
+      createTitle: 'Create your playlist',
+      createDesc: 'Choose a reciter and enter surah numbers separated by commas. If left blank, your liked surahs will be used.',
+      namePlaceholder: 'Playlist name',
+      idsPlaceholder: 'Surahs: 1, 18, 36',
+      createBtn: 'Create',
+      your: 'Your playlists',
+      collections: 'Collections',
+      none: 'No custom playlists yet',
+      noneDesc: 'Create your first playlist from selected surahs and a reciter.',
+      play: 'Play',
+      delete: 'Delete',
+      meta: ({count}) => `${count} surahs`,
+    },
+    favs: {
+      title: 'Favourites',
+      subtitle: 'Your liked surahs and the reciters they were liked with',
+      reciters: 'Favourite reciters',
+      none: 'No favourite reciters yet',
+      noneDesc: 'Like any surah and its reciter will appear here.',
+      meta: 'Saved from your liked surahs',
+    },
+    hist: {
+      title: 'History',
+      subtitle: 'Recently played',
+    },
+    downloads: {
+      title: 'Downloads',
+      desc: 'Offline surahs appear here (Premium)',
+    },
+    settings: {
+      title: 'Settings',
+      subtitle: 'English interface and quick actions',
+      languageTitle: 'Language',
+      languageDesc: 'The interface is currently in English. You can expand it to other languages later.',
+      premiumTitle: 'Premium',
+      premiumDesc: 'Premium purchase is not available yet.',
+      premiumButton: 'Buy Premium',
+    },
+    player: {
+      selectSurah: 'Select a surah',
+      like: 'Like',
+      shuffle: 'Shuffle',
+      previous: 'Previous',
+      play: 'Play/Pause',
+      next: 'Next',
+      repeat: 'Repeat',
+      mute: 'Mute',
+      queue: 'Queue',
+    },
+    type: {
+      meccan: 'Meccan',
+      medinan: 'Medinan',
+    },
+    ui: {
+      all: 'All',
+      play: 'Play',
+      delete: 'Delete',
+      surahCount: ({count}) => `${count} surahs`,
+      reciterLabel: 'Reciter',
+      langToggle: 'Switch language',
+      noSearchTitle: 'Nothing found',
+      noSearchDesc: 'Try another query or clear the filter.',
+      emptyTitle: 'Nothing here yet',
+      emptyDesc: 'Add surahs to favourites or check your listening history.',
+      emptyChip: 'Empty',
+      noCustomTitle: 'No custom playlists yet',
+      noCustomDesc: 'Create your first playlist from selected surahs and a reciter.',
+      noFavRecitersTitle: 'No favourite reciters yet',
+      noFavRecitersDesc: 'Like any surah and its reciter will appear here.',
+      byYourSurahs: 'Saved from your liked surahs',
+      defaultPlaylistName: 'My playlist',
+    },
+    messages: {
+      lang: 'Language: English',
+      premiumSoon: 'Coming soon, In sha Allah',
+      noAudio: 'Could not resolve audio URL for this reciter.',
+      tapPlay: 'Tap Play again - the browser needs a user gesture.',
+      blocked: 'Playback blocked - press the button again.',
+      audioFailed: 'Audio failed to load.',
+      audioError: ({code, message}) => `Audio error ${code}: ${message}`,
+      tryOtherReciter: 'Try another reciter.',
+      switchedReciter: ({name}) => `Reciter: ${name}`,
+      addedFav: 'Added to favourites',
+      removedFav: 'Removed from favourites',
+      needSurahs: 'First choose some surahs or like them.',
+      playlistCreated: 'Playlist created',
+      playlistDeleted: 'Playlist deleted',
+      playlistPrefix: ({name}) => `Playlist: ${name}`,
+    },
+  },
+};
+
+const savedLang = (() => {
+  try { return localStorage.getItem(LANG_KEY); } catch (e) { return null; }
+})();
+
 // ─────────────────────────────────────────────
 // STATE
 // ci = current index in SURAHS array (NOT surah id)
 // ─────────────────────────────────────────────
+const STORAGE_KEY = 'freshsound-state-v2';
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      likes,
+      likeMeta,
+      hist,
+      customPlaylists
+    }));
+  } catch (e) {}
+}
+
+const savedState = loadState();
 let ci=0, ri=0, playing=false, shuffle=false, repeat=false, muted=false, prevVol=80;
-let likes={}, hist=[], filt='All', q='';
+let likes = savedState.likes && typeof savedState.likes === 'object' ? savedState.likes : {};
+let likeMeta = savedState.likeMeta && typeof savedState.likeMeta === 'object' ? savedState.likeMeta : {};
+let hist = Array.isArray(savedState.hist) ? savedState.hist : [];
+let customPlaylists = Array.isArray(savedState.customPlaylists) ? savedState.customPlaylists : [];
+let filt='All', q='', currentPage='home';
+let currentLang = savedLang === 'en' ? 'en' : 'ru';
+let activeQueue = null, activeQueueIndex = -1, activeQueueName = '', activeQueueKind = null, activeQueueRef = null;
 // Cache: "reciterApiId-surahId" → audio_url
 const urlCache = {};
 
@@ -547,7 +952,56 @@ aud.volume = 0.8;
 // ─────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 
+function localize(value) {
+  if (value && typeof value === 'object') {
+    return value[currentLang] ?? value.ru ?? value.en ?? '';
+  }
+  return value ?? '';
+}
+
+function t(path, vars = {}) {
+  const resolved = path.split('.').reduce((obj, key) => (obj && obj[key] !== undefined) ? obj[key] : undefined, I18N[currentLang])
+    ?? path.split('.').reduce((obj, key) => (obj && obj[key] !== undefined) ? obj[key] : undefined, I18N.ru)
+    ?? path;
+  if (typeof resolved === 'function') return resolved(vars);
+  return String(resolved).replace(/\{(\w+)\}/g, (_, key) => vars[key] ?? '');
+}
+
+function setButtonLabel(el, label, iconPosition='left') {
+  if (!el) return;
+  const icon = el.querySelector('i');
+  if (!icon) {
+    el.textContent = label;
+    return;
+  }
+  const iconHTML = icon.outerHTML;
+  if (iconPosition === 'right') el.innerHTML = `<span>${label}</span>${iconHTML}`;
+  else el.innerHTML = `${iconHTML}<span>${label}</span>`;
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'ru' ? 'en' : 'ru';
+  try { localStorage.setItem(LANG_KEY, currentLang); } catch (e) {}
+  applyLanguage();
+  toast(t('messages.lang'));
+}
+
 const pad3 = n => String(n).padStart(3, '0'); // 1→"001", 12→"012", 114→"114"
+const typeLabel = type => type === 'Meccan' ? t('type.meccan') : t('type.medinan');
+const uniqueIds = arr => [...new Set(arr.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= 114))];
+const parseSurahIds = raw => uniqueIds((raw || '').split(/[\s,;]+/).filter(Boolean).map(n => parseInt(n, 10)));
+const likedReciterIndices = () => [...new Set(
+  Object.keys(likes)
+    .filter(id => likes[id])
+    .map(id => likeMeta[id]?.reciterIdx)
+    .filter(i => Number.isInteger(i) && RECITERS[i])
+)];
+const playlistLabel = pl => localize(pl.name);
+const playlistDesc = pl => localize(pl.desc);
+const previewChips = ids => ids.slice(0, 4).map(id => {
+  const s = SURAHS.find(x => x.id === id);
+  return s ? `<span class="pl-chip alt" title="${s.name}">${s.id}</span>` : '';
+}).join('');
 
 const fmt = s => {
   if (!s || isNaN(s)) return '0:00';
@@ -572,6 +1026,195 @@ function toast(msg, isErr=false) {
 function setLoading(on) {
   $('pSpin').style.display = on ? 'inline-block' : 'none';
   $('pNum').style.display  = on ? 'none' : 'inline-block';
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLang;
+  document.title = t('title');
+
+  if ($('langBadge')) $('langBadge').textContent = t('langBadge');
+  const langBtn = document.querySelector('button[onclick="toggleLang()"]');
+  if (langBtn) langBtn.title = t('ui.langToggle');
+  if ($('srch')) $('srch').placeholder = t('searchPlaceholder');
+
+  const navLabels = document.querySelectorAll('.nav .nav-label');
+  if (navLabels[0]) navLabels[0].textContent = t('nav.menu');
+  if (navLabels[1]) navLabels[1].textContent = t('nav.account');
+  const logoTag = document.querySelector('.logo-tag');
+  if (logoTag) logoTag.textContent = t('logoTag');
+
+  const navMap = {
+    home: 'nav.home',
+    surahs: 'nav.surahs',
+    reciters: 'nav.reciters',
+    favs: 'nav.favs',
+    hist: 'nav.hist',
+    playlists: 'nav.playlists',
+    dl: 'nav.downloads',
+    settings: 'nav.settings',
+  };
+  document.querySelectorAll('.nav .ni[data-p]').forEach(el => setButtonLabel(el, t(navMap[el.dataset.p]), 'left'));
+
+  const proBox = document.querySelector('.pro-box');
+  if (proBox) {
+    setButtonLabel(proBox.querySelector('h4'), t('premium.title'), 'left');
+    const proText = proBox.querySelector('p');
+    if (proText) proText.textContent = t('premium.desc');
+    const proBtn = proBox.querySelector('.pro-btn');
+    if (proBtn) proBtn.textContent = t('premium.button');
+  }
+
+  const heroBadge = document.querySelector('#p-home .hero-badge');
+  if (heroBadge) setButtonLabel(heroBadge, t('hero.badge'), 'left');
+  const heroDesc = document.querySelector('#p-home .hero p');
+  if (heroDesc) heroDesc.textContent = t('hero.desc');
+  const heroBtns = document.querySelectorAll('#p-home .hero-btns button');
+  if (heroBtns[0]) setButtonLabel(heroBtns[0], t('hero.start'), 'left');
+  if (heroBtns[1]) setButtonLabel(heroBtns[1], t('hero.reciters'), 'left');
+
+  const stats = document.querySelectorAll('#p-home .stat-card');
+  if (stats[0]?.children[1]?.children[1]) stats[0].children[1].children[1].textContent = t('stats.surahs');
+  if (stats[1]?.children[1]?.children[1]) stats[1].children[1].children[1].textContent = t('stats.reciters');
+  if (stats[2]?.children[1]?.children[1]) stats[2].children[1].children[1].textContent = t('stats.listeners');
+  if (stats[3]?.children[1]?.children[1]) stats[3].children[1].children[1].textContent = t('stats.audio');
+
+  const homeSecs = document.querySelectorAll('#p-home .sec-hd');
+  if (homeSecs[0]) {
+    const h2 = homeSecs[0].querySelector('h2');
+    const see = homeSecs[0].querySelector('.see-all');
+    if (h2) h2.textContent = t('home.reciters');
+    if (see) setButtonLabel(see, t('ui.all'), 'right');
+  }
+  if (homeSecs[1]) {
+    const h2 = homeSecs[1].querySelector('h2');
+    const see = homeSecs[1].querySelector('.see-all');
+    if (h2) h2.textContent = t('home.surahs');
+    if (see) setButtonLabel(see, t('ui.all'), 'right');
+  }
+  if (homeSecs[2]) {
+    const h2 = homeSecs[2].querySelector('h2');
+    const see = homeSecs[2].querySelector('.see-all');
+    if (h2) h2.textContent = t('home.playlists');
+    if (see) setButtonLabel(see, t('ui.all'), 'right');
+  }
+
+  const surahsPage = $('p-surahs');
+  if (surahsPage) {
+    if (surahsPage.children[0]) surahsPage.children[0].textContent = t('surahs.title');
+    const tags = surahsPage.querySelectorAll('#sFilters .tag');
+    if (tags[0]) tags[0].textContent = t('surahs.all');
+    if (tags[1]) tags[1].textContent = t('surahs.meccan');
+    if (tags[2]) tags[2].textContent = t('surahs.medinan');
+    const head = surahsPage.querySelector('.s-head');
+    if (head) {
+      const spans = head.querySelectorAll('span');
+      if (spans[1]) spans[1].textContent = t('surahs.surah');
+      if (spans[2]) spans[2].textContent = t('surahs.ayahs');
+      if (spans[3]) spans[3].textContent = t('surahs.type');
+      if (spans[4]) spans[4].textContent = t('surahs.duration');
+    }
+  }
+
+  const recPage = $('p-reciters');
+  if (recPage) {
+    if (recPage.children[0]) recPage.children[0].textContent = t('reciters.title');
+    if (recPage.children[1]) recPage.children[1].textContent = t('reciters.subtitle');
+    const info = recPage.children[3];
+    if (info?.children[1]) {
+      info.children[1].innerHTML = `<div style="font-size:13px;font-weight:600;margin-bottom:2px">${t('reciters.current')}</div><div style="font-size:12px;color:var(--t2)">${t('reciters.playingWith')} <span id="curRLabel" style="color:var(--ac);font-weight:600"></span></div>`;
+    }
+  }
+
+  const playlistsPage = $('p-playlists');
+  if (playlistsPage) {
+    if (playlistsPage.children[0]) playlistsPage.children[0].textContent = t('playlists.title');
+    if (playlistsPage.children[1]) playlistsPage.children[1].textContent = t('playlists.subtitle');
+    const builder = playlistsPage.children[2];
+    if (builder) {
+      if (builder.children[0]) builder.children[0].textContent = t('playlists.createTitle');
+      if (builder.children[1]) builder.children[1].textContent = t('playlists.createDesc');
+      const nameInput = $('plName');
+      if (nameInput) nameInput.placeholder = t('playlists.namePlaceholder');
+      const idsInput = $('plIds');
+      if (idsInput) idsInput.placeholder = t('playlists.idsPlaceholder');
+      const createBtn = builder.querySelector('.mini-btn.main');
+      if (createBtn) createBtn.textContent = t('playlists.createBtn');
+    }
+    if (playlistsPage.children[3]?.querySelector('h2')) playlistsPage.children[3].querySelector('h2').textContent = t('playlists.your');
+    if (playlistsPage.children[5]?.querySelector('h2')) playlistsPage.children[5].querySelector('h2').textContent = t('playlists.collections');
+  }
+
+  const favPage = $('p-favs');
+  if (favPage) {
+    if (favPage.children[0]) favPage.children[0].textContent = t('favs.title');
+    if (favPage.children[1]) favPage.children[1].textContent = t('favs.subtitle');
+    if (favPage.children[3]?.querySelector('h2')) favPage.children[3].querySelector('h2').textContent = t('favs.reciters');
+  }
+
+  const histPage = $('p-hist');
+  if (histPage) {
+    if (histPage.children[0]) histPage.children[0].textContent = t('hist.title');
+    if (histPage.children[1]) histPage.children[1].textContent = t('hist.subtitle');
+  }
+
+  const dlPage = $('p-dl');
+  if (dlPage) {
+    const card = dlPage.querySelector('.ph');
+    if (card?.querySelector('h3')) card.querySelector('h3').textContent = t('downloads.title');
+    if (card?.querySelector('p')) card.querySelector('p').textContent = t('downloads.desc');
+  }
+
+  const settingsPage = $('p-settings');
+  if (settingsPage) {
+    if (settingsPage.children[0]) settingsPage.children[0].textContent = t('settings.title');
+    if (settingsPage.children[1]) settingsPage.children[1].textContent = t('settings.subtitle');
+    const cards = settingsPage.querySelectorAll('.set-card');
+    if (cards[0]) {
+      if (cards[0].children[0]) cards[0].children[0].textContent = t('settings.languageTitle');
+      if (cards[0].children[1]) cards[0].children[1].textContent = t('settings.languageDesc');
+    }
+    if (cards[1]) {
+      if (cards[1].children[0]) cards[1].children[0].textContent = t('settings.premiumTitle');
+      if (cards[1].children[1]) cards[1].children[1].textContent = t('settings.premiumDesc');
+      const button = cards[1].querySelector('.mini-btn.main');
+      if (button) button.textContent = t('settings.premiumButton');
+    }
+  }
+
+  const pName = $('pName');
+  if (pName && (!aud.src || aud.src === location.href)) pName.textContent = t('player.selectSurah');
+  const pLike = $('pLk');
+  if (pLike) pLike.setAttribute('aria-label', t('player.like'));
+  const controls = {
+    shBtn: t('player.shuffle'),
+    playBtn: t('player.play'),
+    rpBtn: t('player.repeat'),
+  };
+  if ($('shBtn')) $('shBtn').title = controls.shBtn;
+  if ($('playBtn')) $('playBtn').title = controls.playBtn;
+  if ($('rpBtn')) $('rpBtn').title = controls.rpBtn;
+  const prevBtn = document.querySelector('button[onclick="prevS()"]');
+  if (prevBtn) prevBtn.title = t('player.previous');
+  const nextBtn = document.querySelector('button[onclick="nextS()"]');
+  if (nextBtn) nextBtn.title = t('player.next');
+  const muteBtn = document.querySelector('button[onclick="toggleMute()"]');
+  if (muteBtn) muteBtn.title = t('player.mute');
+  const queueBtn = document.querySelector('button[title="Очередь"], button[title="Queue"]');
+  if (queueBtn) queueBtn.title = t('player.queue');
+
+  if (activeQueueKind === 'static' && typeof activeQueueRef === 'number' && PLAYLISTS[activeQueueRef]) {
+    activeQueueName = playlistLabel(PLAYLISTS[activeQueueRef]);
+  }
+
+  renderHRec();
+  renderHSur();
+  renderHPl();
+  renderSList();
+  renderRec();
+  renderPlaylists();
+  renderFavs();
+  renderHist();
+  updatePUI();
 }
 
 // ─────────────────────────────────────────────
@@ -609,12 +1252,21 @@ async function resolveUrl(surahId, reciter) {
   return null;
 }
 
+function clearActiveQueue() {
+  activeQueue = null;
+  activeQueueIndex = -1;
+  activeQueueName = '';
+  activeQueueKind = null;
+  activeQueueRef = null;
+}
+
 // ─────────────────────────────────────────────
 // PLAYBACK
 // playSurahAtIdx: plays by SURAHS array index
 // playSurahById:  plays by official Quran surah number
 // ─────────────────────────────────────────────
-async function playSurahAtIdx(idx) {
+async function playSurahAtIdx(idx, opts={}) {
+  if (!opts.keepQueue) clearActiveQueue();
   if (idx < 0 || idx >= SURAHS.length) return;
   ci = idx;
   const s = SURAHS[idx];
@@ -627,7 +1279,7 @@ async function playSurahAtIdx(idx) {
   const url = await resolveUrl(s.id, r);
   if (!url) {
     setLoading(false);
-    toast('Could not resolve audio URL for this reciter.', true);
+    toast(t('messages.noAudio'), true);
     return;
   }
 
@@ -640,7 +1292,7 @@ async function playSurahAtIdx(idx) {
     playing = true;
   } catch(e) {
     playing = false;
-    toast('Tap Play to start — browser requires a click first.', true);
+    toast(t('messages.tapPlay'), true);
   }
   setLoading(false);
   updatePBtn();
@@ -648,9 +1300,9 @@ async function playSurahAtIdx(idx) {
 }
 
 // Find by official surah ID (1–114), then play by array index
-function playSurahById(id) {
+function playSurahById(id, opts={}) {
   const idx = SURAHS.findIndex(s => s.id === id);
-  if (idx >= 0) playSurahAtIdx(idx);
+  if (idx >= 0) playSurahAtIdx(idx, {keepQueue: !!opts.keepQueue});
 }
 
 function togglePlay() {
@@ -659,17 +1311,28 @@ function togglePlay() {
   else {
     aud.play()
       .then(()=>{ playing=true; updatePBtn(); refreshLists(); })
-      .catch(()=>{ toast('Playback blocked — tap Play again.', true); });
+      .catch(()=>{ toast(t('messages.blocked'), true); });
     return;
   }
   updatePBtn(); refreshLists();
 }
 
 function nextS() {
+  if (activeQueue && activeQueue.length) {
+    activeQueueIndex = (activeQueueIndex + 1) % activeQueue.length;
+    playSurahById(activeQueue[activeQueueIndex], {keepQueue:true});
+    return;
+  }
   const nextIdx = shuffle ? Math.floor(Math.random()*SURAHS.length) : (ci+1) % SURAHS.length;
   playSurahAtIdx(nextIdx);
 }
 function prevS() {
+  if (activeQueue && activeQueue.length) {
+    if (aud.currentTime > 3) { aud.currentTime=0; return; }
+    activeQueueIndex = (activeQueueIndex - 1 + activeQueue.length) % activeQueue.length;
+    playSurahById(activeQueue[activeQueueIndex], {keepQueue:true});
+    return;
+  }
   if (aud.currentTime > 3) { aud.currentTime=0; return; }
   playSurahAtIdx((ci-1+SURAHS.length) % SURAHS.length);
 }
@@ -698,29 +1361,29 @@ aud.addEventListener('playing', ()=>{ setLoading(false); playing=true; updatePBt
 aud.addEventListener('error',   ()=>{
   setLoading(false); playing=false; updatePBtn();
   const err = aud.error;
-  const msg = err ? `Audio error ${err.code}: ${err.message}` : 'Audio failed to load.';
-  toast(msg + ' Try another reciter.', true);
+  const msg = err ? t('messages.audioError', {code: err.code, message: err.message}) : t('messages.audioFailed');
+  toast(msg + ' ' + t('messages.tryOtherReciter'), true);
 });
 
-function setReciter(i) {
+function setReciter(i, opts={}) {
   ri = i;
   // Clear cached URL for current surah so new reciter URL will be fetched
   const s = SURAHS[ci];
   delete urlCache[`${RECITERS[i].apiId}-${s.id}`];
-  if (playing) {
+  if (playing && opts.playCurrent !== false) {
     playSurahAtIdx(ci);
   } else {
     updatePUI();
   }
-  toast('Switched to ' + RECITERS[i].name);
+  if (!opts.silent) toast(t('messages.switchedReciter', {name: RECITERS[i].name}));
   renderRec(); renderHRec();
 }
 
 function updatePUI() {
   const s = SURAHS[ci], r = RECITERS[ri];
   $('pNum').textContent = s.id;
-  $('pName').textContent = s.name;
-  $('pRec').textContent = r.name;
+  $('pName').textContent = (!aud.src || aud.src === location.href) ? t('player.selectSurah') : s.name;
+  $('pRec').textContent = activeQueueName ? `${r.name} • ${activeQueueName}` : r.name;
   $('curRLabel').textContent = r.name;
   updateLkBtn();
 }
@@ -728,14 +1391,20 @@ function updatePUI() {
 function likeCur() {
   const id=SURAHS[ci].id;
   likes[id]=!likes[id];
+  if (likes[id]) likeMeta[id] = {reciterIdx: ri};
+  else delete likeMeta[id];
   updateLkBtn(); renderFavs();
-  toast(likes[id]?'Added to Favourites':'Removed');
+  saveState();
+  toast(likes[id] ? t('messages.addedFav') : t('messages.removedFav'));
 }
 function likeSurah(id) {
   likes[id]=!likes[id];
+  if (likes[id]) likeMeta[id] = {reciterIdx: ri};
+  else delete likeMeta[id];
   if(SURAHS[ci].id===id) updateLkBtn();
   renderFavs(); refreshLists();
-  toast(likes[id]?'Added to Favourites':'Removed');
+  saveState();
+  toast(likes[id] ? t('messages.addedFav') : t('messages.removedFav'));
 }
 function updateLkBtn() {
   const id=SURAHS[ci].id, btn=$('pLk'), ic=btn.querySelector('i');
@@ -743,7 +1412,12 @@ function updateLkBtn() {
   ic.className=likes[id]?'ti ti-heart-filled':'ti ti-heart';
   ic.style.fontSize='16px';
 }
-function addHist(s){ hist=hist.filter(h=>h.id!==s.id); hist.unshift(s); if(hist.length>30)hist.pop(); }
+function addHist(s){
+  hist=hist.filter(h=>h.id!==s.id);
+  hist.unshift(s);
+  if(hist.length>30)hist.pop();
+  saveState();
+}
 
 // ─────────────────────────────────────────────
 // RENDER
@@ -751,18 +1425,23 @@ function addHist(s){ hist=hist.filter(h=>h.id!==s.id); hist.unshift(s); if(hist.
 function sRowHTML(s) {
   const isCurrent = SURAHS[ci].id===s.id;
   const tc = s.t==='Meccan'?'mec':'med';
+  const likedRecIdx = likeMeta[s.id]?.reciterIdx;
+  const recLine = likes[s.id] && RECITERS[likedRecIdx]
+    ? `<div style="font-size:10px;color:var(--ac);margin-top:4px">${t('ui.reciterLabel') || (currentLang==='ru' ? 'Чтец' : 'Reciter')}: ${RECITERS[likedRecIdx].name}</div>`
+    : '';
   return `<div class="s-row${isCurrent?' playing':''}" onclick="playSurahById(${s.id})">
     <div class="s-num">${isCurrent&&playing?'<i class="ti ti-volume" style="font-size:13px;color:var(--ac)"></i>':s.id}</div>
     <div style="display:flex;align-items:center;gap:9px">
       <div>
         <div style="font-size:13px;font-weight:600;color:${isCurrent?'var(--ac)':'var(--t1)'}">${s.name}</div>
         <div style="font-size:11px;color:var(--t2);font-family:serif">${s.ar}</div>
+        ${recLine}
       </div>
     </div>
     <div style="font-size:12px;color:var(--t2)">${s.n}</div>
-    <div><span class="badge ${tc}">${s.t}</span></div>
+    <div><span class="badge ${tc}">${typeLabel(s.t)}</span></div>
     <div style="font-size:12px;color:var(--t2)">${s.dur}</div>
-    <button class="lk${likes[s.id]?' on':''}" onclick="event.stopPropagation();likeSurah(${s.id})" aria-label="Like">
+    <button class="lk${likes[s.id]?' on':''}" onclick="event.stopPropagation();likeSurah(${s.id})" aria-label="${t('player.like')}">
       <i class="${likes[s.id]?'ti ti-heart-filled':'ti ti-heart'}" style="font-size:14px"></i>
     </button>
   </div>`;
@@ -778,7 +1457,7 @@ function renderHRec() {
         <i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i>
         <span style="font-size:11px;color:var(--t3)">${r.listeners}</span>
       </div>
-      <div class="play-dot" onclick="event.stopPropagation();setReciter(${i});playSurahAtIdx(ci)">
+      <div class="play-dot" onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
         <i class="ti ti-player-play"></i>
       </div>
     </div>`).join('');
@@ -793,7 +1472,7 @@ function renderHSur() {
       <div class="s-num">${s.id}</div>
       <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
-        <div style="font-size:11px;color:var(--t2)">${s.n} ayahs · ${s.t}</div>
+        <div style="font-size:11px;color:var(--t2)">${t('surahs.ayahCount', {count:s.n})} · ${typeLabel(s.t)}</div>
       </div>
       <span style="font-size:11px;color:var(--t2);margin-right:5px">${s.dur}</span>
       <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,193,106,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
@@ -805,14 +1484,15 @@ function renderHSur() {
 }
 
 function renderHPl() {
-  $('hPl').innerHTML = PLAYLISTS.map(p=>`
-    <div class="pl-card">
+  $('hPl').innerHTML = PLAYLISTS.map((p, i)=>`
+    <div class="pl-card" onclick="playStaticPlaylist(${i})">
       <div style="width:42px;height:42px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
         <i class="ti ${p.icon}" style="font-size:19px;color:var(--ac)"></i>
       </div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:2px">${p.name}</div>
-        <div style="font-size:11px;color:var(--t2)">${p.cnt} surahs · ${p.desc}</div>
+      <div style="min-width:0;flex:1">
+        <div style="font-size:13px;font-weight:600;margin-bottom:2px">${playlistLabel(p)}</div>
+        <div style="font-size:11px;color:var(--t2)">${t('ui.surahCount', {count:p.surahIds.length})} · ${playlistDesc(p)}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">${previewChips(p.surahIds)}</div>
       </div>
     </div>`).join('');
 }
@@ -822,8 +1502,10 @@ function renderSList() {
     const mq = !q || s.name.toLowerCase().includes(q) || s.ar.includes(q);
     return mq && (filt==='All' || s.t===filt);
   });
-  $('sCount').textContent = filtered.length + ' of 114 surahs';
-  $('sList').innerHTML = filtered.map(s=>sRowHTML(s)).join('');
+  $('sCount').textContent = t('surahs.count', {count: filtered.length, total: SURAHS.length});
+  $('sList').innerHTML = filtered.length
+    ? filtered.map(s=>sRowHTML(s)).join('')
+    : `<div class="empty-state"><i class="ti ti-search"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('surahs.emptyTitle')}</div><div class="section-note">${t('surahs.emptyDesc')}</div></div>`;
 }
 
 function setFilter(f, btn) {
@@ -845,8 +1527,8 @@ function renderRec() {
         <div style="display:flex;align-items:center;justify-content:space-between">
           <div style="display:flex;align-items:center;gap:4px"><i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i><span style="font-size:12px;color:var(--t2)">${r.listeners}</span></div>
           <button style="display:flex;align-items:center;gap:5px;padding:6px 13px;background:${i===ri?'var(--ac)':'rgba(0,193,106,.15)'};border:none;border-radius:7px;font-size:12px;font-weight:700;color:${i===ri?'#000':'var(--ac)'};cursor:pointer;font-family:inherit"
-            onclick="event.stopPropagation();setReciter(${i});playSurahAtIdx(ci)">
-            <i class="ti ti-player-play" style="font-size:12px"></i>Play
+            onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
+            <i class="ti ti-player-play" style="font-size:12px"></i>${t('reciters.play')}
           </button>
         </div>
       </div>
@@ -855,36 +1537,144 @@ function renderRec() {
   $('statRecCnt').textContent = RECITERS.length;
 }
 
+function playlistCardHTML(pl, idx, isCustom=false) {
+  const rec = RECITERS[pl.reciterIdx || 0] || RECITERS[0];
+  const playCall = isCustom ? `playCustomPlaylist(${pl.id})` : `playStaticPlaylist(${idx})`;
+  const subtitle = isCustom ? `${t('ui.reciterLabel')}: ${rec.name}` : playlistDesc(pl);
+  const meta = isCustom ? `${t('ui.surahCount', {count: pl.surahIds.length})} · ${rec.name}` : t('ui.surahCount', {count: pl.surahIds.length});
+  const icon = pl.icon || 'ti-playlist';
+  const preview = previewChips(pl.surahIds);
+  return `
+    <div class="pl-big" onclick="${playCall}">
+      <div class="pl-top">
+        <div style="display:flex;align-items:flex-start;gap:12px;min-width:0;flex:1">
+          <div style="width:54px;height:54px;border-radius:12px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <i class="ti ${icon}" style="font-size:22px;color:var(--ac)"></i>
+          </div>
+          <div style="min-width:0;flex:1">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px">${playlistLabel(pl)}</div>
+            <div style="font-size:12px;color:var(--t2);margin-bottom:7px">${subtitle}</div>
+            <div style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:11px"></i>${meta}</div>
+          </div>
+        </div>
+        <button class="mini-btn main" onclick="event.stopPropagation();${playCall}">${t('playlists.play')}</button>
+      </div>
+      <div class="pl-chip-row">${preview || `<span class="pl-chip alt">${t('ui.emptyChip')}</span>`}</div>
+      ${isCustom ? `<div class="pl-actions"><button class="mini-btn danger" onclick="event.stopPropagation();deleteCustomPlaylist(${pl.id})">${t('playlists.delete')}</button></div>` : ''}
+    </div>`;
+}
+
+function fillPlaylistReciters() {
+  const sel = $('plRecSel');
+  if (!sel) return;
+  sel.innerHTML = RECITERS.map((r, i) => `<option value="${i}" ${i===ri?'selected':''}>${r.name}</option>`).join('');
+}
+
 function renderPlaylists() {
-  $('plCards').innerHTML = PLAYLISTS.map(p=>`
-    <div class="card" style="display:flex;gap:13px;padding:17px">
-      <div style="width:54px;height:54px;border-radius:11px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="ti ${p.icon}" style="font-size:22px;color:var(--ac)"></i>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;margin-bottom:3px">${p.name}</div>
-        <div style="font-size:12px;color:var(--t2);margin-bottom:7px">${p.desc}</div>
-        <div style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:11px"></i>${p.cnt} surahs</div>
-      </div>
-    </div>`).join('');
+  fillPlaylistReciters();
+  $('plCards').innerHTML = PLAYLISTS.map((p, i)=>playlistCardHTML(p, i, false)).join('');
+  $('customPlWrap').innerHTML = customPlaylists.length
+    ? customPlaylists.map(p=>playlistCardHTML(p, 0, true)).join('')
+    : `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-playlist"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.noCustomTitle')}</div><div class="section-note">${t('ui.noCustomDesc')}</div></div>`;
 }
 
 function tableWrap(rows) {
-  if (!rows.length) return '<div class="ph"><i class="ti ti-mood-empty"></i><h3>Nothing here yet</h3></div>';
-  return `<div class="s-table"><div class="s-head"><span>#</span><span>Surah</span><span>Ayahs</span><span>Type</span><span>Dur.</span><span></span></div>${rows.map(s=>sRowHTML(s)).join('')}</div>`;
+  if (!rows.length) return `<div class="empty-state"><i class="ti ti-mood-empty"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.emptyTitle')}</div><div class="section-note">${t('ui.emptyDesc')}</div></div>`;
+  return `<div class="s-table"><div class="s-head"><span>#</span><span>${t('surahs.surah')}</span><span>${t('surahs.ayahs')}</span><span>${t('surahs.type')}</span><span>${t('surahs.duration')}</span><span></span></div>${rows.map(s=>sRowHTML(s)).join('')}</div>`;
 }
 
-function renderFavs()  { $('favWrap').innerHTML  = tableWrap(SURAHS.filter(s=>likes[s.id])); }
+function renderFavReciters() {
+  const ids = likedReciterIndices();
+  $('favRecWrap').innerHTML = ids.length
+    ? ids.map(i=>`
+      <div class="rec-mini${i===ri?' on':''}" onclick="setReciter(${i})">
+        ${avHTML(RECITERS[i], 46)}
+        <div class="info">
+          <div class="name">${RECITERS[i].name}</div>
+          <div class="sub">${RECITERS[i].ar}</div>
+          <div class="meta"><i class="ti ti-heart" style="font-size:11px"></i>${t('favs.meta')}</div>
+        </div>
+      </div>`).join('')
+    : `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-microphone"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.noFavRecitersTitle')}</div><div class="section-note">${t('ui.noFavRecitersDesc')}</div></div>`;
+}
+
+function renderFavs()  { $('favWrap').innerHTML  = tableWrap(SURAHS.filter(s=>likes[s.id])); renderFavReciters(); }
 function renderHist()  { $('histWrap').innerHTML = tableWrap(hist); }
 
+function createPlaylist() {
+  const name = $('plName')?.value.trim() || t('playlists.defaultPlaylistName');
+  const reciterIdx = parseInt($('plRecSel')?.value || '0', 10);
+  const manualIds = parseSurahIds($('plIds')?.value || '');
+  const likedIds = Object.keys(likes).filter(id => likes[id]).map(Number);
+  const sourceIds = manualIds.length ? manualIds : likedIds;
+  const validIds = uniqueIds(sourceIds);
+
+  if (!validIds.length) {
+    toast(t('messages.needSurahs'), true);
+    return;
+  }
+
+  customPlaylists.unshift({
+    id: Date.now(),
+    name,
+    reciterIdx: Number.isInteger(reciterIdx) ? reciterIdx : 0,
+    surahIds: validIds,
+    createdAt: Date.now()
+  });
+
+  saveState();
+  renderPlaylists();
+  toast(t('messages.playlistCreated'));
+  if ($('plName')) $('plName').value = '';
+  if ($('plIds')) $('plIds').value = '';
+}
+
+function deleteCustomPlaylist(id) {
+  customPlaylists = customPlaylists.filter(p => p.id !== id);
+  saveState();
+  renderPlaylists();
+  toast(t('messages.playlistDeleted'));
+}
+
+function playStaticPlaylist(idx) {
+  const pl = PLAYLISTS[idx];
+  if (!pl || !pl.surahIds.length) return;
+  activeQueue = pl.surahIds.slice();
+  activeQueueIndex = 0;
+  activeQueueName = playlistLabel(pl);
+  activeQueueKind = 'static';
+  activeQueueRef = idx;
+  toast(t('messages.playlistPrefix', {name: playlistLabel(pl)}));
+  playSurahById(pl.surahIds[0], {keepQueue:true});
+}
+
+function playCustomPlaylist(id) {
+  const pl = customPlaylists.find(p => p.id === id);
+  if (!pl || !pl.surahIds.length) return;
+  activeQueue = pl.surahIds.slice();
+  activeQueueIndex = 0;
+  activeQueueName = pl.name;
+  activeQueueKind = 'custom';
+  activeQueueRef = id;
+  setReciter(pl.reciterIdx, {silent:true, playCurrent:false});
+  toast(t('messages.playlistPrefix', {name: pl.name}));
+  playSurahById(pl.surahIds[0], {keepQueue:true});
+}
+
 function refreshLists() {
-  renderHRec(); renderSList(); renderFavs(); renderHist(); updatePUI();
+  renderHRec();
+  renderSList();
+  renderFavs();
+  renderHist();
+  updatePUI();
+  renderPlaylists();
 }
 
 // ─────────────────────────────────────────────
 // NAVIGATION
 // ─────────────────────────────────────────────
 function go(p) {
+  currentPage = p;
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
   const pg = $('p-'+p);
   if (pg) pg.classList.add('on');
@@ -902,20 +1692,21 @@ document.querySelectorAll('.ni[data-p]').forEach(n=>{
 
 $('srch').addEventListener('input', function(){
   q = this.value.trim().toLowerCase();
-  go(q ? 'surahs' : 'home');
+  if (q) {
+    go('surahs');
+    return;
+  }
+  if (currentPage === 'surahs') {
+    renderSList();
+    return;
+  }
+  go(currentPage);
 });
 
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
-renderHRec();
-renderHSur();
-renderHPl();
-renderSList();
-renderRec();
-renderPlaylists();
-updatePUI();
-$('statRecCnt').textContent = RECITERS.length;
+applyLanguage();
 </script>
 </body>
 </html>
