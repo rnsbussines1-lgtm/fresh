@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FreshSound — Священный Коран</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='9' fill='%2300C16A'/><path d='M7 20 Q12 11 20 20 Q28 29 33 20' stroke='%23000' stroke-width='2.8' fill='none' stroke-linecap='round'/><circle cx='20' cy='20' r='3' fill='%23000'/></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg1:#0F1115;--bg2:#181C23;--bg3:#1E2330;--bg4:#252b3b;
+  --ac:#00C16A;--ac2:#009952;
+  --t1:#F0F2F5;--t2:#9AA3B0;--t3:#5A6275;
+  --br:rgba(255,255,255,.07);--br2:rgba(255,255,255,.12)
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg1);color:var(--t1);display:flex;flex-direction:column;position:relative;min-height:100vh}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:#fff2;border-radius:4px}
+button,select{font-family:inherit;cursor:pointer;border:none;outline:none}
+input{font-family:inherit;outline:none}
+
+.app{display:flex;flex:1;overflow:hidden;height:calc(100vh - 88px);position:relative;z-index:1}
+.sidebar{width:228px;background:#0B0E13;border-right:1px solid var(--br);display:flex;flex-direction:column;flex-shrink:0}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:13px 22px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:12px;background:rgba(15,17,21,.94);flex-shrink:0;backdrop-filter:blur(18px);position:relative;z-index:10}
+.topbar-actions{display:flex;align-items:center;gap:9px;flex-shrink:0;margin-left:auto}
+.mobile-menu-btn{display:none}
+.scroller{flex:1;overflow-y:auto;padding:22px 22px 20px}
+
+.logo-row{padding:19px 15px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px}
+.logo-box{width:36px;height:36px;border-radius:9px;background:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-name{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.logo-tag{font-size:9px;color:var(--ac);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.nav{padding:10px 8px;flex:1;overflow-y:auto}
+.nav-label{font-size:10px;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase;padding:10px 10px 6px}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);margin-bottom:1px;transition:all .13s;border-left:3px solid transparent}
+.ni i{font-size:17px;flex-shrink:0}
+.ni:hover{background:rgba(255,255,255,.05);color:var(--t1)}
+.ni.on{background:rgba(0,193,106,.12);color:var(--ac);border-left-color:var(--ac);font-weight:600}
+.pro-box{margin:0 10px 12px;padding:14px;border-radius:11px;background:rgba(0,193,106,.07);border:1px solid rgba(0,193,106,.18)}
+.pro-box h4{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.pro-box p{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:10px}
+.pro-btn{padding:7px 16px;background:var(--ac);border-radius:8px;font-size:12px;font-weight:700;color:#000}
+
+.sidebar-overlay{position:fixed;inset:0;background:rgba(3,5,9,.62);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .24s ease;z-index:55;display:none}
+.mobile-nav{display:none}
+.mobile-nav .mn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;padding:8px 6px;background:transparent;border:none;color:var(--t2);font-size:10px;font-weight:700;letter-spacing:.2px;transition:color .15s,transform .15s}
+.mobile-nav .mn i{font-size:18px;line-height:1}
+.mobile-nav .mn.on{color:var(--ac)}
+.mobile-nav .mn:active{transform:scale(.96)}
+
+.search-box{position:relative;flex:1;max-width:360px}
+.search-box i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:15px;pointer-events:none}
+.search-box input{width:100%;padding:9px 12px 9px 36px;background:var(--bg3);border:1px solid var(--br);border-radius:9px;color:var(--t1);font-size:13px}
+.search-box input:focus{border-color:rgba(0,193,106,.4)}
+.search-box input::placeholder{color:var(--t3)}
+.icon-btn{display:flex;align-items:center;justify-content:center;padding:7px;background:transparent;border:1px solid var(--br);border-radius:8px;color:var(--t2);font-size:15px;transition:all .13s}
+.icon-btn:hover{color:var(--t1);border-color:var(--br2)}
+.mobile-menu-btn.on{color:var(--ac);border-color:rgba(0,193,106,.34);background:rgba(0,193,106,.08)}
+.av{width:34px;height:34px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;cursor:pointer;flex-shrink:0;border:none;padding:0;appearance:none;font-family:inherit}
+
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+#hRec{grid-template-columns:repeat(4,1fr)}
+.g-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+.card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px;cursor:pointer;transition:all .18s}
+.card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-hd h2{font-size:17px;font-weight:700}
+.see-all{background:transparent;border:none;color:var(--ac);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:3px}
+.tag{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--br);color:var(--t2);background:transparent;transition:all .13s}
+.tag.on,.tag:hover{border-color:var(--ac);background:rgba(0,193,106,.1);color:var(--ac)}
+
+.hero{position:relative;border-radius:18px;overflow:hidden;margin-bottom:26px;min-height:220px;background:linear-gradient(135deg,#0b1f14,#0d2b1c 45%,#081c2c);border:1px solid rgba(0,193,106,.14);display:flex;align-items:center}
+.hero-inner{position:relative;z-index:2;padding:36px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,193,106,.14);border:1px solid rgba(0,193,106,.28);border-radius:20px;padding:4px 13px;margin-bottom:13px;font-size:11px;font-weight:600;color:var(--ac)}
+.hero h1{font-size:38px;font-weight:800;margin-bottom:9px;letter-spacing:-1.4px;line-height:1.1}
+.hero h1 span{color:var(--ac)}
+.hero p{font-size:13px;color:var(--t2);max-width:390px;line-height:1.65;margin-bottom:20px}
+.hero-btns{display:flex;gap:9px}
+.btn-g{display:flex;align-items:center;gap:6px;padding:10px 20px;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%);border:none;border-radius:9px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:transform .13s;box-shadow:0 10px 24px rgba(220,38,38,.28)}
+.btn-g:hover{transform:scale(1.03)}
+.btn-g i{color:#fff}
+.btn-w{display:flex;align-items:center;gap:6px;padding:10px 20px;background:transparent;border:1px solid var(--br2);border-radius:9px;font-size:13px;font-weight:500;color:var(--t1);cursor:pointer}
+.btn-w:hover{background:rgba(255,255,255,.05)}
+.hero-art{position:absolute;right:32px;top:50%;transform:translateY(-50%);opacity:.09;pointer-events:none}
+
+.stat-card{background:var(--bg2);border:1px solid var(--br);border-radius:11px;padding:13px;display:flex;align-items:center;gap:11px}
+.stat-icon{width:38px;height:38px;border-radius:9px;background:rgba(0,193,106,.11);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.rc-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:20px 14px;text-align:center;cursor:pointer;transition:all .18s}
+.rc-card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
+.rc-card.on{border-color:rgba(0,193,106,.5);background:rgba(0,193,106,.05)}
+.av-ring{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 11px;flex-shrink:0}
+.play-dot{width:33px;height:33px;border-radius:50%;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%);display:flex;align-items:center;justify-content:center;margin:9px auto 0;transition:transform .13s;cursor:pointer;box-shadow:0 10px 20px rgba(220,38,38,.22)}
+.play-dot:hover{transform:scale(1.1)}
+.play-dot i{font-size:13px;color:#fff}
+.play-mini{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border:1px solid #dc2626;border-radius:7px;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%) !important;color:#fff !important;font-weight:700;box-shadow:0 10px 22px rgba(220,38,38,.22)}
+.play-mini:hover{filter:brightness(1.04)}
+.play-mini i{color:#fff}
+.play-inline{width:26px;height:26px;border-radius:50%;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 16px rgba(220,38,38,.22)}
+.play-inline i{font-size:11px;color:#fff}
+.reader-toggle{display:flex;align-items:center;gap:6px;padding:7px 10px}
+.reader-toggle.on{border-color:rgba(220,38,38,.36);background:rgba(220,38,38,.08);color:#fff}
+.reader-toggle span{font-size:11px;font-weight:700;letter-spacing:.1px;white-space:nowrap}
+
+.s-table{background:var(--bg2);border:1px solid var(--br);border-radius:14px;overflow:hidden}
+.s-head{display:grid;grid-template-columns:44px 1fr 68px 98px 78px 34px;padding:10px 16px;border-bottom:1px solid var(--br)}
+.s-head span{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.s-row{display:grid;grid-template-columns:44px 1fr 68px 98px 78px 34px;padding:11px 16px;align-items:center;border-bottom:1px solid rgba(255,255,255,.035);cursor:pointer;transition:background .1s}
+.s-row:hover{background:rgba(0,193,106,.06)}
+.s-row.playing{background:rgba(0,193,106,.09)}
+.s-row:last-child{border-bottom:none}
+.s-num{width:34px;height:34px;border-radius:7px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.14);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ac);flex-shrink:0}
+.badge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.mec{background:rgba(74,158,221,.14);color:#6ab4f5}
+.med{background:rgba(0,193,106,.14);color:var(--ac)}
+.lk{width:26px;height:26px;border-radius:6px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--t3);transition:all .13s;cursor:pointer}
+.lk:hover{color:var(--t1);background:rgba(255,255,255,.08)}
+.lk.on{color:#e05555}
+
+.player{height:88px;background:rgba(9,12,16,.95);border-top:1px solid var(--br);display:flex;align-items:center;gap:14px;padding:0 18px;flex-shrink:0;backdrop-filter:blur(18px);position:relative;z-index:12}
+.p-track{display:flex;align-items:center;gap:9px;width:218px;flex-shrink:0}
+.p-cover{width:46px;height:46px;border-radius:9px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.p-controls{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
+.p-btns{display:flex;align-items:center;gap:11px}
+.cb{width:30px;height:30px;border-radius:7px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:18px;cursor:pointer;transition:all .13s}
+.cb:hover{color:var(--t1);background:rgba(255,255,255,.08)}
+.cb.on{color:var(--ac)}
+.pbig{width:42px;height:42px;border-radius:50%;background:linear-gradient(180deg,#ff6464 0%,#dd2329 100%);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .13s,filter .13s;box-shadow:0 10px 24px rgba(221,35,41,.34)}
+.pbig:hover{transform:scale(1.07);filter:brightness(1.04)}
+.pbig i{font-size:17px;color:#fff}
+.prog-row{display:flex;align-items:center;gap:7px;width:100%;max-width:450px}
+.tm{font-size:10px;color:var(--t3);min-width:30px;text-align:center}
+input[type=range]{-webkit-appearance:none;height:3px;border-radius:3px;background:var(--bg4);cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#fff;cursor:pointer}
+.prog{flex:1;accent-color:var(--ac)}
+.vol{width:78px;accent-color:var(--ac)}
+.p-right{display:flex;align-items:center;gap:9px;width:218px;justify-content:flex-end;flex-shrink:0}
+.vol-row{display:flex;align-items:center;gap:5px}
+.spd{background:var(--bg3);border:1px solid var(--br);border-radius:7px;padding:5px 7px;color:var(--t1);font-size:11px;font-weight:600}
+
+.reader-panel{position:fixed;top:74px;right:18px;bottom:calc(108px + env(safe-area-inset-bottom));width:min(620px, calc(100vw - 260px));display:none;flex-direction:column;gap:12px;padding:16px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(11,14,19,.96), rgba(8,10,14,.92));box-shadow:0 30px 70px rgba(0,0,0,.48);backdrop-filter:blur(24px);z-index:45}
+body.reader-open .reader-panel{display:flex}
+.reader-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-shrink:0}
+.reader-kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.18);font-size:11px;font-weight:700;color:var(--ac);margin-bottom:10px}
+.reader-title{font-size:17px;font-weight:800;letter-spacing:-.35px;line-height:1.2}
+.reader-sub{font-size:12px;color:var(--t2);line-height:1.55;margin-top:4px}
+.reader-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.reader-pill{padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--t1);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.reader-pill:hover{border-color:rgba(0,193,106,.24);background:rgba(0,193,106,.08);color:var(--t1)}
+.reader-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--t3);line-height:1.4}
+.reader-meta span{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.reader-body{flex:1;overflow-y:auto;padding-right:4px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.verse-item{padding:14px 14px 12px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .18s ease}
+.verse-item:hover{border-color:rgba(0,193,106,.18);transform:translateY(-1px)}
+.verse-item.on{background:linear-gradient(180deg, rgba(0,193,106,.16), rgba(0,193,106,.08));border-color:rgba(0,193,106,.36);box-shadow:0 12px 28px rgba(0,193,106,.08)}
+.verse-item.on .verse-ar{color:#fff}
+.verse-item.on .verse-tr{color:#ebf6ef}
+.verse-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.verse-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:11px;font-weight:700;flex-shrink:0}
+.verse-item.on .verse-num{background:rgba(0,193,106,.18);color:var(--ac)}
+.verse-ar{font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:1.95;direction:rtl;text-align:right;color:var(--t1)}
+.verse-tr{font-size:13px;line-height:1.75;color:var(--t2);margin-top:8px}
+.verse-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t3);margin-top:10px}
+.verse-badge{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06)}
+.reader-panel.hide-translation .verse-tr{display:none}
+
+.page{display:none}.page.on{display:block}
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;color:var(--t3);text-align:center}
+.ph i{font-size:50px;margin-bottom:12px;color:rgba(0,193,106,.22)}
+.ph h3{font-size:15px;font-weight:600;color:var(--t2);margin-bottom:5px}
+.pl-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .18s}
+.pl-card:hover{border-color:rgba(0,193,106,.25);transform:translateY(-2px)}
+.playlist-builder{background:var(--bg2);border:1px solid var(--br);border-radius:16px;padding:16px;margin-bottom:18px}
+.field{width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--br);border-radius:9px;color:var(--t1);font-size:13px}
+.field:focus{border-color:rgba(0,193,106,.4)}
+.field::placeholder{color:var(--t3)}
+.playlist-grid{display:grid;grid-template-columns:1.25fr .9fr 1.2fr auto;gap:10px;align-items:center;margin-top:14px}
+.playlist-grid button{height:100%}
+.pl-big{background:var(--bg2);border:1px solid var(--br);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:all .18s}
+.pl-big:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
+.pl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pl-chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.pl-chip{padding:4px 8px;border-radius:999px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.18);font-size:10px;font-weight:600;color:var(--ac)}
+.pl-chip.alt{background:rgba(255,255,255,.05);border-color:var(--br);color:var(--t2)}
+.pl-actions{display:flex;flex-wrap:wrap;gap:8px}
+.mini-btn{padding:7px 11px;border-radius:8px;border:1px solid var(--br);background:transparent;color:var(--t1);font-size:12px;font-weight:600}
+.mini-btn.main{background:var(--ac);border-color:var(--ac);color:#000}
+.mini-btn.danger{border-color:rgba(224,85,85,.35);color:#ff8c8c}
+.empty-state{padding:28px 16px;text-align:center;color:var(--t2);border:1px dashed var(--br);border-radius:14px;background:rgba(255,255,255,.02)}
+.empty-state i{font-size:34px;color:rgba(0,193,106,.25);margin-bottom:8px}
+.section-note{font-size:12px;color:var(--t2);line-height:1.6}
+.rec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.rec-mini{position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.02));border:1px solid var(--br);border-radius:18px;padding:16px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;cursor:pointer;transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;box-shadow:0 14px 30px rgba(0,0,0,.12)}
+.rec-mini::before{content:'';position:absolute;inset:0;background:var(--rec-grad, linear-gradient(135deg, rgba(0,193,106,.16), rgba(0,193,106,0) 60%));opacity:.7;pointer-events:none}
+.rec-mini > *{position:relative;z-index:1}
+.rec-mini:hover{transform:translateY(-2px);border-color:rgba(0,193,106,.28)}
+.rec-mini.on{border-color:rgba(0,193,106,.5);background:linear-gradient(135deg, rgba(0,193,106,.12), rgba(255,255,255,.025));box-shadow:0 16px 34px rgba(0,193,106,.08)}
+.rec-mini .info{min-width:0;display:flex;flex-direction:column;gap:5px}
+.rec-mini .name{font-size:15px;font-weight:800;letter-spacing:0;line-height:1.15;margin:0}
+.rec-mini .sub{font-size:13px;color:var(--t2);font-family:'Noto Naskh Arabic',serif;line-height:1.4;direction:rtl;text-align:left;unicode-bidi:isolate;margin:0}
+.rec-mini .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rec-mini .meta span{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--br);font-size:11px;color:var(--t3)}
+.rec-mini .meta span.current{background:rgba(0,193,106,.12);border-color:rgba(0,193,106,.2);color:var(--ac);font-weight:700}
+.rec-mini .play-inline{margin-left:auto}
+.rec-mini .rec-play{width:38px;height:38px;border:none;padding:0;cursor:pointer}
+.rec-mini .rec-play i{font-size:13px}
+.rec-mini .play-inline:hover{transform:scale(1.06)}
+.rec-mini .av-ring{margin:0;flex-shrink:0}
+.rec-orb{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:linear-gradient(180deg, var(--rec-color-soft), rgba(255,255,255,.035));border:1px solid var(--rec-color-border);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.rec-orb i{font-size:20px;color:var(--rec-color)}
+.fav-reciters{margin-top:18px}
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.set-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px}
+
+.toast{position:fixed;top:18px;right:18px;background:var(--bg3);border:1px solid var(--br2);border-radius:9px;padding:9px 15px;font-size:12px;color:var(--t1);z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;display:flex;align-items:center;gap:7px}
+.toast.show{opacity:1}
+.toast.err{border-color:rgba(224,85,85,.4);background:#1a1212}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin .9s linear infinite;display:inline-block}
+body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0;transition:opacity .25s ease;z-index:0;filter:blur(18px)}
+
+@media (max-width: 1120px){
+  .g4{grid-template-columns:repeat(3,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .g-stats{grid-template-columns:repeat(2,1fr)}
+  .rec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .playlist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #hRec{grid-template-columns:repeat(3,1fr)!important}
+}
+
+@media (max-width: 920px){
+  .app{height:100dvh;overflow:visible}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:min(84vw,320px);transform:translateX(-106%);transition:transform .3s cubic-bezier(.2,.9,.2,1);z-index:120;box-shadow:28px 0 70px rgba(0,0,0,.42)}
+  body.sidebar-open .sidebar{transform:translateX(0)}
+  body.sidebar-open .sidebar-overlay{display:block;opacity:1;pointer-events:auto}
+  .sidebar-overlay{display:block;z-index:110;background:rgba(3,5,9,.62);backdrop-filter:none}
+  .main{width:100%}
+  .topbar{padding:12px 12px 10px;gap:10px;flex-wrap:wrap}
+  .mobile-menu-btn{display:flex}
+  .search-box{order:2;flex-basis:100%;max-width:none}
+  .topbar-actions{order:1;margin-left:auto}
+  .topbar-actions .av{display:flex}
+  .scroller{padding:14px 12px 18px;padding-bottom:calc(132px + env(safe-area-inset-bottom))}
+  .hero{min-height:0;margin-bottom:18px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#0b2215 0%,#0d2b1b 42%,#081c2e 100%)}
+  .hero-inner{padding:24px 20px 22px}
+  .hero h1{font-size:31px;letter-spacing:-1.2px}
+  .hero p{max-width:none;font-size:13px}
+  .hero-btns{flex-direction:column}
+  .hero-btns button{width:100%;justify-content:center}
+  .hero-art{right:-30px;top:-12px;transform:none;opacity:.18}
+  .g-stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+  .g4,.g3,.g2,.rec-grid,.settings-grid,.playlist-grid{grid-template-columns:1fr}
+  #hRec{grid-template-columns:1fr!important}
+  .card,.pl-card,.pl-big,.rec-mini,.stat-card,.rc-card,.set-card,.playlist-builder,.empty-state{border-radius:18px}
+  .rec-mini{grid-template-columns:auto 1fr auto;padding:14px;gap:12px}
+  .rec-mini .name{font-size:14px}
+  .rec-mini .sub{text-align:left}
+  .rec-mini .meta span{font-size:10px;padding:3px 7px}
+  .rec-orb{width:44px;height:44px}
+  .sec-hd{margin-bottom:10px}
+  .sec-hd h2{font-size:16px}
+  .see-all{font-size:12px}
+  .rc-card{display:flex;align-items:center;gap:12px;text-align:left;padding:14px}
+  .rc-content{flex:1;min-width:0}
+  .rc-card .av-ring{margin:0}
+  .rc-card .play-dot{margin:0 0 0 auto}
+  .s-table{background:transparent;border:none;overflow:visible}
+  .s-head{display:none}
+  .s-row{grid-template-columns:38px 1fr 34px;padding:14px 14px 13px;border:1px solid var(--br);border-radius:18px;background:linear-gradient(180deg, rgba(24,28,35,.98), rgba(18,21,29,.96));gap:8px 10px;margin-bottom:10px;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+  .s-row > :nth-child(3), .s-row > :nth-child(4), .s-row > :nth-child(5){display:none}
+  .s-row > :nth-child(6){grid-column:3;grid-row:1;justify-self:end;align-self:start}
+  .s-row > :nth-child(1){grid-column:1;grid-row:1;align-self:start}
+  .s-row > :nth-child(2){grid-column:2;grid-row:1}
+  .s-mobile-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .s-mobile-meta span{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:10px;color:var(--t2)}
+  .playlist-builder{padding:14px}
+  .playlist-grid{gap:8px}
+  .playlist-grid button,.playlist-grid .field,.playlist-grid select{width:100%}
+  .playlist-grid button{height:auto;min-height:42px}
+  .player{position:fixed;left:8px;right:8px;bottom:calc(70px + env(safe-area-inset-bottom));height:54px;min-height:0;padding:6px 8px;border-radius:16px;gap:6px;flex-wrap:nowrap;align-items:center;box-shadow:0 12px 30px rgba(0,0,0,.32);background:rgba(12,15,20,.9);border:1px solid rgba(255,255,255,.08)}
+  .p-track{width:auto;flex:1;order:1;align-items:center;gap:7px;min-width:0}
+  .p-track #pRec{display:none}
+  .p-track .lk{display:none}
+  .p-cover{width:36px;height:36px;border-radius:10px}
+  .p-cover #pNum{font-size:11px}
+  .p-cover #pSpin{font-size:10px}
+  .p-track > div:nth-child(2){min-width:0;flex:1}
+  .p-track #pName{font-size:12px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .p-controls{width:auto;flex:0 0 auto;order:2;display:flex;flex-direction:row;align-items:center;gap:3px}
+  .p-btns{width:auto;justify-content:center;gap:3px}
+  .prog-row{display:none}
+  .p-right{display:none}
+  .vol-row{flex:1;min-width:0}
+  .vol{width:100%}
+  .spd{min-width:72px;flex:1}
+  .player #shBtn, .player #rpBtn{display:none}
+  .player .cb{width:30px;height:30px}
+  .player .pbig{width:36px;height:36px}
+  .mobile-nav{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;background:rgba(11,14,19,.88);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:7px;backdrop-filter:blur(24px);box-shadow:0 14px 38px rgba(0,0,0,.34)}
+  .mobile-nav .mn.on{background:rgba(0,193,106,.11);border-radius:14px}
+  .mobile-nav .mn.menu{color:var(--t1)}
+  .reader-panel{left:8px;right:8px;top:68px;bottom:calc(126px + env(safe-area-inset-bottom));width:auto;padding:12px;border-radius:20px}
+  .reader-title{font-size:15px}
+  .verse-ar{font-size:19px;line-height:2}
+  .verse-tr{font-size:12px}
+  body::before{opacity:.82;width:250px;height:250px;top:-84px;right:-92px;background:radial-gradient(circle at center, rgba(0,193,106,.22) 0%, rgba(0,193,106,0) 68%)}
+  body::after{opacity:.58;width:320px;height:320px;bottom:110px;left:-130px;background:radial-gradient(circle at center, rgba(0,153,82,.17) 0%, rgba(0,153,82,0) 72%)}
+}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast">
+  <i id="tIco" class="ti ti-check" style="color:var(--ac);font-size:14px"></i>
+  <span id="tmsg"></span>
+</div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo-row">
+      <div class="logo-box">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M2 11 Q7 4 11 11 Q15 18 20 11" stroke="#000" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <circle cx="11" cy="11" r="2.5" fill="#000"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">FreshSound</div>
+        <div class="logo-tag">Holy Quran</div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="nav-label">Меню</div>
+      <div class="ni on" data-p="home"><i class="ti ti-home"></i>Главная</div>
+      <div class="ni" data-p="surahs"><i class="ti ti-list"></i>Все суры</div>
+      <div class="ni" data-p="reciters"><i class="ti ti-microphone"></i>Чтецы</div>
+      <div class="ni" data-p="favs"><i class="ti ti-heart"></i>Избранное</div>
+      <div class="ni" data-p="hist"><i class="ti ti-history"></i>История</div>
+      <div class="ni" data-p="playlists"><i class="ti ti-playlist"></i>Плейлисты</div>
+      <div class="ni" data-p="dl"><i class="ti ti-download"></i>Загрузки</div>
+      <div class="nav-label">Аккаунт</div>
+      <div class="ni" data-p="settings"><i class="ti ti-settings"></i>Настройки</div>
+    </div>
+    <div class="pro-box">
+      <h4><i class="ti ti-crown" style="color:var(--ac);font-size:14px"></i>Премиум</h4>
+      <p>HD-качество, офлайн и без рекламы</p>
+      <button class="pro-btn" onclick="toast(t('messages.premiumSoon'))">Купить премиум</button>
+    </div>
+  </aside>
+
+  <div class="main">
+      <div class="topbar">
+      <button class="icon-btn mobile-menu-btn" onclick="toggleSidebar()" title="Меню"><i class="ti ti-menu-2"></i></button>
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input id="srch" type="text" placeholder="Поиск сур и чтецов…"/>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" onclick="toggleLang()" title="Сменить язык"><i class="ti ti-world"></i><span id="langBadge" style="font-size:11px;font-weight:700;margin-left:4px">RU</span></button>
+        <button class="icon-btn reader-toggle" id="readerBtn" onclick="toggleReaderPanel()" title="Текст Корана"><i class="ti ti-book-2"></i><span id="readerBtnText">Показать текст</span></button>
+        <button class="icon-btn"><i class="ti ti-bell"></i></button>
+        <button class="av" onclick="go('settings')" title="Аккаунт" aria-label="Аккаунт">A</button>
+      </div>
+    </div>
+
+    <div class="scroller">
+      <!-- HOME -->
+      <div class="page on" id="p-home">
+        <div class="hero">
+          <div class="hero-art">
+            <svg width="190" height="190" viewBox="0 0 190 190" fill="none">
+              <circle cx="95" cy="95" r="85" stroke="#00C16A" stroke-width="1.4"/>
+              <circle cx="123" cy="71" r="59" fill="#0b1f14"/>
+              <circle cx="95" cy="95" r="6.5" fill="#00C16A" opacity=".85"/>
+              <circle cx="133" cy="47" r="3.2" fill="#00C16A" opacity=".55"/>
+              <circle cx="61" cy="140" r="2.3" fill="#00C16A" opacity=".4"/>
+              <circle cx="160" cy="109" r="1.9" fill="#00C16A" opacity=".45"/>
+            </svg>
+          </div>
+          <div class="hero-inner">
+            <div class="hero-badge"><i class="ti ti-circle-check" style="font-size:12px"></i>Премиум качество</div>
+            <h1>Fresh<span>Sound</span></h1>
+            <p>Слушайте Священный Коран в высоком качестве в любое время и в любом месте, с любимыми чтецами.</p>
+            <div class="hero-btns">
+              <button class="btn-g" onclick="playSurahAtIdx(0)"><i class="ti ti-player-play" style="font-size:14px"></i>Начать прослушивание</button>
+              <button class="btn-w" onclick="go('reciters')"><i class="ti ti-users" style="font-size:14px"></i>Чтецы</button>
+            </div>
+          </div>
+        </div>
+        <div class="g-stats">
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-book" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">114</div><div style="font-size:11px;color:var(--t2)">Сур</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-microphone" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700" id="statRecCnt">4</div><div style="font-size:11px;color:var(--t2)">Чтецов</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-headphones" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">2.1M</div><div style="font-size:11px;color:var(--t2)">Слушателей</div></div></div>
+          <div class="stat-card"><div class="stat-icon"><i class="ti ti-sparkles" style="font-size:19px;color:var(--ac)"></i></div><div><div style="font-size:19px;font-weight:700">HD</div><div style="font-size:11px;color:var(--t2)">Аудио</div></div></div>
+        </div>
+        <div class="sec-hd"><h2>Популярные чтецы</h2><button class="see-all" onclick="go('reciters')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="g4" id="hRec" style="margin-bottom:26px"></div>
+        <div class="sec-hd"><h2>Популярные суры</h2><button class="see-all" onclick="go('surahs')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="g3" id="hSur" style="margin-bottom:26px"></div>
+        <div class="sec-hd"><h2>Плейлисты</h2><button class="see-all" onclick="go('playlists')">Все<i class="ti ti-arrow-right" style="font-size:12px"></i></button></div>
+        <div class="g3" id="hPl"></div>
+      </div>
+
+      <!-- SURAHS -->
+      <div class="page" id="p-surahs">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Все суры</div>
+        <div id="sCount" style="font-size:12px;color:var(--t2);margin-bottom:16px"></div>
+        <div style="display:flex;gap:7px;margin-bottom:16px" id="sFilters">
+          <button class="tag on" onclick="setFilter('All',this)">Все</button>
+          <button class="tag" onclick="setFilter('Meccan',this)">Мекканские</button>
+          <button class="tag" onclick="setFilter('Medinan',this)">Мединские</button>
+        </div>
+        <div class="s-table">
+          <div class="s-head"><span>#</span><span>Сура</span><span>Аятов</span><span>Тип</span><span>Длит.</span><span></span></div>
+          <div id="sList"></div>
+        </div>
+      </div>
+
+      <!-- RECITERS -->
+      <div class="page" id="p-reciters">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Чтецы</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Выберите любимого чтеца</div>
+        <div class="g2" id="rCards"></div>
+        <div style="margin-top:18px;padding:16px;background:var(--bg2);border:1px solid var(--br);border-radius:13px;display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:9px;background:rgba(0,193,106,.11);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-info-circle" style="font-size:19px;color:var(--ac)"></i></div>
+          <div><div style="font-size:13px;font-weight:600;margin-bottom:2px">Текущий чтец</div><div style="font-size:12px;color:var(--t2)">Воспроизведение с <span id="curRLabel" style="color:var(--ac);font-weight:600"></span></div></div>
+        </div>
+      </div>
+
+      <!-- PLAYLISTS -->
+      <div class="page" id="p-playlists">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Плейлисты</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Подборки и ваши собственные плейлисты с выбранным чтецом</div>
+        <div class="playlist-builder">
+          <div style="font-size:15px;font-weight:700;margin-bottom:4px">Создать свой плейлист</div>
+          <div class="section-note">Укажите чтеца и номера сур через запятую. Если поле пустое, будут взяты ваши избранные суры.</div>
+          <div class="playlist-grid">
+            <input id="plName" class="field" type="text" placeholder="Название плейлиста"/>
+            <select id="plRecSel" class="field"></select>
+            <input id="plIds" class="field" type="text" placeholder="Суры: 1, 18, 36"/>
+            <button class="mini-btn main" onclick="createPlaylist()">Создать</button>
+          </div>
+        </div>
+        <div class="sec-hd"><h2>Ваши плейлисты</h2></div>
+        <div id="customPlWrap" class="g2" style="margin-bottom:24px"></div>
+        <div class="sec-hd"><h2>Подборки</h2></div>
+        <div class="g2" id="plCards"></div>
+      </div>
+
+      <!-- FAVS -->
+      <div class="page" id="p-favs">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Избранное</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Ваши отмеченные суры и чтецы, с которыми они были отмечены</div>
+        <div id="favWrap"></div>
+        <div class="fav-reciters">
+          <div class="sec-hd"><h2>Чтецы из избранного</h2></div>
+          <div id="favRecWrap" class="rec-grid"></div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="page" id="p-hist">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">История</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Недавно воспроизводилось</div>
+        <div id="histWrap"></div>
+      </div>
+
+      <div class="page" id="p-dl">
+        <div class="ph"><i class="ti ti-download"></i><h3>Загрузки</h3><p style="font-size:12px">Офлайн-суры появятся здесь (премиум)</p></div>
+      </div>
+
+      <div class="page" id="p-settings">
+        <div style="font-size:19px;font-weight:700;margin-bottom:3px">Настройки</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Интерфейс на русском и быстрые действия</div>
+        <div class="settings-grid">
+          <div class="set-card">
+            <div style="font-size:14px;font-weight:700;margin-bottom:6px">Язык</div>
+            <div class="section-note">Сейчас интерфейс работает на русском языке. При желании можно расширить его на другие языки позже.</div>
+          </div>
+          <div class="set-card">
+            <div style="font-size:14px;font-weight:700;margin-bottom:6px">Премиум</div>
+            <div class="section-note" style="margin-bottom:10px">Покупка премиума пока недоступна.</div>
+            <button class="mini-btn main" onclick="toast(t('messages.premiumSoon'))">Купить премиум</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="setSidebarOpen(false)"></div>
+</div>
+
+<!-- PLAYER -->
+<div class="player">
+  <div class="p-track">
+    <div class="p-cover" id="pCov">
+      <span id="pNum" style="font-size:14px;font-weight:700;color:var(--ac)">—</span>
+      <i class="ti ti-loader spin" id="pSpin" style="font-size:12px;color:var(--ac);display:none;margin-top:2px"></i>
+    </div>
+    <div style="min-width:0;flex:1">
+      <div id="pName" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Выберите суру</div>
+      <div id="pRec" style="font-size:11px;color:var(--t2)">—</div>
+    </div>
+    <button class="lk" id="pLk" onclick="likeCur()" aria-label="Нравится"><i class="ti ti-heart" style="font-size:16px"></i></button>
+  </div>
+  <div class="p-controls">
+    <div class="p-btns">
+      <button class="cb" id="shBtn" onclick="toggleShuffle()" title="Перемешать"><i class="ti ti-arrows-shuffle"></i></button>
+      <button class="cb" onclick="prevS()" title="Предыдущая"><i class="ti ti-player-skip-back"></i></button>
+      <button class="pbig" id="playBtn" onclick="togglePlay()" title="Воспроизведение"><i class="ti ti-player-play" id="pIco"></i></button>
+      <button class="cb" onclick="nextS()" title="Следующая"><i class="ti ti-player-skip-forward"></i></button>
+      <button class="cb" id="rpBtn" onclick="toggleRepeat()" title="Повтор"><i class="ti ti-repeat"></i></button>
+    </div>
+    <div class="prog-row">
+      <span class="tm" id="tCur">0:00</span>
+      <input type="range" class="prog" id="progBar" min="0" max="100" step="0.1" value="0" oninput="seek(this.value)"/>
+      <span class="tm" id="tDur">–:––</span>
+    </div>
+  </div>
+  <div class="p-right">
+    <div class="vol-row">
+      <button class="cb" style="width:26px;height:26px;font-size:15px" onclick="toggleMute()" title="Без звука"><i class="ti ti-volume" id="vIco"></i></button>
+      <input type="range" class="vol" id="volBar" min="0" max="100" value="80" oninput="setVol(this.value)"/>
+    </div>
+    <select class="spd" id="spdSel" onchange="setSpd(this.value)">
+      <option value="0.5">0.5×</option>
+      <option value="0.75">0.75×</option>
+      <option value="1" selected>1×</option>
+      <option value="1.25">1.25×</option>
+      <option value="1.5">1.5×</option>
+      <option value="2">2×</option>
+    </select>
+    <button class="cb" style="font-size:15px" title="Очередь"><i class="ti ti-list-details"></i></button>
+  </div>
+</div>
+
+<div id="readerPanel" class="reader-panel" aria-hidden="true">
+  <div class="reader-head">
+    <div style="min-width:0">
+      <div class="reader-kicker" id="readerKicker">Текст Корана</div>
+      <div class="reader-title" id="readerTitle">1. Al-Fatihah</div>
+      <div class="reader-sub" id="readerSub">الفاتحة • Mishary Rashid Alafasy</div>
+    </div>
+    <div class="reader-actions">
+      <button class="reader-pill" id="readerTrBtn" onclick="toggleReaderTranslation()">Перевод: включён</button>
+      <button class="reader-pill" id="readerHideBtn" onclick="toggleReaderPanel(false)">Скрыть</button>
+    </div>
+  </div>
+  <div class="reader-meta" id="readerMeta"></div>
+  <div class="reader-body" id="readerBody"></div>
+</div>
+
+<nav class="mobile-nav" aria-label="Мобильная навигация">
+  <button class="mn on" data-p="home" onclick="go('home')"><i class="ti ti-home"></i><span>Главная</span></button>
+  <button class="mn" data-p="surahs" onclick="go('surahs')"><i class="ti ti-list"></i><span>Все суры</span></button>
+  <button class="mn" data-p="reciters" onclick="go('reciters')"><i class="ti ti-microphone"></i><span>Чтецы</span></button>
+  <button class="mn" data-p="playlists" onclick="go('playlists')"><i class="ti ti-playlist"></i><span>Плейлисты</span></button>
+  <button class="mn menu" data-action="menu" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i><span>Меню</span></button>
+</nav>
+
+<audio id="aud" preload="none"></audio>
+
+<script src="./quran_ru_data.js"></script>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA — All 114 Surahs (id = official Quran number, index = position in array)
+// ─────────────────────────────────────────────
+const SURAHS = [
+  {id:  1, name:"Al-Fatihah",     ar:"الفاتحة",      n:  7, t:"Meccan",  dur:"0:48"},
+  {id:  2, name:"Al-Baqarah",     ar:"البقرة",       n:286, t:"Medinan", dur:"2:01:30"},
+  {id:  3, name:"Ali Imran",      ar:"آل عمران",     n:200, t:"Medinan", dur:"1:20:00"},
+  {id:  4, name:"An-Nisa",        ar:"النساء",       n:176, t:"Medinan", dur:"1:15:00"},
+  {id:  5, name:"Al-Maidah",      ar:"المائدة",      n:120, t:"Medinan", dur:"58:00"},
+  {id:  6, name:"Al-Anam",        ar:"الأنعام",      n:165, t:"Meccan",  dur:"1:02:00"},
+  {id:  7, name:"Al-Araf",        ar:"الأعراف",      n:206, t:"Meccan",  dur:"1:10:00"},
+  {id:  8, name:"Al-Anfal",       ar:"الأنفال",      n: 75, t:"Medinan", dur:"30:00"},
+  {id:  9, name:"At-Tawbah",      ar:"التوبة",       n:129, t:"Medinan", dur:"55:00"},
+  {id: 10, name:"Yunus",          ar:"يونس",         n:109, t:"Meccan",  dur:"42:00"},
+  {id: 11, name:"Hud",            ar:"هود",          n:123, t:"Meccan",  dur:"45:00"},
+  {id: 12, name:"Yusuf",          ar:"يوسف",         n:111, t:"Meccan",  dur:"40:00"},
+  {id: 13, name:"Ar-Rad",         ar:"الرعد",        n: 43, t:"Medinan", dur:"18:00"},
+  {id: 14, name:"Ibrahim",        ar:"إبراهيم",      n: 52, t:"Meccan",  dur:"20:00"},
+  {id: 15, name:"Al-Hijr",        ar:"الحجر",        n: 99, t:"Meccan",  dur:"23:00"},
+  {id: 16, name:"An-Nahl",        ar:"النحل",        n:128, t:"Meccan",  dur:"50:00"},
+  {id: 17, name:"Al-Isra",        ar:"الإسراء",      n:111, t:"Meccan",  dur:"40:00"},
+  {id: 18, name:"Al-Kahf",        ar:"الكهف",        n:110, t:"Meccan",  dur:"43:00"},
+  {id: 19, name:"Maryam",         ar:"مريم",         n: 98, t:"Meccan",  dur:"35:00"},
+  {id: 20, name:"Ta-Ha",          ar:"طه",           n:135, t:"Meccan",  dur:"38:00"},
+  {id: 21, name:"Al-Anbiya",      ar:"الأنبياء",     n:112, t:"Meccan",  dur:"37:00"},
+  {id: 22, name:"Al-Hajj",        ar:"الحج",         n: 78, t:"Medinan", dur:"32:00"},
+  {id: 23, name:"Al-Muminun",     ar:"المؤمنون",     n:118, t:"Meccan",  dur:"38:00"},
+  {id: 24, name:"An-Nur",         ar:"النور",        n: 64, t:"Medinan", dur:"28:00"},
+  {id: 25, name:"Al-Furqan",      ar:"الفرقان",      n: 77, t:"Meccan",  dur:"25:00"},
+  {id: 26, name:"Ash-Shuara",     ar:"الشعراء",      n:227, t:"Meccan",  dur:"42:00"},
+  {id: 27, name:"An-Naml",        ar:"النمل",        n: 93, t:"Meccan",  dur:"33:00"},
+  {id: 28, name:"Al-Qasas",       ar:"القصص",        n: 88, t:"Meccan",  dur:"38:00"},
+  {id: 29, name:"Al-Ankabut",     ar:"العنكبوت",     n: 69, t:"Meccan",  dur:"28:00"},
+  {id: 30, name:"Ar-Rum",         ar:"الروم",        n: 60, t:"Meccan",  dur:"22:00"},
+  {id: 31, name:"Luqman",         ar:"لقمان",        n: 34, t:"Meccan",  dur:"14:00"},
+  {id: 32, name:"As-Sajdah",      ar:"السجدة",       n: 30, t:"Meccan",  dur:"10:00"},
+  {id: 33, name:"Al-Ahzab",       ar:"الأحزاب",      n: 73, t:"Medinan", dur:"30:00"},
+  {id: 34, name:"Saba",           ar:"سبأ",          n: 54, t:"Meccan",  dur:"22:00"},
+  {id: 35, name:"Fatir",          ar:"فاطر",         n: 45, t:"Meccan",  dur:"20:00"},
+  {id: 36, name:"Ya-Sin",         ar:"يس",           n: 83, t:"Meccan",  dur:"28:00"},
+  {id: 37, name:"As-Saffat",      ar:"الصافات",      n:182, t:"Meccan",  dur:"35:00"},
+  {id: 38, name:"Sad",            ar:"ص",            n: 88, t:"Meccan",  dur:"28:00"},
+  {id: 39, name:"Az-Zumar",       ar:"الزمر",        n: 75, t:"Meccan",  dur:"30:00"},
+  {id: 40, name:"Ghafir",         ar:"غافر",         n: 85, t:"Meccan",  dur:"35:00"},
+  {id: 41, name:"Fussilat",       ar:"فصلت",         n: 54, t:"Meccan",  dur:"22:00"},
+  {id: 42, name:"Ash-Shura",      ar:"الشورى",       n: 53, t:"Meccan",  dur:"22:00"},
+  {id: 43, name:"Az-Zukhruf",     ar:"الزخرف",       n: 89, t:"Meccan",  dur:"30:00"},
+  {id: 44, name:"Ad-Dukhan",      ar:"الدخان",       n: 59, t:"Meccan",  dur:"18:00"},
+  {id: 45, name:"Al-Jathiyah",    ar:"الجاثية",      n: 37, t:"Meccan",  dur:"15:00"},
+  {id: 46, name:"Al-Ahqaf",       ar:"الأحقاف",      n: 35, t:"Meccan",  dur:"15:00"},
+  {id: 47, name:"Muhammad",       ar:"محمد",         n: 38, t:"Medinan", dur:"17:00"},
+  {id: 48, name:"Al-Fath",        ar:"الفتح",        n: 29, t:"Medinan", dur:"14:00"},
+  {id: 49, name:"Al-Hujurat",     ar:"الحجرات",      n: 18, t:"Medinan", dur:"9:00"},
+  {id: 50, name:"Qaf",            ar:"ق",            n: 45, t:"Meccan",  dur:"16:00"},
+  {id: 51, name:"Adh-Dhariyat",   ar:"الذاريات",     n: 60, t:"Meccan",  dur:"17:00"},
+  {id: 52, name:"At-Tur",         ar:"الطور",        n: 49, t:"Meccan",  dur:"14:00"},
+  {id: 53, name:"An-Najm",        ar:"النجم",        n: 62, t:"Meccan",  dur:"16:00"},
+  {id: 54, name:"Al-Qamar",       ar:"القمر",        n: 55, t:"Meccan",  dur:"15:00"},
+  {id: 55, name:"Ar-Rahman",      ar:"الرحمن",       n: 78, t:"Medinan", dur:"20:00"},
+  {id: 56, name:"Al-Waqiah",      ar:"الواقعة",      n: 96, t:"Meccan",  dur:"22:00"},
+  {id: 57, name:"Al-Hadid",       ar:"الحديد",       n: 29, t:"Medinan", dur:"14:00"},
+  {id: 58, name:"Al-Mujadila",    ar:"المجادلة",     n: 22, t:"Medinan", dur:"11:00"},
+  {id: 59, name:"Al-Hashr",       ar:"الحشر",        n: 24, t:"Medinan", dur:"12:00"},
+  {id: 60, name:"Al-Mumtahanah",  ar:"الممتحنة",     n: 13, t:"Medinan", dur:"8:00"},
+  {id: 61, name:"As-Saf",         ar:"الصف",         n: 14, t:"Medinan", dur:"6:00"},
+  {id: 62, name:"Al-Jumuah",      ar:"الجمعة",       n: 11, t:"Medinan", dur:"5:00"},
+  {id: 63, name:"Al-Munafiqun",   ar:"المنافقون",    n: 11, t:"Medinan", dur:"5:00"},
+  {id: 64, name:"At-Taghabun",    ar:"التغابن",      n: 18, t:"Medinan", dur:"8:00"},
+  {id: 65, name:"At-Talaq",       ar:"الطلاق",       n: 12, t:"Medinan", dur:"7:00"},
+  {id: 66, name:"At-Tahrim",      ar:"التحريم",      n: 12, t:"Medinan", dur:"7:00"},
+  {id: 67, name:"Al-Mulk",        ar:"الملك",        n: 30, t:"Meccan",  dur:"10:00"},
+  {id: 68, name:"Al-Qalam",       ar:"القلم",        n: 52, t:"Meccan",  dur:"14:00"},
+  {id: 69, name:"Al-Haqqah",      ar:"الحاقة",       n: 52, t:"Meccan",  dur:"13:00"},
+  {id: 70, name:"Al-Maarij",      ar:"المعارج",      n: 44, t:"Meccan",  dur:"11:00"},
+  {id: 71, name:"Nuh",            ar:"نوح",          n: 28, t:"Meccan",  dur:"9:00"},
+  {id: 72, name:"Al-Jinn",        ar:"الجن",         n: 28, t:"Meccan",  dur:"10:00"},
+  {id: 73, name:"Al-Muzzammil",   ar:"المزمل",       n: 20, t:"Meccan",  dur:"8:00"},
+  {id: 74, name:"Al-Muddaththir", ar:"المدثر",       n: 56, t:"Meccan",  dur:"13:00"},
+  {id: 75, name:"Al-Qiyamah",     ar:"القيامة",      n: 40, t:"Meccan",  dur:"8:00"},
+  {id: 76, name:"Al-Insan",       ar:"الإنسان",      n: 31, t:"Medinan", dur:"11:00"},
+  {id: 77, name:"Al-Mursalat",    ar:"المرسلات",     n: 50, t:"Meccan",  dur:"10:00"},
+  {id: 78, name:"An-Naba",        ar:"النبأ",        n: 40, t:"Meccan",  dur:"7:00"},
+  {id: 79, name:"An-Naziat",      ar:"النازعات",     n: 46, t:"Meccan",  dur:"8:00"},
+  {id: 80, name:"Abasa",          ar:"عبس",          n: 42, t:"Meccan",  dur:"7:00"},
+  {id: 81, name:"At-Takwir",      ar:"التكوير",      n: 29, t:"Meccan",  dur:"5:00"},
+  {id: 82, name:"Al-Infitar",     ar:"الإنفطار",     n: 19, t:"Meccan",  dur:"3:00"},
+  {id: 83, name:"Al-Mutaffifin",  ar:"المطففين",     n: 36, t:"Meccan",  dur:"7:00"},
+  {id: 84, name:"Al-Inshiqaq",    ar:"الإنشقاق",     n: 25, t:"Meccan",  dur:"5:00"},
+  {id: 85, name:"Al-Buruj",       ar:"البروج",       n: 22, t:"Meccan",  dur:"5:00"},
+  {id: 86, name:"At-Tariq",       ar:"الطارق",       n: 17, t:"Meccan",  dur:"3:00"},
+  {id: 87, name:"Al-Ala",         ar:"الأعلى",       n: 19, t:"Meccan",  dur:"3:00"},
+  {id: 88, name:"Al-Ghashiyah",   ar:"الغاشية",      n: 26, t:"Meccan",  dur:"5:00"},
+  {id: 89, name:"Al-Fajr",        ar:"الفجر",        n: 30, t:"Meccan",  dur:"6:00"},
+  {id: 90, name:"Al-Balad",       ar:"البلد",        n: 20, t:"Meccan",  dur:"3:00"},
+  {id: 91, name:"Ash-Shams",      ar:"الشمس",        n: 15, t:"Meccan",  dur:"3:00"},
+  {id: 92, name:"Al-Layl",        ar:"الليل",        n: 21, t:"Meccan",  dur:"3:00"},
+  {id: 93, name:"Ad-Duha",        ar:"الضحى",        n: 11, t:"Meccan",  dur:"2:00"},
+  {id: 94, name:"Ash-Sharh",      ar:"الشرح",        n:  8, t:"Meccan",  dur:"1:30"},
+  {id: 95, name:"At-Tin",         ar:"التين",        n:  8, t:"Meccan",  dur:"1:30"},
+  {id: 96, name:"Al-Alaq",        ar:"العلق",        n: 19, t:"Meccan",  dur:"3:00"},
+  {id: 97, name:"Al-Qadr",        ar:"القدر",        n:  5, t:"Meccan",  dur:"1:00"},
+  {id: 98, name:"Al-Bayyinah",    ar:"البينة",       n:  8, t:"Medinan", dur:"3:00"},
+  {id: 99, name:"Az-Zalzalah",    ar:"الزلزلة",      n:  8, t:"Medinan", dur:"1:30"},
+  {id:100, name:"Al-Adiyat",      ar:"العاديات",     n: 11, t:"Meccan",  dur:"2:00"},
+  {id:101, name:"Al-Qariah",      ar:"القارعة",      n: 11, t:"Meccan",  dur:"2:00"},
+  {id:102, name:"At-Takathur",    ar:"التكاثر",      n:  8, t:"Meccan",  dur:"1:30"},
+  {id:103, name:"Al-Asr",         ar:"العصر",        n:  3, t:"Meccan",  dur:"0:40"},
+  {id:104, name:"Al-Humazah",     ar:"الهمزة",       n:  9, t:"Meccan",  dur:"1:30"},
+  {id:105, name:"Al-Fil",         ar:"الفيل",        n:  5, t:"Meccan",  dur:"1:00"},
+  {id:106, name:"Quraysh",        ar:"قريش",         n:  4, t:"Meccan",  dur:"0:45"},
+  {id:107, name:"Al-Maun",        ar:"الماعون",      n:  7, t:"Meccan",  dur:"1:00"},
+  {id:108, name:"Al-Kawthar",     ar:"الكوثر",       n:  3, t:"Meccan",  dur:"0:30"},
+  {id:109, name:"Al-Kafirun",     ar:"الكافرون",     n:  6, t:"Meccan",  dur:"0:50"},
+  {id:110, name:"An-Nasr",        ar:"النصر",        n:  3, t:"Medinan", dur:"0:40"},
+  {id:111, name:"Al-Masad",       ar:"المسد",        n:  5, t:"Meccan",  dur:"0:50"},
+  {id:112, name:"Al-Ikhlas",      ar:"الإخلاص",     n:  4, t:"Meccan",  dur:"0:30"},
+  {id:113, name:"Al-Falaq",       ar:"الفلق",        n:  5, t:"Meccan",  dur:"0:35"},
+  {id:114, name:"An-Nas",         ar:"الناس",        n:  6, t:"Meccan",  dur:"0:40"},
+];
+
+// ─────────────────────────────────────────────
+// RECITERS
+// cdnPath verified from REAL download links on quranicaudio.com
+// CDN base: https://download.quranicaudio.com/quran/{cdnPath}/{001-114}.mp3
+//
+// Verified sources:
+//   Mishary Alafasy   → quranicaudio.com/quran/5  → folder: mishaari_raashid_al_3afaasee
+//   Abdur-Rahman Sudais → quranicaudio.com/quran/7 → folder: abdurrahmaan_as-sudais
+//   Abu Bakr al-Shatri  → quranicaudio.com/quran/3 → folder: abu_bakr_ash-shaatree
+//   Nasser Al-Qatami    → quranicaudio.com/quran/104 → folder: nasser_bin_ali_alqatami
+//
+// quran.com chapter_reciter API IDs (for api.quran.com/api/v4/chapter_recitations):
+//   Mishary Alafasy   → apiId: 7  (quran.com/reciters/7)
+//   Abdur-Rahman Sudais → apiId: 3 (quran.com/reciters/3 = Sudais per quran.com)
+//   Abu Bakr al-Shatri  → apiId: null (not reliably available; use CDN directly)
+//   Nasser Al-Qatami    → apiId: null (not reliably available; use CDN directly)
+// ─────────────────────────────────────────────
+const RECITERS = [
+  {
+    apiId: 7,
+    cdnPath: "mishaari_raashid_al_3afaasee",
+    name: "Mishary Rashid Alafasy",
+    ar: "مشاري راشد العفاسي",
+    mosque: "Kuwait",
+    listeners: "32.5M",
+    color: "#00C16A"
+  },
+  {
+    apiId: 3,
+    cdnPath: "abdurrahmaan_as-sudays",
+    name: "Abdur-Rahman As-Sudais",
+    ar: "عبدالرحمن السديس",
+    mosque: "Masjid Al-Haram, Makkah",
+    listeners: "28.1M",
+    color: "#4a9edd"
+  },
+  {
+    apiId: null,
+    cdnPath: "abu_bakr_ash-shaatree",
+    name: "Abu Bakr Al-Shatri",
+    ar: "أبو بكر الشاطري",
+    mosque: "Masjid Al-Haram, Makkah",
+    listeners: "18.2M",
+    color: "#e07b30"
+  },
+  {
+    apiId: null,
+    cdnPath: "nasser_bin_ali_alqatami",
+    name: "Nasser Al-Qatami",
+    ar: "ناصر بن علي القطامي",
+    mosque: "Kuwait",
+    listeners: "14.7M",
+    color: "#a855d4"
+  },
+];
+
+const PLAYLISTS = [
+  {name:{ru:"Утреннее спокойствие", en:"Morning Calm"}, icon:"ti-sun",   desc:{ru:"Мягкое начало дня", en:"A calm start to the day"}, surahIds:[1,112,113,114,67,78]},
+  {name:{ru:"Вечернее размышление", en:"Evening Reflection"}, icon:"ti-moon",  desc:{ru:"Спокойные вечерние чтения", en:"Peaceful evening recitations"}, surahIds:[36,55,56,67,97]},
+  {name:{ru:"Учёба Корана", en:"Quran Study"},         icon:"ti-book",   desc:{ru:"Учитесь по аятам и смыслам", en:"Learn verse by verse"}, surahIds:[1,2,18,36,67,78]},
+  {name:{ru:"Перед сном", en:"Before Sleep"},           icon:"ti-bed",    desc:{ru:"Мягкие чтения на ночь", en:"Soothing night recitations"}, surahIds:[112,113,114,67]},
+  {name:{ru:"Глубокий фокус", en:"Deep Focus"},       icon:"ti-brain",  desc:{ru:"Слушайте во время работы", en:"Stay mindful while working"}, surahIds:[18,55,67,93,94,95]},
+  {name:{ru:"Рамадан", en:"Ramadan Special"},              icon:"ti-star",   desc:{ru:"Подборка для Рамадана", en:"A Ramadan-inspired collection"}, surahIds:[1,2,18,36,55,67,78,97,112,113]},
+];
+
+// Popular surah IDs to feature on home page (by official Quran ID)
+const POPULAR_SURAH_IDS = [1, 36, 67, 55, 18, 78];
+
+const LANG_KEY = 'freshsound-lang';
+const I18N = {
+  ru: {
+    title: 'FreshSound — Священный Коран',
+    searchPlaceholder: 'Поиск сур и чтецов…',
+    langBadge: 'RU',
+    logoTag: 'Священный Коран',
+    nav: {
+      menu: 'Меню',
+      home: 'Главная',
+      surahs: 'Все суры',
+      reciters: 'Чтецы',
+      favs: 'Избранное',
+      hist: 'История',
+      playlists: 'Плейлисты',
+      downloads: 'Загрузки',
+      account: 'Аккаунт',
+      settings: 'Настройки',
+    },
+    premium: {
+      title: 'Премиум',
+      desc: 'HD-качество, офлайн и без рекламы',
+      button: 'Купить премиум',
+    },
+    hero: {
+      badge: 'Премиум качество',
+      desc: 'Слушайте Священный Коран в высоком качестве в любое время и в любом месте, с любимыми чтецами.',
+      start: 'Начать прослушивание',
+      reciters: 'Чтецы',
+    },
+    stats: {
+      surahs: 'Сур',
+      reciters: 'Чтецов',
+      listeners: 'Слушателей',
+      audio: 'Аудио',
+    },
+    home: {
+      reciters: 'Популярные чтецы',
+      surahs: 'Популярные суры',
+      playlists: 'Плейлисты',
+      all: 'Все',
+    },
+    surahs: {
+      title: 'Все суры',
+      all: 'Все',
+      meccan: 'Мекканские',
+      medinan: 'Мединские',
+      surah: 'Сура',
+      ayahs: 'Аятов',
+      ayahCount: ({count}) => `${count} аятов`,
+      type: 'Тип',
+      duration: 'Длит.',
+      count: ({count, total}) => `${count} из ${total} сур`,
+      emptyTitle: 'Ничего не найдено',
+      emptyDesc: 'Попробуйте другой запрос или сбросьте фильтр.',
+    },
+    reciters: {
+      title: 'Чтецы',
+      subtitle: 'Выберите любимого чтеца',
+      current: 'Текущий чтец',
+      playingWith: 'Воспроизведение с',
+      play: 'Играть',
+    },
+    playlists: {
+      title: 'Плейлисты',
+      subtitle: 'Подборки и ваши собственные плейлисты с выбранным чтецом',
+      createTitle: 'Создать свой плейлист',
+      createDesc: 'Укажите чтеца и номера сур через запятую. Если поле пустое, будут взяты ваши избранные суры.',
+      namePlaceholder: 'Название плейлиста',
+      idsPlaceholder: 'Суры: 1, 18, 36',
+      createBtn: 'Создать',
+      your: 'Ваши плейлисты',
+      collections: 'Подборки',
+      none: 'Пока нет своих плейлистов',
+      noneDesc: 'Создайте первый плейлист из выбранных сур и чтеца.',
+      play: 'Играть',
+      delete: 'Удалить',
+      meta: ({count}) => `${count} сур`,
+    },
+    favs: {
+      title: 'Избранное',
+      subtitle: 'Ваши отмеченные суры и чтецы, с которыми они были отмечены',
+      reciters: 'Чтецы из избранного',
+      none: 'Пока нет чтецов в избранном',
+      noneDesc: 'Отметьте любую суру сердечком, и чтец появится здесь.',
+      savedCount: ({count}) => `${count} избранных сур`,
+      current: 'Текущий',
+      meta: 'Избран по вашим сурам',
+    },
+    hist: {
+      title: 'История',
+      subtitle: 'Недавно воспроизводилось',
+    },
+    downloads: {
+      title: 'Загрузки',
+      desc: 'Офлайн-суры появятся здесь (премиум)',
+    },
+    settings: {
+      title: 'Настройки',
+      subtitle: 'Интерфейс на русском и быстрые действия',
+      languageTitle: 'Язык',
+      languageDesc: 'Сейчас интерфейс работает на русском языке. При желании можно расширить его на другие языки позже.',
+      premiumTitle: 'Премиум',
+      premiumDesc: 'Покупка премиума пока недоступна.',
+      premiumButton: 'Купить премиум',
+    },
+    reader: {
+      kicker: 'Текст Корана',
+      title: 'Сура',
+      subtitle: 'Аят за аятом, как в Spotify',
+      toggleOn: 'Показать текст',
+      toggleOff: 'Скрыть текст',
+      translationOn: 'Перевод: включён',
+      translationOff: 'Перевод: скрыт',
+      hide: 'Скрыть',
+      show: 'Показать',
+      verses: ({count}) => `${count} аятов`,
+      hint: 'Нажмите на аят, чтобы перейти к нему',
+      noData: 'Текст для этой суры пока недоступен',
+      verse: 'Аят',
+    },
+    player: {
+      selectSurah: 'Выберите суру',
+      like: 'Нравится',
+      shuffle: 'Перемешать',
+      previous: 'Предыдущая',
+      play: 'Воспроизведение',
+      next: 'Следующая',
+      repeat: 'Повтор',
+      mute: 'Без звука',
+      queue: 'Очередь',
+    },
+    type: {
+      meccan: 'Мекканская',
+      medinan: 'Мединская',
+    },
+    ui: {
+      all: 'Все',
+      play: 'Играть',
+      delete: 'Удалить',
+      surahCount: ({count}) => `${count} сур`,
+      reciterLabel: 'Чтец',
+      langToggle: 'Сменить язык',
+      noSearchTitle: 'Ничего не найдено',
+      noSearchDesc: 'Попробуйте другой запрос или сбросьте фильтр.',
+      emptyTitle: 'Здесь пока пусто',
+      emptyDesc: 'Добавьте суры в избранное или посмотрите историю прослушиваний.',
+      emptyChip: 'Пусто',
+      noCustomTitle: 'Пока нет своих плейлистов',
+      noCustomDesc: 'Создайте первый плейлист из выбранных сур и чтеца.',
+      noFavRecitersTitle: 'Пока нет чтецов в избранном',
+      noFavRecitersDesc: 'Отметьте любую суру сердечком, и чтец появится здесь.',
+      byYourSurahs: 'Избран по вашим сурам',
+      defaultPlaylistName: 'Мой плейлист',
+    },
+    mobile: {
+      home: 'Главная',
+      surahs: 'Суры',
+      reciters: 'Чтецы',
+      playlists: 'Плейлисты',
+      menu: 'Меню',
+    },
+    messages: {
+      lang: 'Язык: русский',
+      premiumSoon: 'Скоро, Ин шаа Аллах',
+      noAudio: 'Не удалось получить ссылку на аудио для этого чтеца.',
+      tapPlay: 'Нажмите "Воспроизведение" ещё раз — браузеру нужен жест пользователя.',
+      blocked: 'Воспроизведение заблокировано — нажмите кнопку ещё раз.',
+      audioFailed: 'Не удалось загрузить аудио.',
+      audioError: ({code, message}) => `Ошибка аудио ${code}: ${message}`,
+      tryOtherReciter: 'Попробуйте другого чтеца.',
+      switchedReciter: ({name}) => `Чтец: ${name}`,
+      addedFav: 'Добавлено в избранное',
+      removedFav: 'Удалено из избранного',
+      needSurahs: 'Сначала выберите суры или отметьте их сердечком.',
+      playlistCreated: 'Плейлист создан',
+      playlistDeleted: 'Плейлист удалён',
+      playlistPrefix: ({name}) => `Плейлист: ${name}`,
+    },
+  },
+  en: {
+    title: 'FreshSound — Holy Quran',
+    searchPlaceholder: 'Search surahs and reciters…',
+    langBadge: 'EN',
+    logoTag: 'Holy Quran',
+    nav: {
+      menu: 'Menu',
+      home: 'Home',
+      surahs: 'All Surahs',
+      reciters: 'Reciters',
+      favs: 'Favourites',
+      hist: 'History',
+      playlists: 'Playlists',
+      downloads: 'Downloads',
+      account: 'Account',
+      settings: 'Settings',
+    },
+    premium: {
+      title: 'Premium',
+      desc: 'HD audio, offline and ad-free',
+      button: 'Buy Premium',
+    },
+    hero: {
+      badge: 'Premium quality',
+      desc: 'Listen to the Holy Quran in high quality anytime, anywhere, with your favourite reciters.',
+      start: 'Start Listening',
+      reciters: 'Reciters',
+    },
+    stats: {
+      surahs: 'Surahs',
+      reciters: 'Reciters',
+      listeners: 'Listeners',
+      audio: 'Audio',
+    },
+    home: {
+      reciters: 'Popular Reciters',
+      surahs: 'Popular Surahs',
+      playlists: 'Playlists',
+      all: 'All',
+    },
+    surahs: {
+      title: 'All Surahs',
+      all: 'All',
+      meccan: 'Meccan',
+      medinan: 'Medinan',
+      surah: 'Surah',
+      ayahs: 'Ayahs',
+      ayahCount: ({count}) => `${count} ayahs`,
+      type: 'Type',
+      duration: 'Dur.',
+      count: ({count, total}) => `${count} of ${total} surahs`,
+      emptyTitle: 'Nothing found',
+      emptyDesc: 'Try another query or clear the filter.',
+    },
+    reciters: {
+      title: 'Reciters',
+      subtitle: 'Choose your favourite reciter',
+      current: 'Current reciter',
+      playingWith: 'Playing with',
+      play: 'Play',
+    },
+    playlists: {
+      title: 'Playlists',
+      subtitle: 'Curated mixes and your own playlists with a chosen reciter',
+      createTitle: 'Create your playlist',
+      createDesc: 'Choose a reciter and enter surah numbers separated by commas. If left blank, your liked surahs will be used.',
+      namePlaceholder: 'Playlist name',
+      idsPlaceholder: 'Surahs: 1, 18, 36',
+      createBtn: 'Create',
+      your: 'Your playlists',
+      collections: 'Collections',
+      none: 'No custom playlists yet',
+      noneDesc: 'Create your first playlist from selected surahs and a reciter.',
+      play: 'Play',
+      delete: 'Delete',
+      meta: ({count}) => `${count} surahs`,
+    },
+    favs: {
+      title: 'Favourites',
+      subtitle: 'Your liked surahs and the reciters they were liked with',
+      reciters: 'Favourite reciters',
+      none: 'No favourite reciters yet',
+      noneDesc: 'Like any surah and its reciter will appear here.',
+      savedCount: ({count}) => `${count} liked surahs`,
+      current: 'Current',
+      meta: 'Saved from your liked surahs',
+    },
+    hist: {
+      title: 'History',
+      subtitle: 'Recently played',
+    },
+    downloads: {
+      title: 'Downloads',
+      desc: 'Offline surahs appear here (Premium)',
+    },
+    settings: {
+      title: 'Settings',
+      subtitle: 'English interface and quick actions',
+      languageTitle: 'Language',
+      languageDesc: 'The interface is currently in English. You can expand it to other languages later.',
+      premiumTitle: 'Premium',
+      premiumDesc: 'Premium purchase is not available yet.',
+      premiumButton: 'Buy Premium',
+    },
+    reader: {
+      kicker: 'Quran Text',
+      title: 'Surah',
+      subtitle: 'Verse by verse, like Spotify lyrics',
+      toggleOn: 'Show text',
+      toggleOff: 'Hide text',
+      translationOn: 'Translation: on',
+      translationOff: 'Translation: hidden',
+      hide: 'Hide',
+      show: 'Show',
+      verses: ({count}) => `${count} verses`,
+      hint: 'Tap a verse to jump to it',
+      noData: 'Verse text for this surah is not available yet',
+      verse: 'Verse',
+    },
+    player: {
+      selectSurah: 'Select a surah',
+      like: 'Like',
+      shuffle: 'Shuffle',
+      previous: 'Previous',
+      play: 'Play/Pause',
+      next: 'Next',
+      repeat: 'Repeat',
+      mute: 'Mute',
+      queue: 'Queue',
+    },
+    type: {
+      meccan: 'Meccan',
+      medinan: 'Medinan',
+    },
+    ui: {
+      all: 'All',
+      play: 'Play',
+      delete: 'Delete',
+      surahCount: ({count}) => `${count} surahs`,
+      reciterLabel: 'Reciter',
+      langToggle: 'Switch language',
+      noSearchTitle: 'Nothing found',
+      noSearchDesc: 'Try another query or clear the filter.',
+      emptyTitle: 'Nothing here yet',
+      emptyDesc: 'Add surahs to favourites or check your listening history.',
+      emptyChip: 'Empty',
+      noCustomTitle: 'No custom playlists yet',
+      noCustomDesc: 'Create your first playlist from selected surahs and a reciter.',
+      noFavRecitersTitle: 'No favourite reciters yet',
+      noFavRecitersDesc: 'Like any surah and its reciter will appear here.',
+      byYourSurahs: 'Saved from your liked surahs',
+      defaultPlaylistName: 'My playlist',
+    },
+    mobile: {
+      home: 'Home',
+      surahs: 'Surahs',
+      reciters: 'Reciters',
+      playlists: 'Playlists',
+      menu: 'Menu',
+    },
+    messages: {
+      lang: 'Language: English',
+      premiumSoon: 'Coming soon, In sha Allah',
+      noAudio: 'Could not resolve audio URL for this reciter.',
+      tapPlay: 'Tap Play again - the browser needs a user gesture.',
+      blocked: 'Playback blocked - press the button again.',
+      audioFailed: 'Audio failed to load.',
+      audioError: ({code, message}) => `Audio error ${code}: ${message}`,
+      tryOtherReciter: 'Try another reciter.',
+      switchedReciter: ({name}) => `Reciter: ${name}`,
+      addedFav: 'Added to favourites',
+      removedFav: 'Removed from favourites',
+      needSurahs: 'First choose some surahs or like them.',
+      playlistCreated: 'Playlist created',
+      playlistDeleted: 'Playlist deleted',
+      playlistPrefix: ({name}) => `Playlist: ${name}`,
+    },
+  },
+};
+
+const savedLang = (() => {
+  try { return localStorage.getItem(LANG_KEY); } catch (e) { return null; }
+})();
+
+// ─────────────────────────────────────────────
+// STATE
+// ci = current index in SURAHS array (NOT surah id)
+// ─────────────────────────────────────────────
+const STORAGE_KEY = 'freshsound-state-v2';
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      likes,
+      likeMeta,
+      hist,
+      customPlaylists
+    }));
+  } catch (e) {}
+}
+
+const savedState = loadState();
+let ci=0, ri=0, playing=false, shuffle=false, repeat=false, muted=false, prevVol=80;
+let likes = savedState.likes && typeof savedState.likes === 'object' ? savedState.likes : {};
+let likeMeta = savedState.likeMeta && typeof savedState.likeMeta === 'object' ? savedState.likeMeta : {};
+let hist = Array.isArray(savedState.hist) ? savedState.hist : [];
+let customPlaylists = Array.isArray(savedState.customPlaylists) ? savedState.customPlaylists : [];
+let filt='All', q='', currentPage='home';
+let currentLang = savedLang === 'en' ? 'en' : 'ru';
+let activeQueue = null, activeQueueIndex = -1, activeQueueName = '', activeQueueKind = null, activeQueueRef = null;
+// Cache: "reciterApiId-surahId" → audio_url
+const urlCache = {};
+
+const aud = document.getElementById('aud');
+aud.volume = 0.8;
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+function localize(value) {
+  if (value && typeof value === 'object') {
+    return value[currentLang] ?? value.ru ?? value.en ?? '';
+  }
+  return value ?? '';
+}
+
+function t(path, vars = {}) {
+  const resolved = path.split('.').reduce((obj, key) => (obj && obj[key] !== undefined) ? obj[key] : undefined, I18N[currentLang])
+    ?? path.split('.').reduce((obj, key) => (obj && obj[key] !== undefined) ? obj[key] : undefined, I18N.ru)
+    ?? path;
+  if (typeof resolved === 'function') return resolved(vars);
+  return String(resolved).replace(/\{(\w+)\}/g, (_, key) => vars[key] ?? '');
+}
+
+function setButtonLabel(el, label, iconPosition='left') {
+  if (!el) return;
+  const icon = el.querySelector('i');
+  if (!icon) {
+    el.textContent = label;
+    return;
+  }
+  const iconHTML = icon.outerHTML;
+  if (iconPosition === 'right') el.innerHTML = `<span>${label}</span>${iconHTML}`;
+  else el.innerHTML = `${iconHTML}<span>${label}</span>`;
+}
+
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 920px)').matches;
+}
+
+function setSidebarOpen(open) {
+  const shouldOpen = !!open;
+  document.body.classList.toggle('sidebar-open', shouldOpen);
+  document.querySelectorAll('.mobile-nav .mn.menu, .mobile-menu-btn').forEach(btn => btn.classList.toggle('on', shouldOpen));
+}
+
+function normalizeReciterIndex(i) {
+  const n = Number(i);
+  return Number.isInteger(n) && n >= 0 && n < RECITERS.length ? n : 0;
+}
+
+function toggleSidebar(force) {
+  const next = typeof force === 'boolean' ? force : !document.body.classList.contains('sidebar-open');
+  setSidebarOpen(next);
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'ru' ? 'en' : 'ru';
+  try { localStorage.setItem(LANG_KEY, currentLang); } catch (e) {}
+  applyLanguage();
+  toast(t('messages.lang'));
+}
+
+const pad3 = n => String(n).padStart(3, '0'); // 1→"001", 12→"012", 114→"114"
+const typeLabel = type => type === 'Meccan' ? t('type.meccan') : t('type.medinan');
+const uniqueIds = arr => [...new Set(arr.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= 114))];
+const parseSurahIds = raw => uniqueIds((raw || '').split(/[\s,;]+/).filter(Boolean).map(n => parseInt(n, 10)));
+const likedReciterIndices = () => [...new Set(
+  Object.keys(likes)
+    .filter(id => likes[id])
+    .map(id => likeMeta[id]?.reciterIdx)
+    .filter(i => Number.isInteger(i) && RECITERS[i])
+)];
+const likedReciterStats = () => {
+  const counts = new Map();
+  Object.entries(likeMeta || {}).forEach(([id, meta]) => {
+    if (!likes[id]) return;
+    const idx = normalizeReciterIndex(meta?.reciterIdx);
+    counts.set(idx, (counts.get(idx) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .map(([i, count]) => ({ i, count }))
+    .sort((a, b) => b.count - a.count || RECITERS[a.i].name.localeCompare(RECITERS[b.i].name));
+};
+const playlistLabel = pl => localize(pl.name);
+const playlistDesc = pl => localize(pl.desc);
+const previewChips = ids => ids.slice(0, 4).map(id => {
+  const s = SURAHS.find(x => x.id === id);
+  return s ? `<span class="pl-chip alt" title="${s.name}">${s.id}</span>` : '';
+}).join('');
+
+function normalizeLoadedState() {
+  ri = normalizeReciterIndex(ri);
+
+  const cleanedMeta = {};
+  Object.entries(likeMeta || {}).forEach(([id, meta]) => {
+    if (!meta || typeof meta !== 'object') return;
+    cleanedMeta[id] = {
+      ...meta,
+      reciterIdx: normalizeReciterIndex(meta.reciterIdx),
+    };
+  });
+  likeMeta = cleanedMeta;
+
+  customPlaylists = Array.isArray(customPlaylists)
+    ? customPlaylists.map(pl => ({
+        ...pl,
+        reciterIdx: normalizeReciterIndex(pl?.reciterIdx),
+        surahIds: Array.isArray(pl?.surahIds) ? uniqueIds(pl.surahIds) : [],
+      }))
+    : [];
+}
+
+normalizeLoadedState();
+saveState();
+
+const QURAN_TEXT = Array.isArray(window.QURAN_TEXT) ? window.QURAN_TEXT : [];
+const QURAN_CHAPTERS = new Map(QURAN_TEXT.map(ch => [Number(ch.id), ch]));
+const READER_TRANSLATION_KEY = 'freshsound-reader-translation';
+let readerVisible = false;
+let readerShowTranslation = (() => {
+  try {
+    const raw = localStorage.getItem(READER_TRANSLATION_KEY);
+    return raw === null ? true : raw !== '0';
+  } catch (e) {
+    return true;
+  }
+})();
+let readerChapterId = null;
+let readerTimeline = [];
+let readerActiveVerse = -1;
+let readerVerseEls = [];
+
+const fmt = s => {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s/60), sec = Math.floor(s%60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+};
+const ini = name => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const avHTML = (r, sz=54) =>
+  `<div class="av-ring" style="width:${sz}px;height:${sz}px;background:${r.color}22;border:1.5px solid ${r.color}55;font-size:${Math.round(sz*.33)}px;color:${r.color}">${ini(r.name)}</div>`;
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+}[ch]));
+
+function parseDuration(raw) {
+  if (raw === null || raw === undefined || raw === '') return 0;
+  const parts = String(raw).trim().split(':').map(Number);
+  if (parts.some(n => Number.isNaN(n))) return 0;
+  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  if (parts.length === 2) return parts[0] * 60 + parts[1];
+  return parts[0] || 0;
+}
+
+function getCurrentChapterData() {
+  const s = SURAHS[ci];
+  return s ? (QURAN_CHAPTERS.get(Number(s.id)) || null) : null;
+}
+
+function getReaderDurationEstimate() {
+  const fromAudio = Number.isFinite(aud.duration) && aud.duration > 0 ? aud.duration : 0;
+  if (fromAudio) return fromAudio;
+  return parseDuration(SURAHS[ci]?.dur) || 0;
+}
+
+function verseWeight(verse) {
+  const words = String(verse?.text || '').trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, words || 1);
+}
+
+function buildReaderTimeline(chapter, durationSec) {
+  const verses = Array.isArray(chapter?.verses) ? chapter.verses : [];
+  if (!verses.length) return [];
+  const totalWeight = verses.reduce((sum, verse) => sum + verseWeight(verse), 0) || verses.length;
+  const totalDuration = Math.max(Number(durationSec) || 0, verses.length * 1.35);
+  let cursor = 0;
+  return verses.map((verse, index) => {
+    const weight = verseWeight(verse);
+    const segment = Math.max(0.9, totalDuration * (weight / totalWeight));
+    const start = cursor;
+    const end = index === verses.length - 1 ? totalDuration : Math.min(totalDuration, start + segment);
+    cursor = end;
+    return { index, id: verse.id, text: verse.text, translation: verse.translation, start, end };
+  });
+}
+
+function ensureReaderTimeline(force=false) {
+  const chapter = getCurrentChapterData();
+  if (!chapter || !Array.isArray(chapter.verses) || !chapter.verses.length) {
+    readerChapterId = null;
+    readerTimeline = [];
+    readerActiveVerse = -1;
+    readerVerseEls = [];
+    return [];
+  }
+  const duration = getReaderDurationEstimate();
+  if (!force && readerChapterId === chapter.id && readerTimeline.length) {
+    const lastEnd = readerTimeline[readerTimeline.length - 1]?.end || 0;
+    if (Math.abs(lastEnd - duration) < 0.35) return readerTimeline;
+  }
+  readerChapterId = chapter.id;
+  readerTimeline = buildReaderTimeline(chapter, duration);
+  return readerTimeline;
+}
+
+function syncReaderVerse(time=aud.currentTime, forceScroll=false) {
+  if (!readerTimeline.length) return;
+  const panel = $('readerPanel');
+  const nextIndex = (() => {
+    for (let i = 0; i < readerTimeline.length; i++) {
+      if (time < readerTimeline[i].end - 0.06) return i;
+    }
+    return readerTimeline.length - 1;
+  })();
+  if (nextIndex !== readerActiveVerse) {
+    readerActiveVerse = nextIndex;
+    readerVerseEls.forEach((el, idx) => el.classList.toggle('on', idx === nextIndex));
+    if (panel && readerVisible && readerVerseEls[nextIndex]) {
+      readerVerseEls[nextIndex].scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  } else if (forceScroll && panel && readerVisible && readerVerseEls[nextIndex]) {
+    readerVerseEls[nextIndex].scrollIntoView({behavior:'smooth', block:'center'});
+  }
+}
+
+function renderReaderPanel() {
+  const panel = $('readerPanel');
+  const body = $('readerBody');
+  if (!panel || !body) return;
+  const chapter = getCurrentChapterData();
+  const surah = SURAHS[ci];
+  const reciter = RECITERS[ri];
+  ensureReaderTimeline();
+
+  panel.classList.toggle('hide-translation', !readerShowTranslation);
+
+  const kicker = $('readerKicker');
+  const title = $('readerTitle');
+  const sub = $('readerSub');
+  const meta = $('readerMeta');
+  const trBtn = $('readerTrBtn');
+  const hideBtn = $('readerHideBtn');
+  const readerBtn = $('readerBtn');
+  const readerBtnText = $('readerBtnText');
+
+  if (kicker) kicker.textContent = t('reader.kicker');
+  if (title) title.textContent = surah ? `${surah.id}. ${surah.name}` : t('reader.title');
+  if (sub) sub.textContent = chapter ? `${chapter.name} • ${reciter.name}` : reciter.name;
+  if (meta && chapter) {
+    meta.innerHTML = `<span>${t('reader.verses', {count: chapter.total_verses || chapter.verses?.length || 0})}</span><span>${t('reader.hint')}</span>`;
+  } else if (meta) {
+    meta.innerHTML = '';
+  }
+  if (trBtn) trBtn.textContent = readerShowTranslation ? t('reader.translationOn') : t('reader.translationOff');
+  if (hideBtn) hideBtn.textContent = readerVisible ? t('reader.hide') : t('reader.show');
+  if (readerBtn) {
+    readerBtn.title = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+    readerBtn.classList.toggle('on', readerVisible);
+  }
+  if (readerBtnText) readerBtnText.textContent = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+
+  if (!chapter || !chapter.verses?.length) {
+    body.innerHTML = `<div class="empty-state"><i class="ti ti-book"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('reader.noData')}</div><div class="section-note">${t('reader.hint')}</div></div>`;
+    readerVerseEls = [];
+    readerActiveVerse = -1;
+    return;
+  }
+
+  body.innerHTML = readerTimeline.map((verse, index) => `
+    <div class="verse-item${index === readerActiveVerse ? ' on' : ''}" data-v="${index}" onclick="seekReaderVerse(${index})">
+      <div class="verse-top">
+        <div class="verse-num">${verse.id}</div>
+        <div class="verse-badge">${t('reader.verse')} ${verse.id}</div>
+      </div>
+      <div class="verse-ar">${escapeHtml(verse.text)}</div>
+      ${readerShowTranslation ? `<div class="verse-tr">${escapeHtml(verse.translation || '')}</div>` : ''}
+      <div class="verse-meta">
+        <span>${verse.id}/${chapter.total_verses || chapter.verses.length}</span>
+      </div>
+    </div>
+  `).join('');
+  readerVerseEls = Array.from(body.querySelectorAll('.verse-item'));
+  readerActiveVerse = -1;
+  syncReaderVerse(aud.currentTime, true);
+}
+
+function setReaderVisible(next, opts={}) {
+  readerVisible = !!next;
+  document.body.classList.toggle('reader-open', readerVisible);
+  const panel = $('readerPanel');
+  if (panel) {
+    panel.setAttribute('aria-hidden', readerVisible ? 'false' : 'true');
+    panel.classList.toggle('hide-translation', !readerShowTranslation);
+  }
+  const btn = $('readerBtn');
+  const btnText = $('readerBtnText');
+  if (btn) {
+    btn.title = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+    btn.classList.toggle('on', readerVisible);
+    btn.setAttribute('aria-pressed', readerVisible ? 'true' : 'false');
+  }
+  if (btnText) btnText.textContent = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+  if (readerVisible && !opts.skipRender) renderReaderPanel();
+}
+
+function toggleReaderPanel(force) {
+  const next = typeof force === 'boolean' ? force : !readerVisible;
+  setReaderVisible(next, {user:true});
+}
+
+function toggleReaderTranslation() {
+  readerShowTranslation = !readerShowTranslation;
+  try { localStorage.setItem(READER_TRANSLATION_KEY, readerShowTranslation ? '1' : '0'); } catch (e) {}
+  renderReaderPanel();
+}
+
+function seekReaderVerse(index) {
+  const verse = readerTimeline[index];
+  if (!verse) return;
+  aud.currentTime = Math.max(0, verse.start + 0.03);
+  if (aud.paused) {
+    aud.play().catch(()=>{});
+  }
+  syncReaderVerse(aud.currentTime, true);
+}
+
+let toastT;
+function toast(msg, isErr=false) {
+  clearTimeout(toastT);
+  $('tmsg').textContent = msg;
+  $('tIco').className = isErr ? 'ti ti-alert-circle' : 'ti ti-check';
+  $('tIco').style.color = isErr ? '#e05555' : 'var(--ac)';
+  const el = $('toast');
+  el.className = 'toast show' + (isErr ? ' err' : '');
+  toastT = setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+function setLoading(on) {
+  $('pSpin').style.display = on ? 'inline-block' : 'none';
+  $('pNum').style.display  = on ? 'none' : 'inline-block';
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLang;
+  document.title = t('title');
+
+  if ($('langBadge')) $('langBadge').textContent = t('langBadge');
+  const langBtn = document.querySelector('button[onclick="toggleLang()"]');
+  if (langBtn) langBtn.title = t('ui.langToggle');
+  if ($('srch')) $('srch').placeholder = t('searchPlaceholder');
+
+  const navLabels = document.querySelectorAll('.nav .nav-label');
+  if (navLabels[0]) navLabels[0].textContent = t('nav.menu');
+  if (navLabels[1]) navLabels[1].textContent = t('nav.account');
+  const logoTag = document.querySelector('.logo-tag');
+  if (logoTag) logoTag.textContent = t('logoTag');
+
+  const navMap = {
+    home: 'nav.home',
+    surahs: 'nav.surahs',
+    reciters: 'nav.reciters',
+    favs: 'nav.favs',
+    hist: 'nav.hist',
+    playlists: 'nav.playlists',
+    dl: 'nav.downloads',
+    settings: 'nav.settings',
+  };
+  document.querySelectorAll('.nav .ni[data-p]').forEach(el => setButtonLabel(el, t(navMap[el.dataset.p]), 'left'));
+
+  const mobileNavMap = {
+    home: 'mobile.home',
+    surahs: 'mobile.surahs',
+    reciters: 'mobile.reciters',
+    playlists: 'mobile.playlists',
+  };
+  document.querySelectorAll('.mobile-nav .mn[data-p]').forEach(el => setButtonLabel(el, t(mobileNavMap[el.dataset.p]), 'left'));
+  const mobileMenu = document.querySelector('.mobile-nav .mn.menu');
+  if (mobileMenu) setButtonLabel(mobileMenu, t('mobile.menu'), 'left');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  if (menuBtn) menuBtn.title = t('mobile.menu');
+  const accountBtn = document.querySelector('.av');
+  if (accountBtn) {
+    accountBtn.title = t('nav.account');
+    accountBtn.setAttribute('aria-label', t('nav.account'));
+  }
+  const readerBtn = $('readerBtn');
+  const readerBtnText = $('readerBtnText');
+  if (readerBtn) {
+    readerBtn.title = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+    readerBtn.classList.toggle('on', readerVisible);
+    readerBtn.setAttribute('aria-pressed', readerVisible ? 'true' : 'false');
+  }
+  if (readerBtnText) readerBtnText.textContent = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+
+  const proBox = document.querySelector('.pro-box');
+  if (proBox) {
+    setButtonLabel(proBox.querySelector('h4'), t('premium.title'), 'left');
+    const proText = proBox.querySelector('p');
+    if (proText) proText.textContent = t('premium.desc');
+    const proBtn = proBox.querySelector('.pro-btn');
+    if (proBtn) proBtn.textContent = t('premium.button');
+  }
+
+  const heroBadge = document.querySelector('#p-home .hero-badge');
+  if (heroBadge) setButtonLabel(heroBadge, t('hero.badge'), 'left');
+  const heroDesc = document.querySelector('#p-home .hero p');
+  if (heroDesc) heroDesc.textContent = t('hero.desc');
+  const heroBtns = document.querySelectorAll('#p-home .hero-btns button');
+  if (heroBtns[0]) setButtonLabel(heroBtns[0], t('hero.start'), 'left');
+  if (heroBtns[1]) setButtonLabel(heroBtns[1], t('hero.reciters'), 'left');
+
+  const stats = document.querySelectorAll('#p-home .stat-card');
+  if (stats[0]?.children[1]?.children[1]) stats[0].children[1].children[1].textContent = t('stats.surahs');
+  if (stats[1]?.children[1]?.children[1]) stats[1].children[1].children[1].textContent = t('stats.reciters');
+  if (stats[2]?.children[1]?.children[1]) stats[2].children[1].children[1].textContent = t('stats.listeners');
+  if (stats[3]?.children[1]?.children[1]) stats[3].children[1].children[1].textContent = t('stats.audio');
+
+  const homeSecs = document.querySelectorAll('#p-home .sec-hd');
+  if (homeSecs[0]) {
+    const h2 = homeSecs[0].querySelector('h2');
+    const see = homeSecs[0].querySelector('.see-all');
+    if (h2) h2.textContent = t('home.reciters');
+    if (see) setButtonLabel(see, t('ui.all'), 'right');
+  }
+  if (homeSecs[1]) {
+    const h2 = homeSecs[1].querySelector('h2');
+    const see = homeSecs[1].querySelector('.see-all');
+    if (h2) h2.textContent = t('home.surahs');
+    if (see) setButtonLabel(see, t('ui.all'), 'right');
+  }
+  if (homeSecs[2]) {
+    const h2 = homeSecs[2].querySelector('h2');
+    const see = homeSecs[2].querySelector('.see-all');
+    if (h2) h2.textContent = t('home.playlists');
+    if (see) setButtonLabel(see, t('ui.all'), 'right');
+  }
+
+  const surahsPage = $('p-surahs');
+  if (surahsPage) {
+    if (surahsPage.children[0]) surahsPage.children[0].textContent = t('surahs.title');
+    const tags = surahsPage.querySelectorAll('#sFilters .tag');
+    if (tags[0]) tags[0].textContent = t('surahs.all');
+    if (tags[1]) tags[1].textContent = t('surahs.meccan');
+    if (tags[2]) tags[2].textContent = t('surahs.medinan');
+    const head = surahsPage.querySelector('.s-head');
+    if (head) {
+      const spans = head.querySelectorAll('span');
+      if (spans[1]) spans[1].textContent = t('surahs.surah');
+      if (spans[2]) spans[2].textContent = t('surahs.ayahs');
+      if (spans[3]) spans[3].textContent = t('surahs.type');
+      if (spans[4]) spans[4].textContent = t('surahs.duration');
+    }
+  }
+
+  const recPage = $('p-reciters');
+  if (recPage) {
+    if (recPage.children[0]) recPage.children[0].textContent = t('reciters.title');
+    if (recPage.children[1]) recPage.children[1].textContent = t('reciters.subtitle');
+    const info = recPage.children[3];
+    if (info?.children[1]) {
+      info.children[1].innerHTML = `<div style="font-size:13px;font-weight:600;margin-bottom:2px">${t('reciters.current')}</div><div style="font-size:12px;color:var(--t2)">${t('reciters.playingWith')} <span id="curRLabel" style="color:var(--ac);font-weight:600"></span></div>`;
+    }
+  }
+
+  const playlistsPage = $('p-playlists');
+  if (playlistsPage) {
+    if (playlistsPage.children[0]) playlistsPage.children[0].textContent = t('playlists.title');
+    if (playlistsPage.children[1]) playlistsPage.children[1].textContent = t('playlists.subtitle');
+    const builder = playlistsPage.children[2];
+    if (builder) {
+      if (builder.children[0]) builder.children[0].textContent = t('playlists.createTitle');
+      if (builder.children[1]) builder.children[1].textContent = t('playlists.createDesc');
+      const nameInput = $('plName');
+      if (nameInput) nameInput.placeholder = t('playlists.namePlaceholder');
+      const idsInput = $('plIds');
+      if (idsInput) idsInput.placeholder = t('playlists.idsPlaceholder');
+      const createBtn = builder.querySelector('.mini-btn.main');
+      if (createBtn) createBtn.textContent = t('playlists.createBtn');
+    }
+    if (playlistsPage.children[3]?.querySelector('h2')) playlistsPage.children[3].querySelector('h2').textContent = t('playlists.your');
+    if (playlistsPage.children[5]?.querySelector('h2')) playlistsPage.children[5].querySelector('h2').textContent = t('playlists.collections');
+  }
+
+  const favPage = $('p-favs');
+  if (favPage) {
+    if (favPage.children[0]) favPage.children[0].textContent = t('favs.title');
+    if (favPage.children[1]) favPage.children[1].textContent = t('favs.subtitle');
+    if (favPage.children[3]?.querySelector('h2')) favPage.children[3].querySelector('h2').textContent = t('favs.reciters');
+  }
+
+  const histPage = $('p-hist');
+  if (histPage) {
+    if (histPage.children[0]) histPage.children[0].textContent = t('hist.title');
+    if (histPage.children[1]) histPage.children[1].textContent = t('hist.subtitle');
+  }
+
+  const dlPage = $('p-dl');
+  if (dlPage) {
+    const card = dlPage.querySelector('.ph');
+    if (card?.querySelector('h3')) card.querySelector('h3').textContent = t('downloads.title');
+    if (card?.querySelector('p')) card.querySelector('p').textContent = t('downloads.desc');
+  }
+
+  const settingsPage = $('p-settings');
+  if (settingsPage) {
+    if (settingsPage.children[0]) settingsPage.children[0].textContent = t('settings.title');
+    if (settingsPage.children[1]) settingsPage.children[1].textContent = t('settings.subtitle');
+    const cards = settingsPage.querySelectorAll('.set-card');
+    if (cards[0]) {
+      if (cards[0].children[0]) cards[0].children[0].textContent = t('settings.languageTitle');
+      if (cards[0].children[1]) cards[0].children[1].textContent = t('settings.languageDesc');
+    }
+    if (cards[1]) {
+      if (cards[1].children[0]) cards[1].children[0].textContent = t('settings.premiumTitle');
+      if (cards[1].children[1]) cards[1].children[1].textContent = t('settings.premiumDesc');
+      const button = cards[1].querySelector('.mini-btn.main');
+      if (button) button.textContent = t('settings.premiumButton');
+    }
+  }
+
+  const pName = $('pName');
+  if (pName && (!aud.src || aud.src === location.href)) pName.textContent = t('player.selectSurah');
+  const pLike = $('pLk');
+  if (pLike) pLike.setAttribute('aria-label', t('player.like'));
+  const controls = {
+    shBtn: t('player.shuffle'),
+    playBtn: t('player.play'),
+    rpBtn: t('player.repeat'),
+  };
+  if ($('shBtn')) $('shBtn').title = controls.shBtn;
+  if ($('playBtn')) $('playBtn').title = controls.playBtn;
+  if ($('rpBtn')) $('rpBtn').title = controls.rpBtn;
+  const prevBtn = document.querySelector('button[onclick="prevS()"]');
+  if (prevBtn) prevBtn.title = t('player.previous');
+  const nextBtn = document.querySelector('button[onclick="nextS()"]');
+  if (nextBtn) nextBtn.title = t('player.next');
+  const muteBtn = document.querySelector('button[onclick="toggleMute()"]');
+  if (muteBtn) muteBtn.title = t('player.mute');
+  const queueBtn = document.querySelector('button[title="Очередь"], button[title="Queue"]');
+  if (queueBtn) queueBtn.title = t('player.queue');
+
+  if (activeQueueKind === 'static' && typeof activeQueueRef === 'number' && PLAYLISTS[activeQueueRef]) {
+    activeQueueName = playlistLabel(PLAYLISTS[activeQueueRef]);
+  }
+
+  renderHRec();
+  renderHSur();
+  renderHPl();
+  renderSList();
+  renderRec();
+  renderPlaylists();
+  renderFavs();
+  renderHist();
+  renderReaderPanel();
+  updatePUI();
+}
+
+// ─────────────────────────────────────────────
+// AUDIO URL RESOLVER
+// Primary: Quran Foundation API (api.quran.com/api/v4/chapter_recitations)
+// Fallback: direct CDN with zero-padded surah number
+// ─────────────────────────────────────────────
+async function resolveUrl(surahId, reciter) {
+  const key = `${reciter.apiId}-${surahId}`;
+  if (urlCache[key]) return urlCache[key];
+
+  // Try Quran Foundation API first
+  if (reciter.apiId) {
+    try {
+      const res = await fetch(
+        `https://api.quran.com/api/v4/chapter_recitations/${reciter.apiId}/${surahId}`,
+        {headers:{'Accept':'application/json'}}
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const url = data?.audio_file?.audio_url;
+        if (url) { urlCache[key] = url; return url; }
+      }
+    } catch(e) { /* fall through to CDN fallback */ }
+  }
+
+  // Fallback: construct CDN URL with zero-padded surah number
+  // Verified format: https://download.quranicaudio.com/quran/{path}/{001-114}.mp3
+  if (reciter.cdnPath) {
+    const url = `https://download.quranicaudio.com/quran/${reciter.cdnPath}/${pad3(surahId)}.mp3`;
+    urlCache[key] = url;
+    return url;
+  }
+
+  return null;
+}
+
+function clearActiveQueue() {
+  activeQueue = null;
+  activeQueueIndex = -1;
+  activeQueueName = '';
+  activeQueueKind = null;
+  activeQueueRef = null;
+}
+
+// ─────────────────────────────────────────────
+// PLAYBACK
+// playSurahAtIdx: plays by SURAHS array index
+// playSurahById:  plays by official Quran surah number
+// ─────────────────────────────────────────────
+async function playSurahAtIdx(idx, opts={}) {
+  if (!opts.keepQueue) clearActiveQueue();
+  if (idx < 0 || idx >= SURAHS.length) return;
+  ci = idx;
+  const s = SURAHS[idx];
+  const r = RECITERS[ri];
+
+  setLoading(true);
+  updatePUI();
+  addHist(s);
+
+  const url = await resolveUrl(s.id, r);
+  if (!url) {
+    setLoading(false);
+    toast(t('messages.noAudio'), true);
+    return;
+  }
+
+  aud.pause();
+  aud.src = url;
+  aud.load();
+  setReaderVisible(true, {skipRender:true});
+  ensureReaderTimeline(true);
+  renderReaderPanel();
+
+  try {
+    await aud.play();
+    playing = true;
+  } catch(e) {
+    playing = false;
+    toast(t('messages.tapPlay'), true);
+  }
+  setLoading(false);
+  updatePBtn();
+  refreshLists();
+}
+
+// Find by official surah ID (1–114), then play by array index
+function playSurahById(id, opts={}) {
+  const idx = SURAHS.findIndex(s => s.id === id);
+  if (idx >= 0) playSurahAtIdx(idx, {keepQueue: !!opts.keepQueue});
+}
+
+function togglePlay() {
+  if (!aud.src || aud.src === location.href) { playSurahAtIdx(ci); return; }
+  if (playing) { aud.pause(); playing = false; }
+  else {
+    aud.play()
+      .then(()=>{ playing=true; updatePBtn(); refreshLists(); })
+      .catch(()=>{ toast(t('messages.blocked'), true); });
+    return;
+  }
+  updatePBtn(); refreshLists();
+}
+
+function nextS() {
+  if (activeQueue && activeQueue.length) {
+    activeQueueIndex = (activeQueueIndex + 1) % activeQueue.length;
+    playSurahById(activeQueue[activeQueueIndex], {keepQueue:true});
+    return;
+  }
+  const nextIdx = shuffle ? Math.floor(Math.random()*SURAHS.length) : (ci+1) % SURAHS.length;
+  playSurahAtIdx(nextIdx);
+}
+function prevS() {
+  if (activeQueue && activeQueue.length) {
+    if (aud.currentTime > 3) { aud.currentTime=0; return; }
+    activeQueueIndex = (activeQueueIndex - 1 + activeQueue.length) % activeQueue.length;
+    playSurahById(activeQueue[activeQueueIndex], {keepQueue:true});
+    return;
+  }
+  if (aud.currentTime > 3) { aud.currentTime=0; return; }
+  playSurahAtIdx((ci-1+SURAHS.length) % SURAHS.length);
+}
+function toggleShuffle() { shuffle=!shuffle; $('shBtn').classList.toggle('on',shuffle); }
+function toggleRepeat()  { repeat=!repeat; aud.loop=repeat; $('rpBtn').classList.toggle('on',repeat); }
+function seek(v)  { if(aud.duration) aud.currentTime=(v/100)*aud.duration; }
+function setVol(v){ aud.volume=v/100; muted=(+v===0); updateVIco(+v); }
+function toggleMute() {
+  if(muted){ aud.volume=prevVol/100; $('volBar').value=prevVol; muted=false; }
+  else      { prevVol=aud.volume*100; aud.volume=0; $('volBar').value=0; muted=true; }
+  updateVIco(aud.volume*100);
+}
+function setSpd(v){ aud.playbackRate=parseFloat(v); }
+function updateVIco(v){ $('vIco').className=v===0?'ti ti-volume-off':v<50?'ti ti-volume-2':'ti ti-volume'; }
+function updatePBtn(){ $('pIco').className=playing?'ti ti-player-pause':'ti ti-player-play'; }
+
+aud.addEventListener('timeupdate',()=>{
+  if(!aud.duration) return;
+  $('progBar').value=(aud.currentTime/aud.duration)*100;
+  $('tCur').textContent=fmt(aud.currentTime);
+  $('tDur').textContent=fmt(aud.duration);
+  if (readerTimeline.length) syncReaderVerse(aud.currentTime, false);
+});
+aud.addEventListener('loadedmetadata', ()=>{
+  if (readerTimeline.length || readerVisible) {
+    ensureReaderTimeline(true);
+    renderReaderPanel();
+  }
+});
+aud.addEventListener('durationchange', ()=>{
+  if (readerTimeline.length || readerVisible) {
+    ensureReaderTimeline(true);
+    renderReaderPanel();
+  }
+});
+aud.addEventListener('seeked', ()=> {
+  if (readerTimeline.length) syncReaderVerse(aud.currentTime, true);
+});
+aud.addEventListener('ended',   ()=>{ if(!repeat) nextS(); });
+aud.addEventListener('waiting', ()=>setLoading(true));
+aud.addEventListener('playing', ()=>{ setLoading(false); playing=true; updatePBtn(); refreshLists(); if (readerVisible) syncReaderVerse(aud.currentTime, false); });
+aud.addEventListener('pause', ()=>{ playing=false; updatePBtn(); refreshLists(); });
+aud.addEventListener('error',   ()=>{
+  setLoading(false); playing=false; updatePBtn();
+  const err = aud.error;
+  const msg = err ? t('messages.audioError', {code: err.code, message: err.message}) : t('messages.audioFailed');
+  toast(msg + ' ' + t('messages.tryOtherReciter'), true);
+});
+
+function setReciter(i, opts={}) {
+  ri = normalizeReciterIndex(i);
+  // Clear cached URL for current surah so new reciter URL will be fetched
+  const s = SURAHS[ci];
+  delete urlCache[`${RECITERS[ri].apiId}-${s.id}`];
+  if (playing && opts.playCurrent !== false) {
+    playSurahAtIdx(ci);
+  } else {
+    updatePUI();
+  }
+  if (!opts.silent) toast(t('messages.switchedReciter', {name: RECITERS[ri].name}));
+  renderRec(); renderHRec();
+}
+
+function updatePUI() {
+  const s = SURAHS[ci], r = RECITERS[ri];
+  $('pNum').textContent = s.id;
+  $('pName').textContent = (!aud.src || aud.src === location.href) ? t('player.selectSurah') : s.name;
+  $('pRec').textContent = activeQueueName ? `${r.name} • ${activeQueueName}` : r.name;
+  $('curRLabel').textContent = r.name;
+  updateLkBtn();
+}
+
+function likeCur() {
+  const id=SURAHS[ci].id;
+  likes[id]=!likes[id];
+  if (likes[id]) likeMeta[id] = {reciterIdx: ri};
+  else delete likeMeta[id];
+  updateLkBtn(); renderFavs();
+  saveState();
+  toast(likes[id] ? t('messages.addedFav') : t('messages.removedFav'));
+}
+function likeSurah(id) {
+  likes[id]=!likes[id];
+  if (likes[id]) likeMeta[id] = {reciterIdx: ri};
+  else delete likeMeta[id];
+  if(SURAHS[ci].id===id) updateLkBtn();
+  renderFavs(); refreshLists();
+  saveState();
+  toast(likes[id] ? t('messages.addedFav') : t('messages.removedFav'));
+}
+function updateLkBtn() {
+  const id=SURAHS[ci].id, btn=$('pLk'), ic=btn.querySelector('i');
+  btn.classList.toggle('on',!!likes[id]);
+  ic.className=likes[id]?'ti ti-heart-filled':'ti ti-heart';
+  ic.style.fontSize='16px';
+}
+function addHist(s){
+  hist=hist.filter(h=>h.id!==s.id);
+  hist.unshift(s);
+  if(hist.length>30)hist.pop();
+  saveState();
+}
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function sRowHTML(s) {
+  const isCurrent = SURAHS[ci].id===s.id;
+  const tc = s.t==='Meccan'?'mec':'med';
+  const likedRecIdx = likeMeta[s.id]?.reciterIdx;
+  const recLine = likes[s.id] && RECITERS[likedRecIdx]
+    ? `<div style="font-size:10px;color:var(--ac);margin-top:4px">${t('ui.reciterLabel') || (currentLang==='ru' ? 'Чтец' : 'Reciter')}: ${RECITERS[likedRecIdx].name}</div>`
+    : '';
+  return `<div class="s-row${isCurrent?' playing':''}" onclick="playSurahById(${s.id})">
+    <div class="s-num">${isCurrent&&playing?'<i class="ti ti-volume" style="font-size:13px;color:var(--ac)"></i>':s.id}</div>
+    <div style="display:flex;align-items:center;gap:9px">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:${isCurrent?'var(--ac)':'var(--t1)'}">${s.name}</div>
+        <div style="font-size:11px;color:var(--t2);font-family:serif">${s.ar}</div>
+        ${recLine}
+        <div class="s-mobile-meta">
+          <span>${t('surahs.ayahCount', {count:s.n})}</span>
+          <span>${typeLabel(s.t)}</span>
+          <span>${s.dur}</span>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--t2)">${s.n}</div>
+    <div><span class="badge ${tc}">${typeLabel(s.t)}</span></div>
+    <div style="font-size:12px;color:var(--t2)">${s.dur}</div>
+    <button class="lk${likes[s.id]?' on':''}" onclick="event.stopPropagation();likeSurah(${s.id})" aria-label="${t('player.like')}">
+      <i class="${likes[s.id]?'ti ti-heart-filled':'ti ti-heart'}" style="font-size:14px"></i>
+    </button>
+  </div>`;
+}
+
+function renderHRec() {
+  $('hRec').innerHTML = RECITERS.map((r,i)=>`
+    <div class="rc-card${i===ri?' on':''}" onclick="setReciter(${i})">
+      ${avHTML(r,54)}
+      <div class="rc-content">
+        <div style="font-size:13px;font-weight:700;margin-bottom:2px">${r.name}</div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.4">${r.mosque}</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:4px">
+          <i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i>
+          <span style="font-size:11px;color:var(--t3)">${r.listeners}</span>
+        </div>
+      </div>
+      <div class="play-dot" onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
+        <i class="ti ti-player-play"></i>
+      </div>
+    </div>`).join('');
+}
+
+function renderHSur() {
+  // Find surahs by their official ID (safe with 114-surah array)
+  const cards = POPULAR_SURAH_IDS.map(id => {
+    const s = SURAHS.find(x => x.id === id);
+    if (!s) return '';
+    return `<div class="card" style="display:flex;align-items:center;gap:11px;padding:12px 14px" onclick="playSurahById(${s.id})">
+      <div class="s-num">${s.id}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
+        <div style="font-size:11px;color:var(--t2)">${t('surahs.ayahCount', {count:s.n})} · ${typeLabel(s.t)}</div>
+      </div>
+      <span style="font-size:11px;color:var(--t2);margin-right:5px">${s.dur}</span>
+      <div class="play-inline">
+        <i class="ti ti-player-play" style="font-size:11px;color:#fff"></i>
+      </div>
+    </div>`;
+  }).join('');
+  $('hSur').innerHTML = cards;
+}
+
+function renderHPl() {
+  $('hPl').innerHTML = PLAYLISTS.map((p, i)=>`
+    <div class="pl-card" onclick="playStaticPlaylist(${i})">
+      <div style="width:42px;height:42px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ti ${p.icon}" style="font-size:19px;color:var(--ac)"></i>
+      </div>
+      <div style="min-width:0;flex:1">
+        <div style="font-size:13px;font-weight:600;margin-bottom:2px">${playlistLabel(p)}</div>
+        <div style="font-size:11px;color:var(--t2)">${t('ui.surahCount', {count:p.surahIds.length})} · ${playlistDesc(p)}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">${previewChips(p.surahIds)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderSList() {
+  const filtered = SURAHS.filter(s=>{
+    const mq = !q || s.name.toLowerCase().includes(q) || s.ar.includes(q);
+    return mq && (filt==='All' || s.t===filt);
+  });
+  $('sCount').textContent = t('surahs.count', {count: filtered.length, total: SURAHS.length});
+  $('sList').innerHTML = filtered.length
+    ? filtered.map(s=>sRowHTML(s)).join('')
+    : `<div class="empty-state"><i class="ti ti-search"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('surahs.emptyTitle')}</div><div class="section-note">${t('surahs.emptyDesc')}</div></div>`;
+}
+
+function setFilter(f, btn) {
+  filt=f;
+  document.querySelectorAll('#sFilters .tag').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderSList();
+}
+
+function renderRec() {
+  $('rCards').innerHTML = RECITERS.map((r,i)=>`
+    <div class="card" style="display:flex;gap:14px;padding:18px;border-color:${i===ri?'rgba(0,193,106,.45)':'var(--br)'};background:${i===ri?'rgba(0,193,106,.05)':'var(--bg2)'};position:relative" onclick="setReciter(${i})">
+      ${i===ri?'<div style="position:absolute;top:11px;right:11px;width:7px;height:7px;border-radius:50%;background:var(--ac)"></div>':''}
+      ${avHTML(r,58)}
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:700;margin-bottom:2px">${r.name}</div>
+        <div style="font-size:12px;color:var(--t2);font-family:serif;margin-bottom:5px">${r.ar}</div>
+        <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:4px;margin-bottom:11px"><i class="ti ti-building" style="font-size:12px"></i>${r.mosque}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:4px"><i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i><span style="font-size:12px;color:var(--t2)">${r.listeners}</span></div>
+          <button class="play-mini" style="display:flex;align-items:center;gap:5px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit"
+            onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
+            <i class="ti ti-player-play" style="font-size:12px"></i>${t('reciters.play')}
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+  $('curRLabel').textContent = RECITERS[ri].name;
+  $('statRecCnt').textContent = RECITERS.length;
+}
+
+function playlistCardHTML(pl, idx, isCustom=false) {
+  const rec = RECITERS[normalizeReciterIndex(pl.reciterIdx)] || RECITERS[0];
+  const playCall = isCustom ? `playCustomPlaylist(${pl.id})` : `playStaticPlaylist(${idx})`;
+  const subtitle = isCustom ? `${t('ui.reciterLabel')}: ${rec.name}` : playlistDesc(pl);
+  const meta = isCustom ? `${t('ui.surahCount', {count: pl.surahIds.length})} · ${rec.name}` : t('ui.surahCount', {count: pl.surahIds.length});
+  const icon = pl.icon || 'ti-playlist';
+  const preview = previewChips(pl.surahIds);
+  return `
+    <div class="pl-big" onclick="${playCall}">
+      <div class="pl-top">
+        <div style="display:flex;align-items:flex-start;gap:12px;min-width:0;flex:1">
+          <div style="width:54px;height:54px;border-radius:12px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <i class="ti ${icon}" style="font-size:22px;color:var(--ac)"></i>
+          </div>
+          <div style="min-width:0;flex:1">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px">${playlistLabel(pl)}</div>
+            <div style="font-size:12px;color:var(--t2);margin-bottom:7px">${subtitle}</div>
+            <div style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:11px"></i>${meta}</div>
+          </div>
+        </div>
+        <button class="mini-btn play-mini" onclick="event.stopPropagation();${playCall}">${t('playlists.play')}</button>
+      </div>
+      <div class="pl-chip-row">${preview || `<span class="pl-chip alt">${t('ui.emptyChip')}</span>`}</div>
+      ${isCustom ? `<div class="pl-actions"><button class="mini-btn danger" onclick="event.stopPropagation();deleteCustomPlaylist(${pl.id})">${t('playlists.delete')}</button></div>` : ''}
+    </div>`;
+}
+
+function fillPlaylistReciters() {
+  const sel = $('plRecSel');
+  if (!sel) return;
+  sel.innerHTML = RECITERS.map((r, i) => `<option value="${i}" ${i===ri?'selected':''}>${r.name}</option>`).join('');
+}
+
+function renderPlaylists() {
+  fillPlaylistReciters();
+  $('plCards').innerHTML = PLAYLISTS.map((p, i)=>playlistCardHTML(p, i, false)).join('');
+  $('customPlWrap').innerHTML = customPlaylists.length
+    ? customPlaylists.map(p=>playlistCardHTML(p, 0, true)).join('')
+    : `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-playlist"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.noCustomTitle')}</div><div class="section-note">${t('ui.noCustomDesc')}</div></div>`;
+}
+
+function tableWrap(rows) {
+  if (!rows.length) return `<div class="empty-state"><i class="ti ti-mood-empty"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.emptyTitle')}</div><div class="section-note">${t('ui.emptyDesc')}</div></div>`;
+  return `<div class="s-table"><div class="s-head"><span>#</span><span>${t('surahs.surah')}</span><span>${t('surahs.ayahs')}</span><span>${t('surahs.type')}</span><span>${t('surahs.duration')}</span><span></span></div>${rows.map(s=>sRowHTML(s)).join('')}</div>`;
+}
+
+function renderFavReciters() {
+  const stats = likedReciterStats();
+  $('favRecWrap').innerHTML = stats.length
+    ? stats.map(({i, count}) => {
+      const r = RECITERS[i];
+      const recGrad = `linear-gradient(135deg, ${r.color}22 0%, rgba(255,255,255,.03) 62%)`;
+      return `
+      <div class="rec-mini${i===ri?' on':''}" style="--rec-grad:${recGrad};--rec-color:${r.color};--rec-color-soft:${r.color}22;--rec-color-border:${r.color}44" onclick="setReciter(${i})">
+        <div class="rec-orb"><i class="ti ti-microphone"></i></div>
+        <div class="info">
+          <div class="name">${r.name}</div>
+          <div class="sub">${r.ar}</div>
+          <div class="meta">
+            <span>${t('favs.savedCount', {count})}</span>
+            <span>${r.mosque}</span>
+            ${i===ri ? `<span class="current">${t('favs.current')}</span>` : ''}
+          </div>
+        </div>
+        <button class="play-inline rec-play" onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)" aria-label="${t('reciters.play')}" title="${t('reciters.play')}">
+          <i class="ti ti-player-play"></i>
+        </button>
+      </div>`}).join('')
+    : `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-microphone"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.noFavRecitersTitle')}</div><div class="section-note">${t('ui.noFavRecitersDesc')}</div></div>`;
+}
+
+function renderFavs()  { $('favWrap').innerHTML  = tableWrap(SURAHS.filter(s=>likes[s.id])); renderFavReciters(); }
+function renderHist()  { $('histWrap').innerHTML = tableWrap(hist); }
+
+function createPlaylist() {
+  const name = $('plName')?.value.trim() || t('playlists.defaultPlaylistName');
+  const reciterIdx = parseInt($('plRecSel')?.value || '0', 10);
+  const manualIds = parseSurahIds($('plIds')?.value || '');
+  const likedIds = Object.keys(likes).filter(id => likes[id]).map(Number);
+  const sourceIds = manualIds.length ? manualIds : likedIds;
+  const validIds = uniqueIds(sourceIds);
+
+  if (!validIds.length) {
+    toast(t('messages.needSurahs'), true);
+    return;
+  }
+
+  customPlaylists.unshift({
+    id: Date.now(),
+    name,
+    reciterIdx: Number.isInteger(reciterIdx) ? reciterIdx : 0,
+    surahIds: validIds,
+    createdAt: Date.now()
+  });
+
+  saveState();
+  renderPlaylists();
+  toast(t('messages.playlistCreated'));
+  if ($('plName')) $('plName').value = '';
+  if ($('plIds')) $('plIds').value = '';
+}
+
+function deleteCustomPlaylist(id) {
+  customPlaylists = customPlaylists.filter(p => p.id !== id);
+  saveState();
+  renderPlaylists();
+  toast(t('messages.playlistDeleted'));
+}
+
+function playStaticPlaylist(idx) {
+  const pl = PLAYLISTS[idx];
+  if (!pl || !pl.surahIds.length) return;
+  activeQueue = pl.surahIds.slice();
+  activeQueueIndex = 0;
+  activeQueueName = playlistLabel(pl);
+  activeQueueKind = 'static';
+  activeQueueRef = idx;
+  toast(t('messages.playlistPrefix', {name: playlistLabel(pl)}));
+  playSurahById(pl.surahIds[0], {keepQueue:true});
+}
+
+function playCustomPlaylist(id) {
+  const pl = customPlaylists.find(p => p.id === id);
+  if (!pl || !pl.surahIds.length) return;
+  activeQueue = pl.surahIds.slice();
+  activeQueueIndex = 0;
+  activeQueueName = pl.name;
+  activeQueueKind = 'custom';
+  activeQueueRef = id;
+  setReciter(normalizeReciterIndex(pl.reciterIdx), {silent:true, playCurrent:false});
+  toast(t('messages.playlistPrefix', {name: pl.name}));
+  playSurahById(pl.surahIds[0], {keepQueue:true});
+}
+
+function refreshLists() {
+  renderHRec();
+  renderSList();
+  renderFavs();
+  renderHist();
+  updatePUI();
+  renderPlaylists();
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+function go(p) {
+  currentPage = p;
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  const pg = $('p-'+p);
+  if (pg) pg.classList.add('on');
+  document.querySelectorAll('.ni[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
+  document.querySelectorAll('.mobile-nav .mn[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
+  setSidebarOpen(false);
+  if(p==='surahs')    renderSList();
+  if(p==='reciters')  renderRec();
+  if(p==='playlists') renderPlaylists();
+  if(p==='favs')      renderFavs();
+  if(p==='hist')      renderHist();
+}
+
+document.querySelectorAll('.ni[data-p]').forEach(n=>{
+  n.addEventListener('click', ()=>{ if(n.dataset.p) go(n.dataset.p); });
+});
+
+window.addEventListener('resize', ()=>{
+  if (!isMobileViewport()) setSidebarOpen(false);
+});
+
+document.addEventListener('keydown', e=>{
+  if (e.key === 'Escape') setSidebarOpen(false);
+});
+
+$('srch').addEventListener('input', function(){
+  q = this.value.trim().toLowerCase();
+  if (q) {
+    go('surahs');
+    return;
+  }
+  if (currentPage === 'surahs') {
+    renderSList();
+    return;
+  }
+  go(currentPage);
+});
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+applyLanguage();
+</script>
+</body>
+</html>
