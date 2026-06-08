@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>FreshSound — Священный Коран</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='9' fill='%2300C16A'/><path d='M7 20 Q12 11 20 20 Q28 29 33 20' stroke='%23000' stroke-width='2.8' fill='none' stroke-linecap='round'/><circle cx='20' cy='20' r='3' fill='%23000'/></svg>"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -26,7 +26,7 @@ input{font-family:inherit;outline:none}
 .sidebar{width:228px;background:#0B0E13;border-right:1px solid var(--br);display:flex;flex-direction:column;flex-shrink:0}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{padding:13px 22px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:12px;background:rgba(15,17,21,.94);flex-shrink:0;backdrop-filter:blur(18px);position:relative;z-index:10}
-.topbar-actions{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.topbar-actions{display:flex;align-items:center;gap:9px;flex-shrink:0;margin-left:auto}
 .mobile-menu-btn{display:none}
 .scroller{flex:1;overflow-y:auto;padding:22px 22px 20px}
 
@@ -60,7 +60,7 @@ input{font-family:inherit;outline:none}
 .icon-btn{display:flex;align-items:center;justify-content:center;padding:7px;background:transparent;border:1px solid var(--br);border-radius:8px;color:var(--t2);font-size:15px;transition:all .13s}
 .icon-btn:hover{color:var(--t1);border-color:var(--br2)}
 .mobile-menu-btn.on{color:var(--ac);border-color:rgba(0,193,106,.34);background:rgba(0,193,106,.08)}
-.av{width:34px;height:34px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;cursor:pointer;flex-shrink:0}
+.av{width:34px;height:34px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;cursor:pointer;flex-shrink:0;border:none;padding:0;appearance:none;font-family:inherit}
 
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -82,8 +82,9 @@ input{font-family:inherit;outline:none}
 .hero h1 span{color:var(--ac)}
 .hero p{font-size:13px;color:var(--t2);max-width:390px;line-height:1.65;margin-bottom:20px}
 .hero-btns{display:flex;gap:9px}
-.btn-g{display:flex;align-items:center;gap:6px;padding:10px 20px;background:var(--ac);border:none;border-radius:9px;font-size:13px;font-weight:700;color:#000;cursor:pointer;transition:transform .13s}
+.btn-g{display:flex;align-items:center;gap:6px;padding:10px 20px;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%);border:none;border-radius:9px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:transform .13s;box-shadow:0 10px 24px rgba(220,38,38,.28)}
 .btn-g:hover{transform:scale(1.03)}
+.btn-g i{color:#fff}
 .btn-w{display:flex;align-items:center;gap:6px;padding:10px 20px;background:transparent;border:1px solid var(--br2);border-radius:9px;font-size:13px;font-weight:500;color:var(--t1);cursor:pointer}
 .btn-w:hover{background:rgba(255,255,255,.05)}
 .hero-art{position:absolute;right:32px;top:50%;transform:translateY(-50%);opacity:.09;pointer-events:none}
@@ -95,9 +96,17 @@ input{font-family:inherit;outline:none}
 .rc-card:hover{border-color:rgba(0,193,106,.3);transform:translateY(-2px)}
 .rc-card.on{border-color:rgba(0,193,106,.5);background:rgba(0,193,106,.05)}
 .av-ring{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 11px;flex-shrink:0}
-.play-dot{width:33px;height:33px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;margin:9px auto 0;transition:transform .13s;cursor:pointer}
+.play-dot{width:33px;height:33px;border-radius:50%;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%);display:flex;align-items:center;justify-content:center;margin:9px auto 0;transition:transform .13s;cursor:pointer;box-shadow:0 10px 20px rgba(220,38,38,.22)}
 .play-dot:hover{transform:scale(1.1)}
-.play-dot i{font-size:13px;color:#000}
+.play-dot i{font-size:13px;color:#fff}
+.play-mini{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border:1px solid #dc2626;border-radius:7px;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%) !important;color:#fff !important;font-weight:700;box-shadow:0 10px 22px rgba(220,38,38,.22)}
+.play-mini:hover{filter:brightness(1.04)}
+.play-mini i{color:#fff}
+.play-inline{width:26px;height:26px;border-radius:50%;background:linear-gradient(180deg,#ff6b6b 0%,#dc2626 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 16px rgba(220,38,38,.22)}
+.play-inline i{font-size:11px;color:#fff}
+.reader-toggle{display:flex;align-items:center;gap:6px;padding:7px 10px}
+.reader-toggle.on{border-color:rgba(220,38,38,.36);background:rgba(220,38,38,.08);color:#fff}
+.reader-toggle span{font-size:11px;font-weight:700;letter-spacing:.1px;white-space:nowrap}
 
 .s-table{background:var(--bg2);border:1px solid var(--br);border-radius:14px;overflow:hidden}
 .s-head{display:grid;grid-template-columns:44px 1fr 68px 98px 78px 34px;padding:10px 16px;border-bottom:1px solid var(--br)}
@@ -122,9 +131,9 @@ input{font-family:inherit;outline:none}
 .cb{width:30px;height:30px;border-radius:7px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:18px;cursor:pointer;transition:all .13s}
 .cb:hover{color:var(--t1);background:rgba(255,255,255,.08)}
 .cb.on{color:var(--ac)}
-.pbig{width:42px;height:42px;border-radius:50%;background:var(--ac);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .13s}
-.pbig:hover{transform:scale(1.07)}
-.pbig i{font-size:17px;color:#000}
+.pbig{width:42px;height:42px;border-radius:50%;background:linear-gradient(180deg,#ff6464 0%,#dd2329 100%);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .13s,filter .13s;box-shadow:0 10px 24px rgba(221,35,41,.34)}
+.pbig:hover{transform:scale(1.07);filter:brightness(1.04)}
+.pbig i{font-size:17px;color:#fff}
 .prog-row{display:flex;align-items:center;gap:7px;width:100%;max-width:450px}
 .tm{font-size:10px;color:var(--t3);min-width:30px;text-align:center}
 input[type=range]{-webkit-appearance:none;height:3px;border-radius:3px;background:var(--bg4);cursor:pointer}
@@ -134,6 +143,32 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 .p-right{display:flex;align-items:center;gap:9px;width:218px;justify-content:flex-end;flex-shrink:0}
 .vol-row{display:flex;align-items:center;gap:5px}
 .spd{background:var(--bg3);border:1px solid var(--br);border-radius:7px;padding:5px 7px;color:var(--t1);font-size:11px;font-weight:600}
+
+.reader-panel{position:fixed;top:74px;right:18px;bottom:calc(108px + env(safe-area-inset-bottom));width:min(620px, calc(100vw - 260px));display:none;flex-direction:column;gap:12px;padding:16px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(11,14,19,.96), rgba(8,10,14,.92));box-shadow:0 30px 70px rgba(0,0,0,.48);backdrop-filter:blur(24px);z-index:45}
+body.reader-open .reader-panel{display:flex}
+.reader-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-shrink:0}
+.reader-kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(0,193,106,.12);border:1px solid rgba(0,193,106,.18);font-size:11px;font-weight:700;color:var(--ac);margin-bottom:10px}
+.reader-title{font-size:17px;font-weight:800;letter-spacing:-.35px;line-height:1.2}
+.reader-sub{font-size:12px;color:var(--t2);line-height:1.55;margin-top:4px}
+.reader-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.reader-pill{padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--t1);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.reader-pill:hover{border-color:rgba(0,193,106,.24);background:rgba(0,193,106,.08);color:var(--t1)}
+.reader-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--t3);line-height:1.4}
+.reader-meta span{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.reader-body{flex:1;overflow-y:auto;padding-right:4px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.verse-item{padding:14px 14px 12px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .18s ease}
+.verse-item:hover{border-color:rgba(0,193,106,.18);transform:translateY(-1px)}
+.verse-item.on{background:linear-gradient(180deg, rgba(0,193,106,.16), rgba(0,193,106,.08));border-color:rgba(0,193,106,.36);box-shadow:0 12px 28px rgba(0,193,106,.08)}
+.verse-item.on .verse-ar{color:#fff}
+.verse-item.on .verse-tr{color:#ebf6ef}
+.verse-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.verse-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:11px;font-weight:700;flex-shrink:0}
+.verse-item.on .verse-num{background:rgba(0,193,106,.18);color:var(--ac)}
+.verse-ar{font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:1.95;direction:rtl;text-align:right;color:var(--t1)}
+.verse-tr{font-size:13px;line-height:1.75;color:var(--t2);margin-top:8px}
+.verse-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t3);margin-top:10px}
+.verse-badge{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06)}
+.reader-panel.hide-translation .verse-tr{display:none}
 
 .page{display:none}.page.on{display:block}
 .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;color:var(--t3);text-align:center}
@@ -160,13 +195,25 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 .empty-state{padding:28px 16px;text-align:center;color:var(--t2);border:1px dashed var(--br);border-radius:14px;background:rgba(255,255,255,.02)}
 .empty-state i{font-size:34px;color:rgba(0,193,106,.25);margin-bottom:8px}
 .section-note{font-size:12px;color:var(--t2);line-height:1.6}
-.rec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.rec-mini{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center}
-.rec-mini.on{border-color:rgba(0,193,106,.45);background:rgba(0,193,106,.05)}
-.rec-mini .info{min-width:0}
-.rec-mini .name{font-size:14px;font-weight:700;margin-bottom:2px}
-.rec-mini .sub{font-size:12px;color:var(--t2);font-family:serif;margin-bottom:6px}
-.rec-mini .meta{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px}
+.rec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.rec-mini{position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.02));border:1px solid var(--br);border-radius:18px;padding:16px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;cursor:pointer;transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;box-shadow:0 14px 30px rgba(0,0,0,.12)}
+.rec-mini::before{content:'';position:absolute;inset:0;background:var(--rec-grad, linear-gradient(135deg, rgba(0,193,106,.16), rgba(0,193,106,0) 60%));opacity:.7;pointer-events:none}
+.rec-mini > *{position:relative;z-index:1}
+.rec-mini:hover{transform:translateY(-2px);border-color:rgba(0,193,106,.28)}
+.rec-mini.on{border-color:rgba(0,193,106,.5);background:linear-gradient(135deg, rgba(0,193,106,.12), rgba(255,255,255,.025));box-shadow:0 16px 34px rgba(0,193,106,.08)}
+.rec-mini .info{min-width:0;display:flex;flex-direction:column;gap:5px}
+.rec-mini .name{font-size:15px;font-weight:800;letter-spacing:0;line-height:1.15;margin:0}
+.rec-mini .sub{font-size:13px;color:var(--t2);font-family:'Noto Naskh Arabic',serif;line-height:1.4;direction:rtl;text-align:left;unicode-bidi:isolate;margin:0}
+.rec-mini .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rec-mini .meta span{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--br);font-size:11px;color:var(--t3)}
+.rec-mini .meta span.current{background:rgba(0,193,106,.12);border-color:rgba(0,193,106,.2);color:var(--ac);font-weight:700}
+.rec-mini .play-inline{margin-left:auto}
+.rec-mini .rec-play{width:38px;height:38px;border:none;padding:0;cursor:pointer}
+.rec-mini .rec-play i{font-size:13px}
+.rec-mini .play-inline:hover{transform:scale(1.06)}
+.rec-mini .av-ring{margin:0;flex-shrink:0}
+.rec-orb{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:linear-gradient(180deg, var(--rec-color-soft), rgba(255,255,255,.035));border:1px solid var(--rec-color-border);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.rec-orb i{font-size:20px;color:var(--rec-color)}
 .fav-reciters{margin-top:18px}
 .settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .set-card{background:var(--bg2);border:1px solid var(--br);border-radius:14px;padding:16px}
@@ -199,7 +246,7 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
   .mobile-menu-btn{display:flex}
   .search-box{order:2;flex-basis:100%;max-width:none}
   .topbar-actions{order:1;margin-left:auto}
-  .topbar-actions .av{display:none}
+  .topbar-actions .av{display:flex}
   .scroller{padding:14px 12px 18px;padding-bottom:calc(132px + env(safe-area-inset-bottom))}
   .hero{min-height:0;margin-bottom:18px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#0b2215 0%,#0d2b1b 42%,#081c2e 100%)}
   .hero-inner{padding:24px 20px 22px}
@@ -212,6 +259,11 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
   .g4,.g3,.g2,.rec-grid,.settings-grid,.playlist-grid{grid-template-columns:1fr}
   #hRec{grid-template-columns:1fr!important}
   .card,.pl-card,.pl-big,.rec-mini,.stat-card,.rc-card,.set-card,.playlist-builder,.empty-state{border-radius:18px}
+  .rec-mini{grid-template-columns:auto 1fr auto;padding:14px;gap:12px}
+  .rec-mini .name{font-size:14px}
+  .rec-mini .sub{text-align:left}
+  .rec-mini .meta span{font-size:10px;padding:3px 7px}
+  .rec-orb{width:44px;height:44px}
   .sec-hd{margin-bottom:10px}
   .sec-hd h2{font-size:16px}
   .see-all{font-size:12px}
@@ -254,6 +306,10 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
   .mobile-nav{display:flex;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;background:rgba(11,14,19,.88);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:7px;backdrop-filter:blur(24px);box-shadow:0 14px 38px rgba(0,0,0,.34)}
   .mobile-nav .mn.on{background:rgba(0,193,106,.11);border-radius:14px}
   .mobile-nav .mn.menu{color:var(--t1)}
+  .reader-panel{left:8px;right:8px;top:68px;bottom:calc(126px + env(safe-area-inset-bottom));width:auto;padding:12px;border-radius:20px}
+  .reader-title{font-size:15px}
+  .verse-ar{font-size:19px;line-height:2}
+  .verse-tr{font-size:12px}
   body::before{opacity:.82;width:250px;height:250px;top:-84px;right:-92px;background:radial-gradient(circle at center, rgba(0,193,106,.22) 0%, rgba(0,193,106,0) 68%)}
   body::after{opacity:.58;width:320px;height:320px;bottom:110px;left:-130px;background:radial-gradient(circle at center, rgba(0,153,82,.17) 0%, rgba(0,153,82,0) 72%)}
 }
@@ -308,8 +364,9 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
       </div>
       <div class="topbar-actions">
         <button class="icon-btn" onclick="toggleLang()" title="Сменить язык"><i class="ti ti-world"></i><span id="langBadge" style="font-size:11px;font-weight:700;margin-left:4px">RU</span></button>
+        <button class="icon-btn reader-toggle" id="readerBtn" onclick="toggleReaderPanel()" title="Текст Корана"><i class="ti ti-book-2"></i><span id="readerBtnText">Показать текст</span></button>
         <button class="icon-btn"><i class="ti ti-bell"></i></button>
-        <div class="av">A</div>
+        <button class="av" onclick="go('settings')" title="Аккаунт" aria-label="Аккаунт">A</button>
       </div>
     </div>
 
@@ -483,6 +540,22 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
   </div>
 </div>
 
+<div id="readerPanel" class="reader-panel" aria-hidden="true">
+  <div class="reader-head">
+    <div style="min-width:0">
+      <div class="reader-kicker" id="readerKicker">Текст Корана</div>
+      <div class="reader-title" id="readerTitle">1. Al-Fatihah</div>
+      <div class="reader-sub" id="readerSub">الفاتحة • Mishary Rashid Alafasy</div>
+    </div>
+    <div class="reader-actions">
+      <button class="reader-pill" id="readerTrBtn" onclick="toggleReaderTranslation()">Перевод: включён</button>
+      <button class="reader-pill" id="readerHideBtn" onclick="toggleReaderPanel(false)">Скрыть</button>
+    </div>
+  </div>
+  <div class="reader-meta" id="readerMeta"></div>
+  <div class="reader-body" id="readerBody"></div>
+</div>
+
 <nav class="mobile-nav" aria-label="Мобильная навигация">
   <button class="mn on" data-p="home" onclick="go('home')"><i class="ti ti-home"></i><span>Главная</span></button>
   <button class="mn" data-p="surahs" onclick="go('surahs')"><i class="ti ti-list"></i><span>Все суры</span></button>
@@ -492,6 +565,8 @@ body::before,body::after{content:'';position:fixed;pointer-events:none;opacity:0
 </nav>
 
 <audio id="aud" preload="none"></audio>
+
+<script src="./quran_ru_data.js"></script>
 
 <script>
 // ─────────────────────────────────────────────
@@ -767,6 +842,8 @@ const I18N = {
       reciters: 'Чтецы из избранного',
       none: 'Пока нет чтецов в избранном',
       noneDesc: 'Отметьте любую суру сердечком, и чтец появится здесь.',
+      savedCount: ({count}) => `${count} избранных сур`,
+      current: 'Текущий',
       meta: 'Избран по вашим сурам',
     },
     hist: {
@@ -785,6 +862,21 @@ const I18N = {
       premiumTitle: 'Премиум',
       premiumDesc: 'Покупка премиума пока недоступна.',
       premiumButton: 'Купить премиум',
+    },
+    reader: {
+      kicker: 'Текст Корана',
+      title: 'Сура',
+      subtitle: 'Аят за аятом, как в Spotify',
+      toggleOn: 'Показать текст',
+      toggleOff: 'Скрыть текст',
+      translationOn: 'Перевод: включён',
+      translationOff: 'Перевод: скрыт',
+      hide: 'Скрыть',
+      show: 'Показать',
+      verses: ({count}) => `${count} аятов`,
+      hint: 'Нажмите на аят, чтобы перейти к нему',
+      noData: 'Текст для этой суры пока недоступен',
+      verse: 'Аят',
     },
     player: {
       selectSurah: 'Выберите суру',
@@ -928,6 +1020,8 @@ const I18N = {
       reciters: 'Favourite reciters',
       none: 'No favourite reciters yet',
       noneDesc: 'Like any surah and its reciter will appear here.',
+      savedCount: ({count}) => `${count} liked surahs`,
+      current: 'Current',
       meta: 'Saved from your liked surahs',
     },
     hist: {
@@ -946,6 +1040,21 @@ const I18N = {
       premiumTitle: 'Premium',
       premiumDesc: 'Premium purchase is not available yet.',
       premiumButton: 'Buy Premium',
+    },
+    reader: {
+      kicker: 'Quran Text',
+      title: 'Surah',
+      subtitle: 'Verse by verse, like Spotify lyrics',
+      toggleOn: 'Show text',
+      toggleOff: 'Hide text',
+      translationOn: 'Translation: on',
+      translationOff: 'Translation: hidden',
+      hide: 'Hide',
+      show: 'Show',
+      verses: ({count}) => `${count} verses`,
+      hint: 'Tap a verse to jump to it',
+      noData: 'Verse text for this surah is not available yet',
+      verse: 'Verse',
     },
     player: {
       selectSurah: 'Select a surah',
@@ -1120,6 +1229,17 @@ const likedReciterIndices = () => [...new Set(
     .map(id => likeMeta[id]?.reciterIdx)
     .filter(i => Number.isInteger(i) && RECITERS[i])
 )];
+const likedReciterStats = () => {
+  const counts = new Map();
+  Object.entries(likeMeta || {}).forEach(([id, meta]) => {
+    if (!likes[id]) return;
+    const idx = normalizeReciterIndex(meta?.reciterIdx);
+    counts.set(idx, (counts.get(idx) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .map(([i, count]) => ({ i, count }))
+    .sort((a, b) => b.count - a.count || RECITERS[a.i].name.localeCompare(RECITERS[b.i].name));
+};
 const playlistLabel = pl => localize(pl.name);
 const playlistDesc = pl => localize(pl.desc);
 const previewChips = ids => ids.slice(0, 4).map(id => {
@@ -1152,6 +1272,23 @@ function normalizeLoadedState() {
 normalizeLoadedState();
 saveState();
 
+const QURAN_TEXT = Array.isArray(window.QURAN_TEXT) ? window.QURAN_TEXT : [];
+const QURAN_CHAPTERS = new Map(QURAN_TEXT.map(ch => [Number(ch.id), ch]));
+const READER_TRANSLATION_KEY = 'freshsound-reader-translation';
+let readerVisible = false;
+let readerShowTranslation = (() => {
+  try {
+    const raw = localStorage.getItem(READER_TRANSLATION_KEY);
+    return raw === null ? true : raw !== '0';
+  } catch (e) {
+    return true;
+  }
+})();
+let readerChapterId = null;
+let readerTimeline = [];
+let readerActiveVerse = -1;
+let readerVerseEls = [];
+
 const fmt = s => {
   if (!s || isNaN(s)) return '0:00';
   const m = Math.floor(s/60), sec = Math.floor(s%60);
@@ -1160,6 +1297,194 @@ const fmt = s => {
 const ini = name => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const avHTML = (r, sz=54) =>
   `<div class="av-ring" style="width:${sz}px;height:${sz}px;background:${r.color}22;border:1.5px solid ${r.color}55;font-size:${Math.round(sz*.33)}px;color:${r.color}">${ini(r.name)}</div>`;
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+}[ch]));
+
+function parseDuration(raw) {
+  if (raw === null || raw === undefined || raw === '') return 0;
+  const parts = String(raw).trim().split(':').map(Number);
+  if (parts.some(n => Number.isNaN(n))) return 0;
+  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  if (parts.length === 2) return parts[0] * 60 + parts[1];
+  return parts[0] || 0;
+}
+
+function getCurrentChapterData() {
+  const s = SURAHS[ci];
+  return s ? (QURAN_CHAPTERS.get(Number(s.id)) || null) : null;
+}
+
+function getReaderDurationEstimate() {
+  const fromAudio = Number.isFinite(aud.duration) && aud.duration > 0 ? aud.duration : 0;
+  if (fromAudio) return fromAudio;
+  return parseDuration(SURAHS[ci]?.dur) || 0;
+}
+
+function verseWeight(verse) {
+  const words = String(verse?.text || '').trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, words || 1);
+}
+
+function buildReaderTimeline(chapter, durationSec) {
+  const verses = Array.isArray(chapter?.verses) ? chapter.verses : [];
+  if (!verses.length) return [];
+  const totalWeight = verses.reduce((sum, verse) => sum + verseWeight(verse), 0) || verses.length;
+  const totalDuration = Math.max(Number(durationSec) || 0, verses.length * 1.35);
+  let cursor = 0;
+  return verses.map((verse, index) => {
+    const weight = verseWeight(verse);
+    const segment = Math.max(0.9, totalDuration * (weight / totalWeight));
+    const start = cursor;
+    const end = index === verses.length - 1 ? totalDuration : Math.min(totalDuration, start + segment);
+    cursor = end;
+    return { index, id: verse.id, text: verse.text, translation: verse.translation, start, end };
+  });
+}
+
+function ensureReaderTimeline(force=false) {
+  const chapter = getCurrentChapterData();
+  if (!chapter || !Array.isArray(chapter.verses) || !chapter.verses.length) {
+    readerChapterId = null;
+    readerTimeline = [];
+    readerActiveVerse = -1;
+    readerVerseEls = [];
+    return [];
+  }
+  const duration = getReaderDurationEstimate();
+  if (!force && readerChapterId === chapter.id && readerTimeline.length) {
+    const lastEnd = readerTimeline[readerTimeline.length - 1]?.end || 0;
+    if (Math.abs(lastEnd - duration) < 0.35) return readerTimeline;
+  }
+  readerChapterId = chapter.id;
+  readerTimeline = buildReaderTimeline(chapter, duration);
+  return readerTimeline;
+}
+
+function syncReaderVerse(time=aud.currentTime, forceScroll=false) {
+  if (!readerTimeline.length) return;
+  const panel = $('readerPanel');
+  const nextIndex = (() => {
+    for (let i = 0; i < readerTimeline.length; i++) {
+      if (time < readerTimeline[i].end - 0.06) return i;
+    }
+    return readerTimeline.length - 1;
+  })();
+  if (nextIndex !== readerActiveVerse) {
+    readerActiveVerse = nextIndex;
+    readerVerseEls.forEach((el, idx) => el.classList.toggle('on', idx === nextIndex));
+    if (panel && readerVisible && readerVerseEls[nextIndex]) {
+      readerVerseEls[nextIndex].scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  } else if (forceScroll && panel && readerVisible && readerVerseEls[nextIndex]) {
+    readerVerseEls[nextIndex].scrollIntoView({behavior:'smooth', block:'center'});
+  }
+}
+
+function renderReaderPanel() {
+  const panel = $('readerPanel');
+  const body = $('readerBody');
+  if (!panel || !body) return;
+  const chapter = getCurrentChapterData();
+  const surah = SURAHS[ci];
+  const reciter = RECITERS[ri];
+  ensureReaderTimeline();
+
+  panel.classList.toggle('hide-translation', !readerShowTranslation);
+
+  const kicker = $('readerKicker');
+  const title = $('readerTitle');
+  const sub = $('readerSub');
+  const meta = $('readerMeta');
+  const trBtn = $('readerTrBtn');
+  const hideBtn = $('readerHideBtn');
+  const readerBtn = $('readerBtn');
+  const readerBtnText = $('readerBtnText');
+
+  if (kicker) kicker.textContent = t('reader.kicker');
+  if (title) title.textContent = surah ? `${surah.id}. ${surah.name}` : t('reader.title');
+  if (sub) sub.textContent = chapter ? `${chapter.name} • ${reciter.name}` : reciter.name;
+  if (meta && chapter) {
+    meta.innerHTML = `<span>${t('reader.verses', {count: chapter.total_verses || chapter.verses?.length || 0})}</span><span>${t('reader.hint')}</span>`;
+  } else if (meta) {
+    meta.innerHTML = '';
+  }
+  if (trBtn) trBtn.textContent = readerShowTranslation ? t('reader.translationOn') : t('reader.translationOff');
+  if (hideBtn) hideBtn.textContent = readerVisible ? t('reader.hide') : t('reader.show');
+  if (readerBtn) {
+    readerBtn.title = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+    readerBtn.classList.toggle('on', readerVisible);
+  }
+  if (readerBtnText) readerBtnText.textContent = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+
+  if (!chapter || !chapter.verses?.length) {
+    body.innerHTML = `<div class="empty-state"><i class="ti ti-book"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('reader.noData')}</div><div class="section-note">${t('reader.hint')}</div></div>`;
+    readerVerseEls = [];
+    readerActiveVerse = -1;
+    return;
+  }
+
+  body.innerHTML = readerTimeline.map((verse, index) => `
+    <div class="verse-item${index === readerActiveVerse ? ' on' : ''}" data-v="${index}" onclick="seekReaderVerse(${index})">
+      <div class="verse-top">
+        <div class="verse-num">${verse.id}</div>
+        <div class="verse-badge">${t('reader.verse')} ${verse.id}</div>
+      </div>
+      <div class="verse-ar">${escapeHtml(verse.text)}</div>
+      ${readerShowTranslation ? `<div class="verse-tr">${escapeHtml(verse.translation || '')}</div>` : ''}
+      <div class="verse-meta">
+        <span>${verse.id}/${chapter.total_verses || chapter.verses.length}</span>
+      </div>
+    </div>
+  `).join('');
+  readerVerseEls = Array.from(body.querySelectorAll('.verse-item'));
+  readerActiveVerse = -1;
+  syncReaderVerse(aud.currentTime, true);
+}
+
+function setReaderVisible(next, opts={}) {
+  readerVisible = !!next;
+  document.body.classList.toggle('reader-open', readerVisible);
+  const panel = $('readerPanel');
+  if (panel) {
+    panel.setAttribute('aria-hidden', readerVisible ? 'false' : 'true');
+    panel.classList.toggle('hide-translation', !readerShowTranslation);
+  }
+  const btn = $('readerBtn');
+  const btnText = $('readerBtnText');
+  if (btn) {
+    btn.title = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+    btn.classList.toggle('on', readerVisible);
+    btn.setAttribute('aria-pressed', readerVisible ? 'true' : 'false');
+  }
+  if (btnText) btnText.textContent = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+  if (readerVisible && !opts.skipRender) renderReaderPanel();
+}
+
+function toggleReaderPanel(force) {
+  const next = typeof force === 'boolean' ? force : !readerVisible;
+  setReaderVisible(next, {user:true});
+}
+
+function toggleReaderTranslation() {
+  readerShowTranslation = !readerShowTranslation;
+  try { localStorage.setItem(READER_TRANSLATION_KEY, readerShowTranslation ? '1' : '0'); } catch (e) {}
+  renderReaderPanel();
+}
+
+function seekReaderVerse(index) {
+  const verse = readerTimeline[index];
+  if (!verse) return;
+  aud.currentTime = Math.max(0, verse.start + 0.03);
+  if (aud.paused) {
+    aud.play().catch(()=>{});
+  }
+  syncReaderVerse(aud.currentTime, true);
+}
 
 let toastT;
 function toast(msg, isErr=false) {
@@ -1215,6 +1540,19 @@ function applyLanguage() {
   if (mobileMenu) setButtonLabel(mobileMenu, t('mobile.menu'), 'left');
   const menuBtn = document.querySelector('.mobile-menu-btn');
   if (menuBtn) menuBtn.title = t('mobile.menu');
+  const accountBtn = document.querySelector('.av');
+  if (accountBtn) {
+    accountBtn.title = t('nav.account');
+    accountBtn.setAttribute('aria-label', t('nav.account'));
+  }
+  const readerBtn = $('readerBtn');
+  const readerBtnText = $('readerBtnText');
+  if (readerBtn) {
+    readerBtn.title = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
+    readerBtn.classList.toggle('on', readerVisible);
+    readerBtn.setAttribute('aria-pressed', readerVisible ? 'true' : 'false');
+  }
+  if (readerBtnText) readerBtnText.textContent = readerVisible ? t('reader.toggleOff') : t('reader.toggleOn');
 
   const proBox = document.querySelector('.pro-box');
   if (proBox) {
@@ -1375,6 +1713,7 @@ function applyLanguage() {
   renderPlaylists();
   renderFavs();
   renderHist();
+  renderReaderPanel();
   updatePUI();
 }
 
@@ -1447,6 +1786,9 @@ async function playSurahAtIdx(idx, opts={}) {
   aud.pause();
   aud.src = url;
   aud.load();
+  setReaderVisible(true, {skipRender:true});
+  ensureReaderTimeline(true);
+  renderReaderPanel();
 
   try {
     await aud.play();
@@ -1515,10 +1857,27 @@ aud.addEventListener('timeupdate',()=>{
   $('progBar').value=(aud.currentTime/aud.duration)*100;
   $('tCur').textContent=fmt(aud.currentTime);
   $('tDur').textContent=fmt(aud.duration);
+  if (readerTimeline.length) syncReaderVerse(aud.currentTime, false);
+});
+aud.addEventListener('loadedmetadata', ()=>{
+  if (readerTimeline.length || readerVisible) {
+    ensureReaderTimeline(true);
+    renderReaderPanel();
+  }
+});
+aud.addEventListener('durationchange', ()=>{
+  if (readerTimeline.length || readerVisible) {
+    ensureReaderTimeline(true);
+    renderReaderPanel();
+  }
+});
+aud.addEventListener('seeked', ()=> {
+  if (readerTimeline.length) syncReaderVerse(aud.currentTime, true);
 });
 aud.addEventListener('ended',   ()=>{ if(!repeat) nextS(); });
 aud.addEventListener('waiting', ()=>setLoading(true));
-aud.addEventListener('playing', ()=>{ setLoading(false); playing=true; updatePBtn(); refreshLists(); });
+aud.addEventListener('playing', ()=>{ setLoading(false); playing=true; updatePBtn(); refreshLists(); if (readerVisible) syncReaderVerse(aud.currentTime, false); });
+aud.addEventListener('pause', ()=>{ playing=false; updatePBtn(); refreshLists(); });
 aud.addEventListener('error',   ()=>{
   setLoading(false); playing=false; updatePBtn();
   const err = aud.error;
@@ -1529,364 +1888,4 @@ aud.addEventListener('error',   ()=>{
 function setReciter(i, opts={}) {
   ri = normalizeReciterIndex(i);
   // Clear cached URL for current surah so new reciter URL will be fetched
-  const s = SURAHS[ci];
-  delete urlCache[`${RECITERS[ri].apiId}-${s.id}`];
-  if (playing && opts.playCurrent !== false) {
-    playSurahAtIdx(ci);
-  } else {
-    updatePUI();
-  }
-  if (!opts.silent) toast(t('messages.switchedReciter', {name: RECITERS[ri].name}));
-  renderRec(); renderHRec();
-}
-
-function updatePUI() {
-  const s = SURAHS[ci], r = RECITERS[ri];
-  $('pNum').textContent = s.id;
-  $('pName').textContent = (!aud.src || aud.src === location.href) ? t('player.selectSurah') : s.name;
-  $('pRec').textContent = activeQueueName ? `${r.name} • ${activeQueueName}` : r.name;
-  $('curRLabel').textContent = r.name;
-  updateLkBtn();
-}
-
-function likeCur() {
-  const id=SURAHS[ci].id;
-  likes[id]=!likes[id];
-  if (likes[id]) likeMeta[id] = {reciterIdx: ri};
-  else delete likeMeta[id];
-  updateLkBtn(); renderFavs();
-  saveState();
-  toast(likes[id] ? t('messages.addedFav') : t('messages.removedFav'));
-}
-function likeSurah(id) {
-  likes[id]=!likes[id];
-  if (likes[id]) likeMeta[id] = {reciterIdx: ri};
-  else delete likeMeta[id];
-  if(SURAHS[ci].id===id) updateLkBtn();
-  renderFavs(); refreshLists();
-  saveState();
-  toast(likes[id] ? t('messages.addedFav') : t('messages.removedFav'));
-}
-function updateLkBtn() {
-  const id=SURAHS[ci].id, btn=$('pLk'), ic=btn.querySelector('i');
-  btn.classList.toggle('on',!!likes[id]);
-  ic.className=likes[id]?'ti ti-heart-filled':'ti ti-heart';
-  ic.style.fontSize='16px';
-}
-function addHist(s){
-  hist=hist.filter(h=>h.id!==s.id);
-  hist.unshift(s);
-  if(hist.length>30)hist.pop();
-  saveState();
-}
-
-// ─────────────────────────────────────────────
-// RENDER
-// ─────────────────────────────────────────────
-function sRowHTML(s) {
-  const isCurrent = SURAHS[ci].id===s.id;
-  const tc = s.t==='Meccan'?'mec':'med';
-  const likedRecIdx = likeMeta[s.id]?.reciterIdx;
-  const recLine = likes[s.id] && RECITERS[likedRecIdx]
-    ? `<div style="font-size:10px;color:var(--ac);margin-top:4px">${t('ui.reciterLabel') || (currentLang==='ru' ? 'Чтец' : 'Reciter')}: ${RECITERS[likedRecIdx].name}</div>`
-    : '';
-  return `<div class="s-row${isCurrent?' playing':''}" onclick="playSurahById(${s.id})">
-    <div class="s-num">${isCurrent&&playing?'<i class="ti ti-volume" style="font-size:13px;color:var(--ac)"></i>':s.id}</div>
-    <div style="display:flex;align-items:center;gap:9px">
-      <div>
-        <div style="font-size:13px;font-weight:600;color:${isCurrent?'var(--ac)':'var(--t1)'}">${s.name}</div>
-        <div style="font-size:11px;color:var(--t2);font-family:serif">${s.ar}</div>
-        ${recLine}
-        <div class="s-mobile-meta">
-          <span>${t('surahs.ayahCount', {count:s.n})}</span>
-          <span>${typeLabel(s.t)}</span>
-          <span>${s.dur}</span>
-        </div>
-      </div>
-    </div>
-    <div style="font-size:12px;color:var(--t2)">${s.n}</div>
-    <div><span class="badge ${tc}">${typeLabel(s.t)}</span></div>
-    <div style="font-size:12px;color:var(--t2)">${s.dur}</div>
-    <button class="lk${likes[s.id]?' on':''}" onclick="event.stopPropagation();likeSurah(${s.id})" aria-label="${t('player.like')}">
-      <i class="${likes[s.id]?'ti ti-heart-filled':'ti ti-heart'}" style="font-size:14px"></i>
-    </button>
-  </div>`;
-}
-
-function renderHRec() {
-  $('hRec').innerHTML = RECITERS.map((r,i)=>`
-    <div class="rc-card${i===ri?' on':''}" onclick="setReciter(${i})">
-      ${avHTML(r,54)}
-      <div class="rc-content">
-        <div style="font-size:13px;font-weight:700;margin-bottom:2px">${r.name}</div>
-        <div style="font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.4">${r.mosque}</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:4px">
-          <i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i>
-          <span style="font-size:11px;color:var(--t3)">${r.listeners}</span>
-        </div>
-      </div>
-      <div class="play-dot" onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
-        <i class="ti ti-player-play"></i>
-      </div>
-    </div>`).join('');
-}
-
-function renderHSur() {
-  // Find surahs by their official ID (safe with 114-surah array)
-  const cards = POPULAR_SURAH_IDS.map(id => {
-    const s = SURAHS.find(x => x.id === id);
-    if (!s) return '';
-    return `<div class="card" style="display:flex;align-items:center;gap:11px;padding:12px 14px" onclick="playSurahById(${s.id})">
-      <div class="s-num">${s.id}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
-        <div style="font-size:11px;color:var(--t2)">${t('surahs.ayahCount', {count:s.n})} · ${typeLabel(s.t)}</div>
-      </div>
-      <span style="font-size:11px;color:var(--t2);margin-right:5px">${s.dur}</span>
-      <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,193,106,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="ti ti-player-play" style="font-size:11px;color:var(--ac)"></i>
-      </div>
-    </div>`;
-  }).join('');
-  $('hSur').innerHTML = cards;
-}
-
-function renderHPl() {
-  $('hPl').innerHTML = PLAYLISTS.map((p, i)=>`
-    <div class="pl-card" onclick="playStaticPlaylist(${i})">
-      <div style="width:42px;height:42px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="ti ${p.icon}" style="font-size:19px;color:var(--ac)"></i>
-      </div>
-      <div style="min-width:0;flex:1">
-        <div style="font-size:13px;font-weight:600;margin-bottom:2px">${playlistLabel(p)}</div>
-        <div style="font-size:11px;color:var(--t2)">${t('ui.surahCount', {count:p.surahIds.length})} · ${playlistDesc(p)}</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">${previewChips(p.surahIds)}</div>
-      </div>
-    </div>`).join('');
-}
-
-function renderSList() {
-  const filtered = SURAHS.filter(s=>{
-    const mq = !q || s.name.toLowerCase().includes(q) || s.ar.includes(q);
-    return mq && (filt==='All' || s.t===filt);
-  });
-  $('sCount').textContent = t('surahs.count', {count: filtered.length, total: SURAHS.length});
-  $('sList').innerHTML = filtered.length
-    ? filtered.map(s=>sRowHTML(s)).join('')
-    : `<div class="empty-state"><i class="ti ti-search"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('surahs.emptyTitle')}</div><div class="section-note">${t('surahs.emptyDesc')}</div></div>`;
-}
-
-function setFilter(f, btn) {
-  filt=f;
-  document.querySelectorAll('#sFilters .tag').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderSList();
-}
-
-function renderRec() {
-  $('rCards').innerHTML = RECITERS.map((r,i)=>`
-    <div class="card" style="display:flex;gap:14px;padding:18px;border-color:${i===ri?'rgba(0,193,106,.45)':'var(--br)'};background:${i===ri?'rgba(0,193,106,.05)':'var(--bg2)'};position:relative" onclick="setReciter(${i})">
-      ${i===ri?'<div style="position:absolute;top:11px;right:11px;width:7px;height:7px;border-radius:50%;background:var(--ac)"></div>':''}
-      ${avHTML(r,58)}
-      <div style="flex:1">
-        <div style="font-size:15px;font-weight:700;margin-bottom:2px">${r.name}</div>
-        <div style="font-size:12px;color:var(--t2);font-family:serif;margin-bottom:5px">${r.ar}</div>
-        <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:4px;margin-bottom:11px"><i class="ti ti-building" style="font-size:12px"></i>${r.mosque}</div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:4px"><i class="ti ti-headphones" style="font-size:11px;color:var(--t3)"></i><span style="font-size:12px;color:var(--t2)">${r.listeners}</span></div>
-          <button style="display:flex;align-items:center;gap:5px;padding:6px 13px;background:${i===ri?'var(--ac)':'rgba(0,193,106,.15)'};border:none;border-radius:7px;font-size:12px;font-weight:700;color:${i===ri?'#000':'var(--ac)'};cursor:pointer;font-family:inherit"
-            onclick="event.stopPropagation();setReciter(${i}, {silent:true, playCurrent:false});playSurahAtIdx(ci)">
-            <i class="ti ti-player-play" style="font-size:12px"></i>${t('reciters.play')}
-          </button>
-        </div>
-      </div>
-    </div>`).join('');
-  $('curRLabel').textContent = RECITERS[ri].name;
-  $('statRecCnt').textContent = RECITERS.length;
-}
-
-function playlistCardHTML(pl, idx, isCustom=false) {
-  const rec = RECITERS[normalizeReciterIndex(pl.reciterIdx)] || RECITERS[0];
-  const playCall = isCustom ? `playCustomPlaylist(${pl.id})` : `playStaticPlaylist(${idx})`;
-  const subtitle = isCustom ? `${t('ui.reciterLabel')}: ${rec.name}` : playlistDesc(pl);
-  const meta = isCustom ? `${t('ui.surahCount', {count: pl.surahIds.length})} · ${rec.name}` : t('ui.surahCount', {count: pl.surahIds.length});
-  const icon = pl.icon || 'ti-playlist';
-  const preview = previewChips(pl.surahIds);
-  return `
-    <div class="pl-big" onclick="${playCall}">
-      <div class="pl-top">
-        <div style="display:flex;align-items:flex-start;gap:12px;min-width:0;flex:1">
-          <div style="width:54px;height:54px;border-radius:12px;background:rgba(0,193,106,.1);border:1px solid rgba(0,193,106,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <i class="ti ${icon}" style="font-size:22px;color:var(--ac)"></i>
-          </div>
-          <div style="min-width:0;flex:1">
-            <div style="font-size:14px;font-weight:700;margin-bottom:4px">${playlistLabel(pl)}</div>
-            <div style="font-size:12px;color:var(--t2);margin-bottom:7px">${subtitle}</div>
-            <div style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:11px"></i>${meta}</div>
-          </div>
-        </div>
-        <button class="mini-btn main" onclick="event.stopPropagation();${playCall}">${t('playlists.play')}</button>
-      </div>
-      <div class="pl-chip-row">${preview || `<span class="pl-chip alt">${t('ui.emptyChip')}</span>`}</div>
-      ${isCustom ? `<div class="pl-actions"><button class="mini-btn danger" onclick="event.stopPropagation();deleteCustomPlaylist(${pl.id})">${t('playlists.delete')}</button></div>` : ''}
-    </div>`;
-}
-
-function fillPlaylistReciters() {
-  const sel = $('plRecSel');
-  if (!sel) return;
-  sel.innerHTML = RECITERS.map((r, i) => `<option value="${i}" ${i===ri?'selected':''}>${r.name}</option>`).join('');
-}
-
-function renderPlaylists() {
-  fillPlaylistReciters();
-  $('plCards').innerHTML = PLAYLISTS.map((p, i)=>playlistCardHTML(p, i, false)).join('');
-  $('customPlWrap').innerHTML = customPlaylists.length
-    ? customPlaylists.map(p=>playlistCardHTML(p, 0, true)).join('')
-    : `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-playlist"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.noCustomTitle')}</div><div class="section-note">${t('ui.noCustomDesc')}</div></div>`;
-}
-
-function tableWrap(rows) {
-  if (!rows.length) return `<div class="empty-state"><i class="ti ti-mood-empty"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.emptyTitle')}</div><div class="section-note">${t('ui.emptyDesc')}</div></div>`;
-  return `<div class="s-table"><div class="s-head"><span>#</span><span>${t('surahs.surah')}</span><span>${t('surahs.ayahs')}</span><span>${t('surahs.type')}</span><span>${t('surahs.duration')}</span><span></span></div>${rows.map(s=>sRowHTML(s)).join('')}</div>`;
-}
-
-function renderFavReciters() {
-  const ids = likedReciterIndices();
-  $('favRecWrap').innerHTML = ids.length
-    ? ids.map(i=>`
-      <div class="rec-mini${i===ri?' on':''}" onclick="setReciter(${i})">
-        ${avHTML(RECITERS[i], 46)}
-        <div class="info">
-          <div class="name">${RECITERS[i].name}</div>
-          <div class="sub">${RECITERS[i].ar}</div>
-          <div class="meta"><i class="ti ti-heart" style="font-size:11px"></i>${t('favs.meta')}</div>
-        </div>
-      </div>`).join('')
-    : `<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-microphone"></i><div style="font-size:14px;font-weight:700;margin-bottom:3px">${t('ui.noFavRecitersTitle')}</div><div class="section-note">${t('ui.noFavRecitersDesc')}</div></div>`;
-}
-
-function renderFavs()  { $('favWrap').innerHTML  = tableWrap(SURAHS.filter(s=>likes[s.id])); renderFavReciters(); }
-function renderHist()  { $('histWrap').innerHTML = tableWrap(hist); }
-
-function createPlaylist() {
-  const name = $('plName')?.value.trim() || t('playlists.defaultPlaylistName');
-  const reciterIdx = parseInt($('plRecSel')?.value || '0', 10);
-  const manualIds = parseSurahIds($('plIds')?.value || '');
-  const likedIds = Object.keys(likes).filter(id => likes[id]).map(Number);
-  const sourceIds = manualIds.length ? manualIds : likedIds;
-  const validIds = uniqueIds(sourceIds);
-
-  if (!validIds.length) {
-    toast(t('messages.needSurahs'), true);
-    return;
-  }
-
-  customPlaylists.unshift({
-    id: Date.now(),
-    name,
-    reciterIdx: Number.isInteger(reciterIdx) ? reciterIdx : 0,
-    surahIds: validIds,
-    createdAt: Date.now()
-  });
-
-  saveState();
-  renderPlaylists();
-  toast(t('messages.playlistCreated'));
-  if ($('plName')) $('plName').value = '';
-  if ($('plIds')) $('plIds').value = '';
-}
-
-function deleteCustomPlaylist(id) {
-  customPlaylists = customPlaylists.filter(p => p.id !== id);
-  saveState();
-  renderPlaylists();
-  toast(t('messages.playlistDeleted'));
-}
-
-function playStaticPlaylist(idx) {
-  const pl = PLAYLISTS[idx];
-  if (!pl || !pl.surahIds.length) return;
-  activeQueue = pl.surahIds.slice();
-  activeQueueIndex = 0;
-  activeQueueName = playlistLabel(pl);
-  activeQueueKind = 'static';
-  activeQueueRef = idx;
-  toast(t('messages.playlistPrefix', {name: playlistLabel(pl)}));
-  playSurahById(pl.surahIds[0], {keepQueue:true});
-}
-
-function playCustomPlaylist(id) {
-  const pl = customPlaylists.find(p => p.id === id);
-  if (!pl || !pl.surahIds.length) return;
-  activeQueue = pl.surahIds.slice();
-  activeQueueIndex = 0;
-  activeQueueName = pl.name;
-  activeQueueKind = 'custom';
-  activeQueueRef = id;
-  setReciter(normalizeReciterIndex(pl.reciterIdx), {silent:true, playCurrent:false});
-  toast(t('messages.playlistPrefix', {name: pl.name}));
-  playSurahById(pl.surahIds[0], {keepQueue:true});
-}
-
-function refreshLists() {
-  renderHRec();
-  renderSList();
-  renderFavs();
-  renderHist();
-  updatePUI();
-  renderPlaylists();
-}
-
-// ─────────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────────
-function go(p) {
-  currentPage = p;
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
-  const pg = $('p-'+p);
-  if (pg) pg.classList.add('on');
-  document.querySelectorAll('.ni[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
-  document.querySelectorAll('.mobile-nav .mn[data-p]').forEach(n=>n.classList.toggle('on', n.dataset.p===p));
-  setSidebarOpen(false);
-  if(p==='surahs')    renderSList();
-  if(p==='reciters')  renderRec();
-  if(p==='playlists') renderPlaylists();
-  if(p==='favs')      renderFavs();
-  if(p==='hist')      renderHist();
-}
-
-document.querySelectorAll('.ni[data-p]').forEach(n=>{
-  n.addEventListener('click', ()=>{ if(n.dataset.p) go(n.dataset.p); });
-});
-
-window.addEventListener('resize', ()=>{
-  if (!isMobileViewport()) setSidebarOpen(false);
-});
-
-document.addEventListener('keydown', e=>{
-  if (e.key === 'Escape') setSidebarOpen(false);
-});
-
-$('srch').addEventListener('input', function(){
-  q = this.value.trim().toLowerCase();
-  if (q) {
-    go('surahs');
-    return;
-  }
-  if (currentPage === 'surahs') {
-    renderSList();
-    return;
-  }
-  go(currentPage);
-});
-
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
-applyLanguage();
-</script>
-</body>
-</html>
-
 
